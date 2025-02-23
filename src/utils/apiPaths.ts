@@ -1,0 +1,44 @@
+export const API_PATHS: { [key: string]: string } = {
+	LOGIN: "login",
+	ITEMS: "items",
+	USER: "user",
+	INSTITUTE: "institute",
+
+	REGISTER: "register",
+	UPDATE_PASSWORD: "set-new-password",
+	FILE_UPLOAD: "s3/upload",
+	DELETE_FILE: "s3/files",
+	COURSE: "courses",
+	INSTITUTE_COURSES: "courses/institute-courses",
+	STUDENT_ANALYTICS: "student/analytics",
+	STUDENT_COMPLETED_COURSES_ANALYTICS: "student/completed-courses-analytics",
+	STUDENT_SUBSCRIBE_COURSE: "student/course-subscription",
+	UPDATE_STUDENT_PROFILE: "user/updateUser",
+	STUDENT_SUBMITTED_ASSIGNMENTS: "student/submitted-assignments",
+	STUDENT_INTERESTS: "student/interest",
+	STUDENT_ASSIGNMENTS_WITH_LECTURES: "student/assignment-with-gardes",
+	STUDENT_ASSIGNMENTS_SUBMISSIONS: "student/assignment-submission",
+	STUDENT_INTERESTED_COURSES: "student/studentInterestedCourses",
+	OTP: "verify-otp",
+	RESEND_OTP: "resend-otp",
+	COUNTRIES:"world/countries",
+	//teachers endpoints
+
+	TEACHER_PUBLICATION: "teacher-publications",
+	TEACHER_QUALIFICATION: "teacher-qualifications",
+	TEACHER_CERTIFICATION: "teacher-certification",
+	TEACHER_INFO_BY_ID: "user/getTeacherInfo",
+	TEACHER_STUDENTS: "teacher/students",
+	TEACHER_STUDENTS_PROFILE: "teacher/studentCourses",
+
+	STUDENT_COURSES: "student/courses",
+	DELETE_COURSE: "courses/soft-delete",
+	STUDENT_QUIZ_SUBMISSION: "student/quizSubmission",
+
+	COURSE_LIMIT: "courses/withUserLimit",
+	FILTERED_USERS: "user/filteredUsers",
+
+	USER_BULK_APPROVE_UNAPPROVE: "user/bulkApproveAandUnapproveUsers",
+	COURSES_BULK_APPROVE_UNAPPROVE: "courses/bulkApprovedAndUnApprovedCourses	",
+	STUDENT_COURSE_REQUEST: "courses/studentRequestedCourses",
+};
