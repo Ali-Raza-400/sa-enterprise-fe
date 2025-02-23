@@ -62,7 +62,7 @@ const BasicInfoCard: React.FC<BasicInfoCardProps> = ({
 					<div className="rounded-full ml-3 mr-2 w-8 h-8">
 						<img src={IMAGES.ALMS_LOGO_NEW1} alt="Xeven-Logo " />
 					</div>
-					<Typography variant="bodyLargeRegular" className="!text-[14px] md:!text-[16px]">AWFERA</Typography>
+					<Typography variant="bodyLargeRegular" className="!text-[14px] md:!text-[16px]">SA-InterPrices</Typography>
 					{/* <Typography variant="bodyLargeRegular">{creatorName}</Typography> */}
 				</div>
 
