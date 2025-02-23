@@ -38,7 +38,7 @@ const TEACHER_DASHBOARD = React.lazy(
 );
 const TEACHER_STUDENT_PROFILE_VIEW = React.lazy(
 	() => import("../pages/Finance/Earnings/StudentsWise/View")
-);
+); 
 
 //Finance
 const COUPONS = React.lazy(() => import("./Finance/Coupons/Index"));
