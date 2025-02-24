@@ -1,9 +1,9 @@
 const Role = {
 	INSTITUTE: "Institute",
-	STUDENT: "Student",
+	STUDENT: "Resource",
 	TEACHING_ASSISTANT: "Teacher Assistant",
-	TEACHER: "Teacher",
+	TEACHER: "TeamLead",
 	INDIVIDUAL: "Individual",
-	SUPER_ADMIN: "Super Admin",
+	SUPER_ADMIN: "Admin",
 };
 export const LOOKUP_TYPES = { Role };

@@ -1,5 +1,5 @@
 export const API_PATHS: { [key: string]: string } = {
-	LOGIN: "login",
+	LOGIN: "auth/login",
 	ITEMS: "items",
 	USER: "user",
 	INSTITUTE: "institute",

@@ -13,16 +13,17 @@ import { FaFolderPlus } from "react-icons/fa";
 import { CiSettings } from "react-icons/ci";
 
 export const items = [
-	{
-		key: PATH.TEACHER_DASHBOARD,
-		icon: <MdDashboard />,
-		label: <Link to={PATH.TEACHER_DASHBOARD}>{STRINGS.TEACHER_DASHBOARD}</Link>,
-		show: true,
-	},
+	
 	{
 		key: PATH.STUDENT_DASHBOARD,
 		icon: <MdDashboard />,
 		label: <Link to={PATH.STUDENT_DASHBOARD}>{STRINGS.STUDENT_DASHBOARD}</Link>,
+		show: true,
+	},
+	{
+		key: PATH.TEACHER_DASHBOARD,
+		icon: <MdDashboard />,
+		label: <Link to={PATH.TEACHER_DASHBOARD}>{STRINGS.TEACHER_DASHBOARD}</Link>,
 		show: true,
 	},
 	{
@@ -62,17 +63,18 @@ export const items = [
 		show: true,
 	},
 	{
-		key: PATH.MANAGE_TEACHER,
-		icon: <MdPerson />,
-		label: <Link to={PATH.MANAGE_TEACHER}>{STRINGS.MANAGE_TEACHER}</Link>,
-		show: true,
-	},
-	{
 		key: PATH.STUDENTS,
 		icon: <PiUsersFill />,
 		label: <Link to={PATH.STUDENTS}>{STRINGS.STUDENTS}</Link>,
 		show: true,
 	},
+	{
+		key: PATH.MANAGE_TEACHER,
+		icon: <MdPerson />,
+		label: <Link to={PATH.MANAGE_TEACHER}>{STRINGS.MANAGE_TEACHER}</Link>,
+		show: true,
+	},
+	
 	{
 		key: PATH.MANAGE_STUDENTS,
 		icon: <PiUsersFill />,
@@ -149,29 +151,22 @@ export const items = [
 
 export const roleBasedItems = {
 	/** INSTITUTE */
-	[LOOKUP_TYPES.Role.INSTITUTE]: [
-		PATH.MANAGE_TEACHER,
+	[LOOKUP_TYPES.Role.SUPER_ADMIN]: [
 		PATH.MANAGE_STUDENTS,
-		PATH.COUPONS,
-		PATH.EARNINGS,
-		PATH.REGISTRATION_REQUEST,
-		PATH.COURSE_REQUEST,
-		PATH.COURSES,
-		PATH.INSTITUTE_SETTINGS,
+		PATH.TEACHER_DASHBOARD,
+		// PATH.COUPONS,
+		// PATH.EARNINGS,
+		// PATH.REGISTRATION_REQUEST,
+		// PATH.COURSE_REQUEST,
+		// PATH.COURSES,
+		// PATH.INSTITUTE_SETTINGS,
 	],
 	/** STUDENT */
 	[LOOKUP_TYPES.Role.STUDENT]: [
-		PATH.STUDENT_COURSES_LIST,
 		PATH.STUDENT_DASHBOARD,
-		PATH.STUDENT_ASSIGNMENTS,
-		PATH.STUDENT_QUIZZES,
-		PATH.STUDENT_GRADE_ASSIGNMENTS,
-		PATH.STUDENT_GRADE_QUIZZES,
-		PATH.STUDENT_ENROLLED_COURSES,
 	],
 	/** TEACHER */
 	[LOOKUP_TYPES.Role.TEACHER]: [
-		PATH.TEACHER_DASHBOARD,
 		PATH.COURSES,
 		PATH.STUDENTS,
 	],

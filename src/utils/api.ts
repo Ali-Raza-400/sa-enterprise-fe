@@ -13,6 +13,7 @@ if (parsedUser) headers.Authorization = `Bearer ${parsedUser.access_token}`;
 
 const api = axios.create({
 	baseURL: import.meta.env.VITE_BASE_URL,
+	// baseURL: "http://localhost:5000/api/",
 	headers,
 });
 

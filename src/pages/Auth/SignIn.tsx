@@ -66,7 +66,8 @@ function Index() {
 	};
 
 	const signupRedirect = () => {
-		navigate("/signup");
+		console.log("Running signup redirect")
+		// navigate("/signup");
 		// navigate(PATH.CLOSED); //for closing-signup
 	};
 
