@@ -58,7 +58,6 @@ const Index = () => {
 		};
 
 		try {
-			// debugger;
 			const response = await registerFunc(payload).unwrap();
 			if (response) {
 				setUser(response as AuthResponseDTO);
