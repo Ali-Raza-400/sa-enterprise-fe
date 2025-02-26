@@ -6,7 +6,7 @@ import Typography from "../../../components/UI/Typography";
 import RatingComponent from "./RatingComponent";
 import { useSelector } from "react-redux";
 import { LOOKUP_TYPES } from "../../../utils/lookup";
-import IMAGES from "../../../assets/images";
+// import IMAGES from "../../../assets/images";
 
 interface BasicInfoCardProps {
 	title?: string;
@@ -59,9 +59,9 @@ const BasicInfoCard: React.FC<BasicInfoCardProps> = ({
 					<Typography variant="bodyLargeRegular" className="text-[#666666] !text-[14px] md:!text-[16px]">
 						Created by
 					</Typography>
-					<div className="rounded-full ml-3 mr-2 w-8 h-8">
+					{/* <div className="rounded-full ml-3 mr-2 w-8 h-8">
 						<img src={IMAGES.ALMS_LOGO_NEW1} alt="Xeven-Logo " />
-					</div>
+					</div> */}
 					<Typography variant="bodyLargeRegular" className="!text-[14px] md:!text-[16px]">SA-InterPrices</Typography>
 					{/* <Typography variant="bodyLargeRegular">{creatorName}</Typography> */}
 				</div>

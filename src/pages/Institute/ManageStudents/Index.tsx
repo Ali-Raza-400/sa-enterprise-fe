@@ -1,76 +1,185 @@
-import { ReactElement } from "react";
-import { Avatar, Flex, TableProps } from "antd";
+import { ReactElement, useEffect, useState } from "react";
+import { Button, Flex, TableProps } from "antd";
+// import useNotification from "antd/es/notification/useNotification";
 import SearchFilter from "../../../components/UI/SearchFilter";
-import IMAGES from "../../../assets/images";
 import ActionDropdown from "../../../components/UI/ActionDropdown";
 import useGenericAlert from "../../../components/Hooks/GenericAlert";
 import GenericTable from "../../../components/UI/GenericTable";
-import TagWithShowMore from "../../../components/UI/TagWithShowMore"; // Import your component
-import { useNavigate } from "react-router-dom";
-import PATH from "../../../navigation/Path";
+// import { useNavigate } from "react-router-dom";
+// import PATH from "../../../navigation/Path";
+import GenericButton from "../../../components/UI/GenericButton";
+import { FaPlus } from "react-icons/fa6";
+import { useGetUsersQuery, useUpdateUserMutation } from "../../../redux/slices/user";
+import { Modal, Form, Input, Select } from "antd";
+import { useDeleteUserMutation, useRegisterMutation } from "../../../redux/slices/auth";
+// import { getErrorMessage } from "../../../utils/helper";
 
+const { Option } = Select;
+interface UserFormValues {
+  first_name: string;
+  last_name: string;
+  email: string;
+  address?: string;
+  phone_number: string;
+  cnic_number: string;
+  role: "admin" | "superadmin" | "worker";
+  password: string;
+}
+
+interface AddUserModalProps {
+  isVisible: boolean;
+  onClose: () => void;
+  onAddUser: (user: UserFormValues) => void;
+}
+interface UpdateUserModalProps {
+  isVisible: boolean;
+  onClose: () => void;
+  onUpdateUser: (user: UserFormValues) => void;
+  selectedUser: any
+}
 interface StudentType {
-  key: string;
-  studentName: string;
-  studentId: string;
-  grade: string;
-  totalCredits: number; // Add total credits field
-  assignedTeachers: string[]; // Add assigned teachers field
-  courses: string[]; // Keep this field for displaying enrolled courses
+  id: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  address: string;
+  phone_number: string;
+  cnic_number: string;
+  role: string;
 }
 
 const Index = (): ReactElement => {
-  const navigate = useNavigate();
+  const [selectedUser, setSelectedUser] = useState<any>()
+  console.log("selectedUser", selectedUser);
+  const [form] = Form.useForm();
+  const { data, isLoading: userLoading, isFetching, refetch } = useGetUsersQuery({
+    page: 1,
+    pageSize: 8,
+  });
+  const [deleteUser] = useDeleteUserMutation();
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isUpdateModalVisible, setIsUpdateModalVisible] = useState(false);
+  const [registerFunc, { isLoading }] = useRegisterMutation();
+  const [updateUser, { isLoading: update }] = useUpdateUserMutation();
+  console.log(update);
+  console.log("isLoading", isLoading, isFetching);
+  const handleAddUser = async (userData: any) => {
+    const payload = {
+      ...userData,
+    };
+    try {
+      await registerFunc(payload).unwrap();
+      showAlert({
+        type: "success",
+        title: `User registered!`,
+        message: `You have successfully registered. Welcome to the SA-Enterprize System`,
+        confirmButtonText: "OK",
+        onConfirm: () => refetch(),
+      });
+      form.resetFields();
+    } catch (error: unknown) {
+      // openNotification({
+      // 	type: "error",
+      // 	title: getErrorMessage(error),
+      // });
+    }
+  };
+  const onEdit = (user: any) => {
+    setIsUpdateModalVisible(true)
+    setSelectedUser(user)
+  };
+  const handleuPDATEUser = async (userData: any) => {
+    const payload = {
+      userId: selectedUser.id,
+      payload: userData,
+    };
+
+    try {
+      await updateUser(payload).unwrap();
+      showAlert({
+        type: "success",
+        title: `User Updated!`,
+        message: `You have successfully update the user`,
+        confirmButtonText: "OK",
+        onConfirm: () => refetch(),
+      });
+    } catch (error: unknown) {
+    }
+  };
+
+  // const navigate = useNavigate();
   const { showAlert } = useGenericAlert();
+  const onDelete = async (id: string) => {
+    showAlert({
+      type: "question",
+      title: `Delete User Confirmation`,
+      message: `Are you sure you want to delete this user? This action cannot be undone.`,
+      confirmButtonText: "Delete",
+      cancelButtonText: "Cancel",
+      onConfirm: async () => {
+        try {
+          await deleteUser(id).unwrap(); // Ensures better error handling
+          showAlert({
+            type: "success",
+            title: `User Deleted Successfully`,
+            message: `The user has been deleted successfully.`,
+          });
+        } catch (error) {
+          showAlert({
+            type: "error",
+            title: `Deletion Failed`,
+            message: `An error occurred while deleting the user. Please try again.`,
+          });
+        }
+      },
+    });
+  };
 
   const columns: TableProps<StudentType>["columns"] = [
     {
-      title: "Student Name", // Updated title
-      dataIndex: "studentName",
-      key: "studentName",
-      render: (text) => (
-        <Flex align="center" gap={6}>
-          <Avatar shape="circle" size="large" src={IMAGES.SAMPLE_WEB} />
-          {text}
-        </Flex>
-      ),
+      title: "First Name",
+      dataIndex: "first_name",
+      key: "first_name",
       width: 150,
     },
     {
-      title: "Student ID", // Updated title
-      dataIndex: "studentId",
-      key: "studentId",
+      title: "Last Name",
+      dataIndex: "last_name",
+      key: "last_name",
       width: 120,
     },
     {
-      title: "Total Credits", // New title for total credits
-      dataIndex: "totalCredits", // New data index for total credits
-      key: "totalCredits",
+      title: "Email",
+      dataIndex: "email",
+      key: "email",
       width: 120,
     },
     {
-      title: "Courses Enrolled In", // New title for enrolled courses
-      dataIndex: "courses", // Use the courses array here
-      key: "courses",
+      title: "Phone Number",
+      dataIndex: "phone_number",
+      key: "phone_number",
       width: 200,
-      render: (courses: string[]) => (
-        <div className="custom-avatar-group">
-          <TagWithShowMore maxCount={1} list={courses} isLinkAble={false} />
-        </div>
-        // Use TagWithShowMore component to display the enrolled courses
-      ),
     },
     {
-      title: "Assigned Teachers", // New title for assigned teachers
-      dataIndex: "assignedTeachers", // New data index for assigned teachers
-      key: "assignedTeachers",
+      title: "Cnic Number",
+      dataIndex: "cnic_number",
+      key: "cnic_number",
       width: 200,
-      render: (teachers: string[]) => (
-        // Use TagWithShowMore component to display assigned teachers
-        <div className="custom-avatar-group">
-          <TagWithShowMore maxCount={1} list={teachers} isLinkAble={false} />
-        </div>
-      ),
+
+    },
+    {
+      title: "Address",
+      dataIndex: "address",
+      key: "address",
+      width: 200,
+
+    },
+    {
+      title: "Role",
+      dataIndex: "role",
+      key: "role",
+      width: 200,
+
     },
     {
       title: "Actions", // Updated title for actions
@@ -79,70 +188,176 @@ const Index = (): ReactElement => {
       width: 120,
       render: (obj) => (
         <ActionDropdown
-          viewProfileOnClick={() => {
-            navigate(PATH.STUDENT_PROFILE);
-          }}
-          suspendOnClick={() =>
-            showAlert({
-              type: "warning",
-              title: `Suspend ${obj.studentName}`,
-              message: `Are you sure you want to suspend this student?`,
-              confirmButtonText: "Suspend",
-              cancelButtonText: "Cancel",
-            })
-          }
-          deleteOnClick={() =>
-            showAlert({
-              type: "warning",
-              title: `Delete ${obj.studentName}`,
-              message: `Are you sure you want to delete this student?`,
-              confirmButtonText: "Delete",
-              cancelButtonText: "Cancel",
-            })
-          }
+          // viewProfileOnClick={() => {
+          //   navigate(PATH.STUDENT_PROFILE);
+          // }}
+
+          editOnClick={() => onEdit(obj)}
+          deleteOnClick={() => onDelete(obj?.id)}
         />
       ),
     },
   ];
 
-  const data: StudentType[] = [
-    {
-      key: "1",
-      studentName: "John Brown",
-      studentId: "123456",
-      courses: ["Mathematics", "Physics", "Chemistry"], // Multiple courses
-      grade: "A",
-      totalCredits: 15, // Add total credits for each student
-      assignedTeachers: ["Mr. Smith", "Ms. Johnson"], // Add assigned teachers for each student
-    },
-    {
-      key: "2",
-      studentName: "Jim Green",
-      studentId: "654321",
-      courses: ["Physics"], // Single course
-      grade: "B+",
-      totalCredits: 10, // Add total credits for each student
-      assignedTeachers: ["Ms. Davis"], // Add assigned teachers for each student
-    },
-    {
-      key: "3",
-      studentName: "Joe Black",
-      studentId: "789012",
-      courses: ["Chemistry", "Biology"], // Multiple courses
-      grade: "A-",
-      totalCredits: 12, // Add total credits for each student
-      assignedTeachers: ["Mr. Brown", "Ms. Wilson"], // Add assigned teachers for each student
-    },
-  ];
-
   return (
     <>
+      {/* {contextHolder} */}
       <Flex className="justify-between">
         <SearchFilter position="end" />
+        <GenericButton
+          icon={<FaPlus size={20} />}
+          label="Create New User"
+          onClick={() => setIsModalVisible(true)}
+        />
+
+
+        <AddUserModal
+          isVisible={isModalVisible}
+          onClose={() => setIsModalVisible(false)}
+          onAddUser={handleAddUser}
+        />
+        <UpdateUserModal
+          isVisible={isUpdateModalVisible}
+          onClose={() => setIsUpdateModalVisible(false)}
+          onUpdateUser={handleuPDATEUser}
+          selectedUser={selectedUser}
+        />
       </Flex>
-      <GenericTable columns={columns} data={data} />
+      <GenericTable loading={userLoading} columns={columns} data={data ? data.list : []} />
     </>
   );
 };
 
 export default Index;
+const AddUserModal: React.FC<AddUserModalProps> = ({ isVisible, onClose, onAddUser }) => {
+  const [form] = Form.useForm<UserFormValues>();
+  const handleSubmit = (values: UserFormValues) => {
+    onAddUser(values);
+    form.resetFields();
+    onClose();
+  };
+  return (
+    <Modal
+      title="Add New User"
+      open={isVisible}
+      onCancel={onClose}
+      footer={[
+        <div style={{ display: "flex", justifyContent: "flex-end" }}>
+          <Button key="cancel" onClick={onClose}>
+            Cancel
+          </Button>,
+          <Button key="submit" type="primary" onClick={() => form.submit()}>
+            Add User
+          </Button>,
+        </div>,
+      ]}
+    >
+      <Form form={form} layout="vertical" onFinish={handleSubmit}>
+        <Form.Item<UserFormValues> name="first_name" label="First Name" rules={[{ required: true, message: "First name is required" }]}>
+          <Input />
+        </Form.Item>
+        <Form.Item<UserFormValues> name="last_name" label="Last Name" rules={[{ required: true, message: "Last name is required" }]}>
+          <Input />
+        </Form.Item>
+        <Form.Item<UserFormValues> name="email" label="Email" rules={[{ required: true, type: "email", message: "Valid email is required" }]}>
+          <Input />
+        </Form.Item>
+        <Form.Item<UserFormValues> name="address" label="Address">
+          <Input />
+        </Form.Item>
+        <Form.Item<UserFormValues> name="phone_number" label="Phone Number" rules={[{ required: true, message: "Phone number is required" }]}>
+          <Input />
+        </Form.Item>
+        <Form.Item<UserFormValues> name="cnic_number" label="CNIC Number" rules={[{ required: true, message: "CNIC is required" }]}>
+          <Input />
+        </Form.Item>
+        <Form.Item<UserFormValues> name="role" label="Role" rules={[{ required: true, message: "Role is required" }]}>
+          <Select placeholder="Select Role">
+            <Option value="super_admin">Superadmin</Option>
+            <Option value="operations_manager">Operations Manager</Option>
+            <Option value="supervisor">Supervisor</Option>
+            <Option value="driver">Driver</Option>
+          </Select>
+        </Form.Item>
+        <Form.Item<UserFormValues> name="password" label="Password" rules={[{ required: true, message: "Password is required" }]}>
+          <Input.Password />
+        </Form.Item>
+      </Form>
+    </Modal>
+  );
+};
+const UpdateUserModal: React.FC<UpdateUserModalProps> = ({
+  isVisible,
+  onClose,
+  onUpdateUser,
+  selectedUser
+}) => {
+  const [form] = Form.useForm<UserFormValues>();
+
+  // Set initial values when selectedUser changes
+  useEffect(() => {
+    if (selectedUser) {
+      form.setFieldsValue(selectedUser);
+    } else {
+      form.resetFields();
+    }
+  }, [selectedUser, form]);
+
+  const handleSubmit = (values: UserFormValues) => {
+    onUpdateUser(values);
+    form.resetFields();
+    onClose();
+  };
+
+  return (
+    <Modal
+      title={selectedUser ? "Update User" : "Add New User"}
+      open={isVisible}
+      onCancel={onClose}
+      footer={[
+        <div style={{ display: "flex", justifyContent: "flex-end" }} key="footer">
+          <Button key="cancel" onClick={onClose}>
+            Cancel
+          </Button>,
+          <Button key="submit" type="primary" onClick={() => form.submit()}>
+            {selectedUser ? "Update User" : "Add User"}
+          </Button>,
+        </div>,
+      ]}
+    >
+      <Form form={form} layout="vertical" onFinish={handleSubmit}>
+        <Form.Item name="first_name" label="First Name" rules={[{ required: true, message: "First name is required" }]}>
+          <Input />
+        </Form.Item>
+        <Form.Item name="last_name" label="Last Name" rules={[{ required: true, message: "Last name is required" }]}>
+          <Input />
+        </Form.Item>
+        <Form.Item name="email" label="Email" rules={[{ required: true, type: "email", message: "Valid email is required" }]}>
+          <Input />
+        </Form.Item>
+        <Form.Item name="address" label="Address">
+          <Input />
+        </Form.Item>
+        <Form.Item name="phone_number" label="Phone Number" rules={[{ required: true, message: "Phone number is required" }]}>
+          <Input />
+        </Form.Item>
+        <Form.Item name="cnic_number" label="CNIC Number" rules={[{ required: true, message: "CNIC is required" }]}>
+          <Input />
+        </Form.Item>
+        <Form.Item name="role" label="Role" rules={[{ required: true, message: "Role is required" }]}>
+          <Select placeholder="Select Role">
+            <Option value="super_admin">Superadmin</Option>
+            <Option value="operations_manager">Operations Manager</Option>
+            <Option value="supervisor">Supervisor</Option>
+            <Option value="driver">Driver</Option>
+          </Select>
+        </Form.Item>
+        {!selectedUser && (
+          <Form.Item name="password" label="Password" rules={[{ required: true, message: "Password is required" }]}>
+            <Input.Password />
+          </Form.Item>
+        )}
+      </Form>
+    </Modal>
+  );
+};

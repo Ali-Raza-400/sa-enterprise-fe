@@ -3,7 +3,8 @@ import axios, {
 	AxiosRequestConfig,
 	ResponseType as AxiosResponseType,
 } from "axios";
-import { getUser, removeUser } from "../utils/helper";
+// import { getUser, removeUser } from "../utils/helper";
+import { removeUser } from "../utils/helper";
 import { RTK_TAGS } from "./tags";
 import PATH from "../navigation/Path";
 
@@ -35,7 +36,8 @@ const axiosBaseQuery: BaseQueryFn<AxiosBaseQueryArgs> = async (
 		...customHeader,
 	};
 
-	const token = getUser()?.access_token || null;
+	// const token = getUser()?.access_token || null;
+	const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJzaGFmaXFzaWRkaXFAZ21haWwuY29tIiwiZXhwIjoxNzQxMTYwNzI2fQ.3YnbtDaAqk3b2jHjR6O2jGRuck7PzMqY5bTHN2sZf88";
 	if (token) {
 		headers = {
 			...headers,
@@ -54,11 +56,11 @@ const axiosBaseQuery: BaseQueryFn<AxiosBaseQueryArgs> = async (
 			responseType,
 		} as AxiosRequestConfig);
 		if (resp.data) {
-			if (resp.data.metadata) {
+			if (resp.data) {
 				return {
 					data: {
-						list: resp.data.data,
-						pagination: resp.data.metadata,
+						list: resp.data,
+						pagination: resp.data,
 					},
 				};
 			}

@@ -183,7 +183,7 @@ function PrivateLayout({ children }: LayoutProps) {
 							theme={theme.toLowerCase()}
 							mode="inline"
 							selectedKeys={[pathname]}
-							items={getMenuItems(user?.userRole)}
+							items={getMenuItems(user?.role)}
 							style={{
 								backgroundColor: theme === THEME.DARK ? "#212529" : "#8970D6", // Replace with your custom color
 							}}

@@ -8,6 +8,12 @@ export type LoginRespDTO = {
 	token_type: string;
 	name?: string;
 };
+export interface truckFormValues {
+	name: string;
+	supervisor_id: string;
+	license_plate: string;
+	driver_id?: string;
+}
 
 export type RegisterRequestDTO = {
 	province: string;
@@ -65,13 +71,31 @@ export interface AuthResponseDTO {
 	password?: string;
 	interest?: UserInterest[];
 }
-
+export interface UserFormValues {
+	first_name: string;
+	last_name: string;
+	email: string;
+	address?: string;
+	phone_number: string;
+	cnic_number: string;
+	role: "admin" | "superadmin" | "worker";
+	password: string;
+  }
 export interface UpdatePasswordResponseDTO {
 	email: string;
 	password: string;
 	confirmPassword?: string;
 }
-
+export interface UserFormValues {
+	first_name: string;
+	last_name: string;
+	email: string;
+	address?: string;
+	phone_number: string;
+	cnic_number: string;
+	role: "admin" | "superadmin" | "worker";
+	password: string;
+  }
 export type UpdatePasswordRequestDTO = LoginRequestDTO;
 
 export interface UserInterest {

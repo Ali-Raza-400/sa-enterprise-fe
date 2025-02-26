@@ -27,6 +27,12 @@ export const items = [
 		show: true,
 	},
 	{
+		key: PATH.MANAGE_STUDENTS,
+		icon: <PiUsersFill />,
+		label: <Link to={PATH.MANAGE_STUDENTS}>{STRINGS.MANAGE_STUDENTS}</Link>,
+		show: true,
+	},
+	{
 		key: PATH.STUDENT_ASSIGNMENTS,
 		icon: <IoDocumentText />,
 		label: (
@@ -75,12 +81,7 @@ export const items = [
 		show: true,
 	},
 	
-	{
-		key: PATH.MANAGE_STUDENTS,
-		icon: <PiUsersFill />,
-		label: <Link to={PATH.MANAGE_STUDENTS}>{STRINGS.MANAGE_STUDENTS}</Link>,
-		show: true,
-	},
+	
 	// {
 	// 	key: STRINGS.FINANCE,
 	// 	icon: <FaHandHoldingDollar />,
@@ -158,7 +159,7 @@ export const roleBasedItems = {
 		// PATH.EARNINGS,
 		// PATH.REGISTRATION_REQUEST,
 		// PATH.COURSE_REQUEST,
-		// PATH.COURSES,
+		 PATH.COURSES,
 		// PATH.INSTITUTE_SETTINGS,
 	],
 	/** STUDENT */

@@ -1,4 +1,4 @@
-import { AuthResponseDTO } from "../../pages/Auth/type";
+import { AuthResponseDTO, UserFormValues } from "../../pages/Auth/type";
 import { API_PATHS } from "../../utils/apiPaths";
 import { providesList } from "../../utils/helper";
 import { rtkQApi } from "../rtkQApi";
@@ -16,11 +16,31 @@ const userApi = rtkQApi.injectEndpoints({
 			},
 			providesTags: (result) => providesList(result?.data, RTK_TAGS.ITEMS),
 		}),
+		getUserByRole: builder.query<any, any>({
+			query: (params) => {
+				return {
+					url: API_PATHS.USER_BY_ROLE,
+					method: "GET",
+					params: params,
+				};
+			},
+		}),
 		getUserById: builder.query<any, string>({
 			query: (id) => ({
 				url: `${API_PATHS.USER}/${id}`,
 				method: "GET",
 			}),
+		}),
+		updateUser: builder.mutation<UserFormValues, any>({
+			query: ({ payload, userId }) => {
+				console.log("userId::>", userId);
+				return {
+					url: `${API_PATHS.USER}/${userId}`,
+					method: "PUT",
+					data: payload,
+				};
+			},
+			invalidatesTags: [{ type: RTK_TAGS.TEACHERS_PROFILE, id: "LIST" }],
 		}),
 		updateUserProfile: builder.mutation<AuthResponseDTO, any>({
 			query: ({ payload, userId }) => {
@@ -113,8 +133,10 @@ const userApi = rtkQApi.injectEndpoints({
 
 export const {
 	useGetUsersQuery,
+	useGetUserByRoleQuery,
 	useLazyGetUsersQuery,
 	useGetUserByIdQuery,
+	useUpdateUserMutation,
 	useUpdateUserProfileMutation,
 	useGetFilteredUsersQuery,
 	useBulkApproveUnapproveMutation,

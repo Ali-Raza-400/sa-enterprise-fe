@@ -8,7 +8,7 @@ import {
 } from "../../pages/Auth/type";
 import { API_PATHS } from "../../utils/apiPaths";
 import { rtkQApi } from "../rtkQApi";
-import { RTK_TAGS } from "../tags";
+ import { RTK_TAGS } from "../tags";
 
 const authApi = rtkQApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -27,8 +27,15 @@ const authApi = rtkQApi.injectEndpoints({
         method: "POST",
         data: payload,
       }),
-      invalidatesTags: [{ type: RTK_TAGS.TEACHERS, id: "LIST" }],
+      invalidatesTags: [{ type: RTK_TAGS.STUDENTS, id: "LIST" }],
     }),
+    deleteUser: builder.mutation<any, string>({
+			query: (id) => ({
+				url: `${API_PATHS.DELETE_USER}/${id}`,
+				method: "DELETE",
+			}),
+      invalidatesTags: [{ type: RTK_TAGS.STUDENTS, id: "LIST" }],
+		}),
     forgot: builder.mutation<ForgotResponseDTO, string>({
       query: (email) => {
         return {
@@ -37,6 +44,7 @@ const authApi = rtkQApi.injectEndpoints({
         };
       },
     }),
+    
     updatePassword: builder.mutation<
       UpdatePasswordResponseDTO,
       UpdatePasswordRequestDTO
@@ -72,6 +80,7 @@ const authApi = rtkQApi.injectEndpoints({
 export const {
   useLoginMutation,
   useRegisterMutation,
+  useDeleteUserMutation,
   useForgotMutation,
   useUpdatePasswordMutation,
   useVerifyOtpMutation,
