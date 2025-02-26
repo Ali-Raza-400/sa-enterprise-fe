@@ -16,21 +16,34 @@ const userApi = rtkQApi.injectEndpoints({
             },
             providesTags: (result) => providesList(result?.data, RTK_TAGS.ITEMS),
         }),
-         addTruck: builder.mutation<truckFormValues, any>({
-              query: (payload) => ({
+
+        addTruck: builder.mutation<truckFormValues, any>({
+            query: (payload) => ({
                 url: API_PATHS.TRUCK,
                 method: "POST",
                 data: payload,
-              }),
+            }),
             //   invalidatesTags: [{ type: RTK_TAGS.STUDENTS, id: "LIST" }],
+        }),
+        updateTruck: builder.mutation<truckFormValues, any>({
+            query: ({ payload, truckId }) => {
+                console.log("userId::>", truckId);
+                return {
+                    url: `${API_PATHS.TRUCK}/${truckId}`,
+                    method: "PUT",
+                    data: payload,
+                };
+            },
+            //   invalidatesTags: [{ type: RTK_TAGS.STUDENTS, id: "LIST" }],
+        }),
+
+        deleteTruck: builder.mutation<any, string>({
+            query: (id) => ({
+                url: `${API_PATHS.TRUCK}/${id}`,
+                method: "DELETE",
             }),
-            deleteTruck: builder.mutation<any, string>({
-                query: (id) => ({
-                    url: `${API_PATHS.TRUCK}/${id}`,
-                    method: "DELETE",
-                }),
-        //   invalidatesTags: [{ type: RTK_TAGS.STUDENTS, id: "LIST" }],
-            }),
+            //   invalidatesTags: [{ type: RTK_TAGS.STUDENTS, id: "LIST" }],
+        }),
         getUserById: builder.query<any, string>({
             query: (id) => ({
                 url: `${API_PATHS.USER}/${id}`,
@@ -130,6 +143,7 @@ export const {
     useGetTrucksQuery,
     useGetUserByIdQuery,
     useAddTruckMutation,
+    useUpdateTruckMutation,
     useDeleteTruckMutation,
     useUpdateUserProfileMutation,
     useGetFilteredUsersQuery,

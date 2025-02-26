@@ -93,7 +93,6 @@ const Index = (): ReactElement => {
       userId: selectedUser.id,
       payload: userData,
     };
-
     try {
       await updateUser(payload).unwrap();
       showAlert({
@@ -311,7 +310,7 @@ const UpdateUserModal: React.FC<UpdateUserModalProps> = ({
 
   return (
     <Modal
-      title={selectedUser ? "Update User" : "Add New User"}
+      title={"Update User"}
       open={isVisible}
       onCancel={onClose}
       footer={[
@@ -320,7 +319,7 @@ const UpdateUserModal: React.FC<UpdateUserModalProps> = ({
             Cancel
           </Button>,
           <Button key="submit" type="primary" onClick={() => form.submit()}>
-            {selectedUser ? "Update User" : "Add User"}
+            Update User
           </Button>,
         </div>,
       ]}
