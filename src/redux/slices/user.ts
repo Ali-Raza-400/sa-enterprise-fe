@@ -9,7 +9,7 @@ const userApi = rtkQApi.injectEndpoints({
 		getUsers: builder.query<any, any>({
 			query: (params) => {
 				return {
-					url: API_PATHS.USER,
+					url: 'users',
 					method: "GET",
 					params: params,
 				};

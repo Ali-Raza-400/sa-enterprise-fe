@@ -4,7 +4,7 @@ import axios, {
 	ResponseType as AxiosResponseType,
 } from "axios";
 // import { getUser, removeUser } from "../utils/helper";
-import { removeUser } from "../utils/helper";
+import { getUser, removeUser } from "../utils/helper";
 import { RTK_TAGS } from "./tags";
 import PATH from "../navigation/Path";
 
@@ -36,8 +36,8 @@ const axiosBaseQuery: BaseQueryFn<AxiosBaseQueryArgs> = async (
 		...customHeader,
 	};
 
-	// const token = getUser()?.access_token || null;
-	const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJzaGFmaXFzaWRkaXFAZ21haWwuY29tIiwiZXhwIjoxNzQxMTYwNzI2fQ.3YnbtDaAqk3b2jHjR6O2jGRuck7PzMqY5bTHN2sZf88";
+	const token = getUser()?.access_token || null;
+	// const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJzaGFmaXFzaWRkaXFAZ21haWwuY29tIiwiZXhwIjoxNzQxMTYwNzI2fQ.3YnbtDaAqk3b2jHjR6O2jGRuck7PzMqY5bTHN2sZf88";
 	if (token) {
 		headers = {
 			...headers,
@@ -55,6 +55,20 @@ const axiosBaseQuery: BaseQueryFn<AxiosBaseQueryArgs> = async (
 			headers,
 			responseType,
 		} as AxiosRequestConfig);
+		// const resps = {
+		// 	data: [
+		// 		{
+		// 			"first_name": "Abdul",
+		// 			"last_name": "qadeer",
+		// 			"email": "abdulqadeer@mail.com",
+		// 			"address": "Quaerat enim rem ape",
+		// 			"phone_number": "+1 (452) 768-9734",
+		// 			"cnic_number": "413",
+		// 			"role": "supervisor",
+		// 			"id": "0fe8cf4f-5589-4e7f-8e74-85adf7183e10"
+		// 		}
+		// 	]
+		// };
 		if (resp.data) {
 			if (resp.data) {
 				return {

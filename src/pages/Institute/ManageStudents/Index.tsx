@@ -56,6 +56,7 @@ const Index = (): ReactElement => {
     page: 1,
     pageSize: 8,
   });
+  console.log("data",data)
   const [deleteUser] = useDeleteUserMutation();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isUpdateModalVisible, setIsUpdateModalVisible] = useState(false);
@@ -222,7 +223,7 @@ const Index = (): ReactElement => {
           selectedUser={selectedUser}
         />
       </Flex>
-      <GenericTable loading={userLoading} columns={columns} data={data ? data.list : []} />
+      <GenericTable loading={userLoading} columns={columns} data={data} />
     </>
   );
 };
