@@ -4,7 +4,7 @@ import Typography from "../../components/UI/Typography";
 import { useLoginMutation } from "../../redux/slices/auth";
 import { setCredentials, setTheme } from "../../redux/features/authSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { getErrorMessage, setThemeInLS, setUser } from "../../utils/helper";
+import { setThemeInLS, setUser } from "../../utils/helper";
 import InputField from "../../components/Form/InputField";
 import STRINGS from "../../utils/strings";
 // import CheckboxField from "../../components/Form/CheckboxField";
