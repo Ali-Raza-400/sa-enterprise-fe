@@ -15,8 +15,7 @@ import USA from "./Usa.pdf";
 import Institute from "./Institute.jpg";
 import OTP from "./otp.svg";
 import ALMS_LOGO from "./ALMSystem.svg";
-import ALMS_LOGO_NEW1 from "./AWFERA-logo1.svg";
-import ALMS_LOGO_NEW2 from "./AWFERA-logo-2-white - Copy.svg";
+import ALMS_LOGO_NEW2 from "./AWFERA-logo-2-white - Copy.png";
 import COMING_SOON from "./comingsoon.png";
 import COMING_SOON2 from "./comingSoon2.png";
 import CLOSED from "./closed.svg";
@@ -39,7 +38,6 @@ const IMAGES = {
 	Institute,
 	OTP,
 	ALMS_LOGO,
-	ALMS_LOGO_NEW1,
 	ALMS_LOGO_NEW2,
 	COMING_SOON,
 	COMING_SOON2,

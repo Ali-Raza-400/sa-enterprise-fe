@@ -4,13 +4,13 @@ import Typography from "../../../../components/UI/Typography";
 import FormFieldGroup, {
 	FieldProps,
 } from "../../../../components/Form/FormFieldGroup";
-import ImageUpload from "../../Shared/ImageUploader";
+// import ImageUpload from "../../Shared/ImageUploader";
 import {
 	COUERSE_DIFFICULTY,
 	COURSE_CATEGORIES,
 } from "../../../../utils/constants";
 
-const CourseStep1 = ({ form }: { form: FormInstance }) => {
+const CourseStep1 = ({  }: { form: FormInstance }) => {
 	const fielldsConfig: FieldProps[] = [
 		{
 			type: "input",
@@ -69,10 +69,10 @@ const CourseStep1 = ({ form }: { form: FormInstance }) => {
 							/>
 						</Col>
 					</div>
-					<Typography variant="bodyXLargeMedium" className="mb-2">
+					{/* <Typography variant="bodyXLargeMedium" className="mb-2">
 						Course Thumbnail
-					</Typography>
-					<ImageUpload
+					</Typography> */}
+					{/* <ImageUpload
 						form={form}
 						name="courseThumbnail"
 						supportedFormat=" .jpg, .jpeg, .png"
@@ -87,7 +87,7 @@ const CourseStep1 = ({ form }: { form: FormInstance }) => {
 						supportedFormat=" .jpg, .jpeg, .png"
 						guidelines="1200 * 224"
 						isBanner={true}
-					/>
+					/> */}
 				</Col>
 			</Row>
 		</>

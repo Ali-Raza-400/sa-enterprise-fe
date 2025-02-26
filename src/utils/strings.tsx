@@ -25,7 +25,7 @@ const STRINGS = {
 
 	INSTITUTE_PROFILE: "Institute Profile",
 	INSTITUTE_SETTINGS: "Settings",
-	MANAGE_STUDENTS: "Manage Students",
+	MANAGE_STUDENTS: "Manage Users",
 	INSTITUTE: "Institute Name",
 
 	FINANCE: "Finance",
@@ -38,7 +38,7 @@ const STRINGS = {
 	EARNINGS: "Earnings",
 	VIEW_EARNINGS: "Earnings",
 	STUDENTS_EARNINGS: "Earnings",
-	COURSES: "Courses",
+	COURSES: "Manage Trucks",
 	COURSE_VIEW: "View Course ",
 	NEW_COURSE: "Create New Course",
 	COURSE_NAME: "Enter Course Name",

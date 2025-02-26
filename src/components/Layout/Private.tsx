@@ -44,7 +44,7 @@ function PrivateLayout({ children }: LayoutProps) {
 	const [collapsed, setCollapsed] = useState(false);
 	const { theme, user } = useSelector((state: any) => state.auth);
 	const match = useMatch<"id", string>(PATH.COURSE_VIEW_STUDENT);
-
+	console.log("user", user);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const clearUser = () => {
@@ -297,7 +297,7 @@ function PrivateLayout({ children }: LayoutProps) {
 										icon={<UserOutlined />}
 									/>
 									<p className="mb-0 cursor-pointer user-name text-black dark:text-white font-bold hidden xs:block">
-										{user?.fullName || "USER"}
+										{user?.firstName + " " + user?.lastName}
 									</p>
 									<GoChevronDown className="cursor-pointer d-flex align-items-center" />
 								</Space>

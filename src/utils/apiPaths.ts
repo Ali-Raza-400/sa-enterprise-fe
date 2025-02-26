@@ -1,10 +1,13 @@
 export const API_PATHS: { [key: string]: string } = {
 	LOGIN: "login",
 	ITEMS: "items",
-	USER: "user",
+	USER: "users",
+	USER_BY_ROLE: "users/by-role",
+	TRUCK: "trucks",
 	INSTITUTE: "institute",
-
-	REGISTER: "register",
+	REGISTER: "users",
+	DELETE_USER: "users",
+	UPDATE_USER: "users",
 	UPDATE_PASSWORD: "set-new-password",
 	FILE_UPLOAD: "s3/upload",
 	DELETE_FILE: "s3/files",

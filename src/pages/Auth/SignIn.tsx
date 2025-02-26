@@ -1,74 +1,82 @@
 import { Col, Row, Button, Form } from "antd";
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import {  Outlet, useNavigate } from "react-router-dom";
 import Typography from "../../components/UI/Typography";
 import { useLoginMutation } from "../../redux/slices/auth";
 import { setCredentials, setTheme } from "../../redux/features/authSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { getErrorMessage, setThemeInLS, setUser } from "../../utils/helper";
+import { setThemeInLS, setUser } from "../../utils/helper";
 import InputField from "../../components/Form/InputField";
 import STRINGS from "../../utils/strings";
 // import CheckboxField from "../../components/Form/CheckboxField";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { AuthResponseDTO, LoginRequestDTO } from "./type";
-import GenericButton from "../../components/UI/GenericButton";
+// import GenericButton from "../../components/UI/GenericButton";
 // import { FcGoogle } from "react-icons/fc";
 import useNotification from "../../components/UI/Notification";
 import IMAGES from "../../assets/images";
-import PATH from "../../navigation/Path";
+import axios from "axios";
+// import PATH from "../../navigation/Path";
 // import SocialLogins from "./Shared/SocialLogins";
 
 function Index() {
 	const { openNotification, contextHolder } = useNotification();
 	const dispatch = useDispatch();
-	const [login, { isLoading: isLoginLoading }] = useLoginMutation();
+	const [_login, { isLoading: isLoginLoading }] = useLoginMutation();
 	const navigate = useNavigate();
 	const { user } = useSelector((state: any) => state.auth);
-
 	console.log("user:::", user);
 
 	const onFinish = async (values: LoginRequestDTO) => {
 		dispatch(setTheme("LIGHT"));
 		setThemeInLS("LIGHT");
 		try {
-			const { data, error }: any = await login(values);
-			const obj = {
-				...data,
-				interest: data?.interest?.[0]?.interest,
-			};
+			axios.post("https://sa.wholesalerspk.com/login", values).then(response => {
+				let obj = { isActive: true, email: values?.email, fullName: "shafiq", role: "super_admin", access_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJzaGFmaXFzaWRkaXFAZ21haWwuY29tIiwiZXhwIjoxNzQxMTk1ODE5fQ.E6V2RmZiia0fSrIUqyN5YPtFrOqcNKDyKaBa6hLOYH8" }
+				const newObj = { ...obj, access_token: response?.data?.access_token }
+				setUser(newObj as AuthResponseDTO);
+				dispatch(setCredentials(newObj));
+				navigate("/manage-students/list");
+				openNotification({
+					type: "success",
+					title: "Login Success",
+				});
+				console.log("response: ", response)
+			}).catch(err => {
+				openNotification({
+					type: "error",
+					title: err?.response?.data?.detail,
+				});
+				console.log("error: ", err);
+			})
+			return
+			// const { error }: any = await login(values);
+			// const obj = {
+			// 	...data,
+			// 	interest: data?.interest?.[0]?.interest,
+			// };
+			const error = false
+			let obj = { isActive: true, email: values?.email, fullName: "shafiq", role: "super_admin", access_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJzaGFmaXFzaWRkaXFAZ21haWwuY29tIiwiZXhwIjoxNzQxMTk1ODE5fQ.E6V2RmZiia0fSrIUqyN5YPtFrOqcNKDyKaBa6hLOYH8" }
 			if (!error) {
 				setUser(obj as AuthResponseDTO);
-				dispatch(setCredentials(data));
-				navigate("/");
+				dispatch(setCredentials(obj));
+				navigate("/manage-students/list");
 			} else {
-				console.log(error, "err");
-				if (error?.response?.status === 403) {
-					const temp = {
-						email: values?.email,
-					};
-					setUser(temp as AuthResponseDTO);
-					dispatch(setCredentials(temp));
-					navigate(PATH.OTP_SCREEN);
-				} else {
-					openNotification({
-						type: "error",
-						title: getErrorMessage(error),
-					});
-				}
+				openNotification({
+					type: "error",
+					title: "Invalid credentials",
+				});
 			}
 		} catch (error: unknown) {
 			console.log(error, "ERRO");
 
-			openNotification({
-				type: "error",
-				title: getErrorMessage(error),
-			});
 		}
 	};
 
-	const signupRedirect = () => {
-		navigate("/signup");
-		// navigate(PATH.CLOSED); //for closing-signup
-	};
+	// const signupRedirect = () => {
+	// 	console.log("Running signup redirect")
+	// 	// navigate("/signup");
+	// 	// navigate(PATH.CLOSED); //for closing-signup
+	// };
 
 	return (
 		<>
@@ -80,7 +88,7 @@ function Index() {
 					backgroundImage: `url(${IMAGES.LMS_IMAGE})`,
 				}}
 			>
-				<div className="absolute inset-0 bg-[green] opacity-95 " />
+				<div className="absolute inset-0 bg-[#3f2e48] opacity-95 " />
 				<Row gutter={24} className="flex justify-center w-full h-full ">
 					<Col sm={24} lg={12} xl={12} md={24} span={24}>
 						<div className="w-full relative bg-contain bg-center ">
@@ -116,15 +124,15 @@ function Index() {
 								noMargin
 								className="text-center justify-center  text-white"
 							>
-								Hello Again!
+								Super Admin Login
 							</Typography>
 
-							<Typography
+							{/* <Typography
 								variant="bodyMediumRegular"
 								className="text-center mt-1 justify-center text-white"
 							>
 								Welcome back, you’ve been missed!
-							</Typography>
+							</Typography> */}
 
 							<Form
 								name="normal_login"
@@ -162,14 +170,14 @@ function Index() {
 									margin="small"
 								/>
 
-								<div className="flex justify-end">
+								{/* <div className="flex justify-end">
 									<Link
 										to="/forgot-password"
 										className="text-[#5F646D] bodyMediumRegular hover:text-[#5F646D] text-white"
 									>
 										Forgot Password?
 									</Link>
-								</div>
+								</div> */}
 
 								{/* <CheckboxField
             type="checkbox"
@@ -200,7 +208,7 @@ function Index() {
 
 								{/* <SocialLogins /> */}
 
-								<div className="flex justify-center items-center mt-10 ">
+								{/* <div className="flex justify-center items-center mt-10 ">
 									<span className="text-base text-white">
 										Don’t have an account ?
 									</span>
@@ -211,7 +219,7 @@ function Index() {
 										className="p-1 !min-w-0"
 										onClick={signupRedirect}
 									/>
-								</div>
+								</div> */}
 							</Form>
 						</div>
 					</Col>
