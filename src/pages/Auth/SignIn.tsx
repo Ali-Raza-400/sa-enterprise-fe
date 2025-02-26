@@ -1,5 +1,5 @@
 import { Col, Row, Button, Form } from "antd";
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import {  Outlet, useNavigate } from "react-router-dom";
 import Typography from "../../components/UI/Typography";
 import { useLoginMutation } from "../../redux/slices/auth";
 import { setCredentials, setTheme } from "../../redux/features/authSlice";
@@ -10,7 +10,7 @@ import STRINGS from "../../utils/strings";
 // import CheckboxField from "../../components/Form/CheckboxField";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { AuthResponseDTO, LoginRequestDTO } from "./type";
-import GenericButton from "../../components/UI/GenericButton";
+// import GenericButton from "../../components/UI/GenericButton";
 // import { FcGoogle } from "react-icons/fc";
 import useNotification from "../../components/UI/Notification";
 import IMAGES from "../../assets/images";
@@ -72,11 +72,11 @@ function Index() {
 		}
 	};
 
-	const signupRedirect = () => {
-		console.log("Running signup redirect")
-		// navigate("/signup");
-		// navigate(PATH.CLOSED); //for closing-signup
-	};
+	// const signupRedirect = () => {
+	// 	console.log("Running signup redirect")
+	// 	// navigate("/signup");
+	// 	// navigate(PATH.CLOSED); //for closing-signup
+	// };
 
 	return (
 		<>
@@ -88,7 +88,7 @@ function Index() {
 					backgroundImage: `url(${IMAGES.LMS_IMAGE})`,
 				}}
 			>
-				<div className="absolute inset-0 bg-[green] opacity-95 " />
+				<div className="absolute inset-0 bg-[#3f2e48] opacity-95 " />
 				<Row gutter={24} className="flex justify-center w-full h-full ">
 					<Col sm={24} lg={12} xl={12} md={24} span={24}>
 						<div className="w-full relative bg-contain bg-center ">
@@ -124,15 +124,15 @@ function Index() {
 								noMargin
 								className="text-center justify-center  text-white"
 							>
-								Hello Again!
+								Super Admin Login
 							</Typography>
 
-							<Typography
+							{/* <Typography
 								variant="bodyMediumRegular"
 								className="text-center mt-1 justify-center text-white"
 							>
 								Welcome back, you’ve been missed!
-							</Typography>
+							</Typography> */}
 
 							<Form
 								name="normal_login"
@@ -170,14 +170,14 @@ function Index() {
 									margin="small"
 								/>
 
-								<div className="flex justify-end">
+								{/* <div className="flex justify-end">
 									<Link
 										to="/forgot-password"
 										className="text-[#5F646D] bodyMediumRegular hover:text-[#5F646D] text-white"
 									>
 										Forgot Password?
 									</Link>
-								</div>
+								</div> */}
 
 								{/* <CheckboxField
             type="checkbox"
@@ -208,7 +208,7 @@ function Index() {
 
 								{/* <SocialLogins /> */}
 
-								<div className="flex justify-center items-center mt-10 ">
+								{/* <div className="flex justify-center items-center mt-10 ">
 									<span className="text-base text-white">
 										Don’t have an account ?
 									</span>
@@ -219,7 +219,7 @@ function Index() {
 										className="p-1 !min-w-0"
 										onClick={signupRedirect}
 									/>
-								</div>
+								</div> */}
 							</Form>
 						</div>
 					</Col>
