@@ -40,7 +40,7 @@ const GenericTable = <T extends object>({
 	rowKey = "id",
 	showScroll=false
 }: GenericTableProps<T>) => {
-	const paginationData = !Array.isArray(data) ? data?.pagination : undefined;
+	const paginationData = !Array.isArray(data) ? data?.pagination?.metadata : undefined;
 	const listData = Array.isArray(data) ? data : data?.list;
 
 	const rowSelection: TableProps<T>["rowSelection"] = enableSelection

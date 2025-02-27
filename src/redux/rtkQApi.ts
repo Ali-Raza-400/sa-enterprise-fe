@@ -74,7 +74,7 @@ const axiosBaseQuery: BaseQueryFn<AxiosBaseQueryArgs> = async (
 				return {
 					data: {
 						list: resp.data.data,
-						pagination: resp.data.metadata,
+						pagination: resp.data,
 					},
 				};
 			}

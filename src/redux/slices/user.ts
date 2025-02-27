@@ -7,7 +7,13 @@ import { RTK_TAGS } from "../tags";
 const userApi = rtkQApi.injectEndpoints({
 	endpoints: (builder) => ({
 		getUsers: builder.query<any, any>({
-			query: (params) => {
+			
+			query: (tableOptions) => {
+				const params = {
+					...tableOptions.filters,
+					page: tableOptions.pagination.page,
+					limit: tableOptions.pagination.pageSize,
+				};
 				return {
 					url: 'users',
 					method: "GET",

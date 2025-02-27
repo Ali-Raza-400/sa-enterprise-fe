@@ -51,12 +51,17 @@ interface StudentType {
 const Index = (): ReactElement => {
   const [selectedUser, setSelectedUser] = useState<any>()
   console.log("selectedUser", selectedUser);
-  const [form] = Form.useForm();
-  const { data, isLoading: userLoading, isFetching, refetch } = useGetUsersQuery({
-    page: 1,
-    pageSize: 8,
+  const [tableOptions, setTableOptions] = useState({
+    filters: {},
+    pagination: {
+      page: 1,
+      pageSize: 10,
+    },
   });
-  console.log("data",data)
+  const [form] = Form.useForm();
+  console.log("tableOptions::",tableOptions)
+  const { data, isLoading: userLoading, isFetching, refetch } = useGetUsersQuery(tableOptions);
+  console.log("data", data)
   const [deleteUser] = useDeleteUserMutation();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isUpdateModalVisible, setIsUpdateModalVisible] = useState(false);
@@ -223,7 +228,22 @@ const Index = (): ReactElement => {
           selectedUser={selectedUser}
         />
       </Flex>
-      <GenericTable loading={userLoading} columns={columns} data={data} enablePagination={true} />
+      <GenericTable
+        loading={userLoading}
+        columns={columns}
+        data={data}
+        enablePagination={true}
+        updatePaginationFunc={(data: { page: number; pageSize: number }) =>
+         {
+          console.log("data::::",data)
+
+           setTableOptions({ ...tableOptions, pagination: data })
+         }
+        }
+        // updatePaginationFunc={(data: any) =>
+        //   setTableOptions({ ...tableOptions, pagination: data.pagination?.metadata })
+        // }
+         />
     </>
   );
 };
