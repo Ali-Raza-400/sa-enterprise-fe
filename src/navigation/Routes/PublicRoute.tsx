@@ -17,7 +17,7 @@ function PublicRoute({ element, layout }: RouteTypeProps) {
 					? PATH.STUDENT_COURSES_LIST
 					: user.role === LOOKUP_TYPES.Role.TEACHER
 						? PATH.TEACHER_DASHBOARD
-						: PATH.MANAGE_TEACHER;
+						: PATH.MANAGE_STUDENTS; 
 			// axiosInstance.defaults.headers.common['Authorization'] = 'Bearer YOUR_NEW_TOKEN';
 		}
 	}, [user]);
