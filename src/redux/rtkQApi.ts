@@ -70,15 +70,14 @@ const axiosBaseQuery: BaseQueryFn<AxiosBaseQueryArgs> = async (
 		// 	]
 		// };
 		if (resp.data) {
-			if (resp.data) {
+			if (resp.data.data) {
 				return {
 					data: {
-						list: resp.data,
-						pagination: resp.data,
+						list: resp.data.data,
+						pagination: resp.data.metadata,
 					},
 				};
 			}
-
 			return { data: resp.data.data };
 		}
 		throw resp.data;

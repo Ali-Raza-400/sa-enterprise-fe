@@ -223,7 +223,7 @@ const Index = (): ReactElement => {
           selectedUser={selectedUser}
         />
       </Flex>
-      <GenericTable loading={userLoading} columns={columns} data={data} />
+      <GenericTable loading={userLoading} columns={columns} data={data} enablePagination={true} />
     </>
   );
 };
