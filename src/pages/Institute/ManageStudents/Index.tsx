@@ -78,7 +78,7 @@ const Index = (): ReactElement => {
       showAlert({
         type: "success",
         title: `User registered!`,
-        message: `You have successfully registered. Welcome to the SA-Enterprize System`,
+        message: `User Added Successfully. Welcome to the SA-Enterprize System`,
         confirmButtonText: "OK",
         onConfirm: () => refetch(),
       });
