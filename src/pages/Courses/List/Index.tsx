@@ -1,7 +1,7 @@
 import { ReactElement, useEffect, useState } from "react";
 import { Button, Flex, TableProps } from "antd";
 // import useNotification from "antd/es/notification/useNotification";
-import SearchFilter from "../../../components/UI/SearchFilter";
+// import SearchFilter from "../../../components/UI/SearchFilter";
 import ActionDropdown from "../../../components/UI/ActionDropdown";
 import useGenericAlert from "../../../components/Hooks/GenericAlert";
 import GenericTable from "../../../components/UI/GenericTable";
@@ -11,6 +11,7 @@ import { Modal, Form, Input, Select } from "antd";
 import { useAddTruckMutation, useDeleteTruckMutation, useGetTrucksQuery, useUpdateTruckMutation } from "../../../redux/slices/truck";
 import { useGetUserByRoleQuery } from "../../../redux/slices/user";
 import { truckFormValues } from "../../Auth/type";
+import PageLoader from "../../../components/Loader/PageLoader";
 // import { getErrorMessage } from "../../../utils/helper";
 
 const { Option } = Select;
@@ -47,7 +48,7 @@ const Index = (): ReactElement => {
 		pageSize: 8,
 	});
 
-	const [deleteTruck] = useDeleteTruckMutation();
+	const [deleteTruck,{isLoading:DeleteTruckLoading}] = useDeleteTruckMutation();
 	const [isModalVisible, setIsModalVisible] = useState(false);
 	const [registerFunc, { isLoading }] = useAddTruckMutation();
 	const [updateTruck, { isLoading: updateLoading }] = useUpdateTruckMutation();
@@ -163,12 +164,15 @@ const Index = (): ReactElement => {
 			),
 		},
 	];
+	if(updateLoading||DeleteTruckLoading||isLoading){
+		return <><PageLoader/></>
+	}
 
 	return (
 		<>
 			{/* {contextHolder} */}
-			<Flex className="justify-between">
-				<SearchFilter position="end" />
+			<Flex className="justify-end mb-4">
+				{/* <SearchFilter position="end" /> */}
 				<GenericButton
 					icon={<FaPlus size={20} />}
 					label="Create New Truck"
@@ -188,7 +192,7 @@ const Index = (): ReactElement => {
 					selectedTruck={selectedTruck}
 				/>
 			</Flex>
-			<GenericTable loading={userLoading} columns={columns} data={data ? data.list : []} />
+			<GenericTable loading={userLoading||DeleteTruckLoading||updateLoading} columns={columns} data={data ? data.list : []} />
 		</>
 	);
 };

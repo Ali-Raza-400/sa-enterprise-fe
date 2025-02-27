@@ -20,7 +20,7 @@ const userApi = rtkQApi.injectEndpoints({
 					params: params,
 				};
 			},
-			providesTags: (result) => providesList(result?.data, RTK_TAGS.ITEMS),
+			providesTags: (result) => providesList(result?.data, RTK_TAGS.USER),
 		}),
 		getUserByRole: builder.query<any, any>({
 			query: (params) => {
@@ -46,7 +46,7 @@ const userApi = rtkQApi.injectEndpoints({
 					data: payload,
 				};
 			},
-			invalidatesTags: [{ type: RTK_TAGS.TEACHERS_PROFILE, id: "LIST" }],
+			invalidatesTags: [{ type: RTK_TAGS.USER, id: "LIST" }],
 		}),
 		updateUserProfile: builder.mutation<AuthResponseDTO, any>({
 			query: ({ payload, userId }) => {

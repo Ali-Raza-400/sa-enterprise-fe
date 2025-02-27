@@ -35,7 +35,7 @@ function Index() {
 				const newObj = { ...obj, access_token: response?.data?.access_token }
 				setUser(newObj as AuthResponseDTO);
 				dispatch(setCredentials(newObj));
-				navigate("/manage-students/list");
+				navigate("/");
 				openNotification({
 					type: "success",
 					title: "Login Success",
@@ -48,24 +48,7 @@ function Index() {
 				});
 				console.log("error: ", err);
 			})
-			return
-			// const { error }: any = await login(values);
-			// const obj = {
-			// 	...data,
-			// 	interest: data?.interest?.[0]?.interest,
-			// };
-			const error = false
-			let obj = { isActive: true, email: values?.email, fullName: "shafiq", role: "super_admin", access_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJzaGFmaXFzaWRkaXFAZ21haWwuY29tIiwiZXhwIjoxNzQxMTk1ODE5fQ.E6V2RmZiia0fSrIUqyN5YPtFrOqcNKDyKaBa6hLOYH8" }
-			if (!error) {
-				setUser(obj as AuthResponseDTO);
-				dispatch(setCredentials(obj));
-				navigate("/manage-students/list");
-			} else {
-				openNotification({
-					type: "error",
-					title: "Invalid credentials",
-				});
-			}
+
 		} catch (error: unknown) {
 			console.log(error, "ERRO");
 

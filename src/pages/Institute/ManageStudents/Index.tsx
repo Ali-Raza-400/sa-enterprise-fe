@@ -1,18 +1,14 @@
 import { ReactElement, useEffect, useState } from "react";
 import { Button, Flex, TableProps } from "antd";
-// import useNotification from "antd/es/notification/useNotification";
-import SearchFilter from "../../../components/UI/SearchFilter";
 import ActionDropdown from "../../../components/UI/ActionDropdown";
 import useGenericAlert from "../../../components/Hooks/GenericAlert";
 import GenericTable from "../../../components/UI/GenericTable";
-// import { useNavigate } from "react-router-dom";
-// import PATH from "../../../navigation/Path";
 import GenericButton from "../../../components/UI/GenericButton";
 import { FaPlus } from "react-icons/fa6";
 import { useGetUsersQuery, useUpdateUserMutation } from "../../../redux/slices/user";
 import { Modal, Form, Input, Select } from "antd";
 import { useDeleteUserMutation, useRegisterMutation } from "../../../redux/slices/auth";
-// import { getErrorMessage } from "../../../utils/helper";
+import PageLoader from "../../../components/Loader/PageLoader";
 
 const { Option } = Select;
 interface UserFormValues {
@@ -59,10 +55,10 @@ const Index = (): ReactElement => {
     },
   });
   const [form] = Form.useForm();
-  console.log("tableOptions::",tableOptions)
+  console.log("tableOptions::", tableOptions)
   const { data, isLoading: userLoading, isFetching, refetch } = useGetUsersQuery(tableOptions);
   console.log("data", data)
-  const [deleteUser] = useDeleteUserMutation();
+  const [deleteUser,{isLoading:deleteUserLoading}] = useDeleteUserMutation();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isUpdateModalVisible, setIsUpdateModalVisible] = useState(false);
   const [registerFunc, { isLoading }] = useRegisterMutation();
@@ -203,12 +199,15 @@ const Index = (): ReactElement => {
       ),
     },
   ];
+  if(userLoading || update||deleteUserLoading){
+    return <><PageLoader/></>
+  }
 
   return (
     <>
       {/* {contextHolder} */}
-      <Flex className="justify-between">
-        <SearchFilter position="end" />
+      <Flex className="justify-end mb-4">
+        {/* <SearchFilter position="end" /> */}
         <GenericButton
           icon={<FaPlus size={20} />}
           label="Create New User"
@@ -229,21 +228,20 @@ const Index = (): ReactElement => {
         />
       </Flex>
       <GenericTable
-        loading={userLoading}
+        loading={userLoading || update||deleteUserLoading}
         columns={columns}
         data={data}
         enablePagination={true}
-        updatePaginationFunc={(data: { page: number; pageSize: number }) =>
-         {
-          console.log("data::::",data)
+        updatePaginationFunc={(data: { page: number; pageSize: number }) => {
+          console.log("data::::", data)
 
-           setTableOptions({ ...tableOptions, pagination: data })
-         }
+          setTableOptions({ ...tableOptions, pagination: data })
         }
-        // updatePaginationFunc={(data: any) =>
-        //   setTableOptions({ ...tableOptions, pagination: data.pagination?.metadata })
-        // }
-         />
+        }
+      // updatePaginationFunc={(data: any) =>
+      //   setTableOptions({ ...tableOptions, pagination: data.pagination?.metadata })
+      // }
+      />
     </>
   );
 };
