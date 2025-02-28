@@ -188,7 +188,7 @@ const Index = (): ReactElement => {
 					selectedTruck={selectedTruck}
 				/>
 			</Flex>
-			<GenericTable loading={userLoading} columns={columns} data={data ? data.list : []} />
+			<GenericTable loading={userLoading} columns={columns} data={data ? data.list : []} enablePagination={true} />
 		</>
 	);
 };
