@@ -27,7 +27,7 @@ const authApi = rtkQApi.injectEndpoints({
         method: "POST",
         data: payload,
       }),
-      invalidatesTags: [{ type: RTK_TAGS.STUDENTS, id: "LIST" }],
+      invalidatesTags: [{ type: RTK_TAGS.USER, id: "LIST" }],
     }),
     deleteUser: builder.mutation<any, string>({
 			query: (id) => ({

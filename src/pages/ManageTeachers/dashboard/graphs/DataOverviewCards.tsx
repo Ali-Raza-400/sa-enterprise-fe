@@ -9,25 +9,25 @@ const DataOverviewCards = () => {
     {
       title: "Total Users",
       count: "1,234",
-      icon: <FaUsers fontSize={60} color="#2F855A" />, // Green color for eco-friendly theme
+      icon: <FaUsers fontSize={60} color="#8970d6" />, // Green color for eco-friendly theme
       bgColor: "bg-green-50",
     },
     {
       title: "Active Trucks",
       count: "48",
-      icon: <FaTruck fontSize={60} color="#2F855A" />,
+      icon: <FaTruck fontSize={60} color="#8970d6" />,
       bgColor: "bg-green-50",
     },
     {
       title: "Inventory Items",
       count: "156",
-      icon: <FaBoxes fontSize={60} color="#2F855A" />,
+      icon: <FaBoxes fontSize={60} color="#8970d6" />,
       bgColor: "bg-green-50",
     },
     {
       title: "Revenue",
       count: "$100,000",
-      icon: <MdOutlineAttachMoney fontSize={60} color="#2F855A" />,
+      icon: <MdOutlineAttachMoney fontSize={60} color="#8970d6" />,
       bgColor: "bg-green-50",
     },
   ];
@@ -37,7 +37,7 @@ const DataOverviewCards = () => {
       {cardData.map((card, index) => (
         <Col key={index} span={24} sm={12} md={12} lg={12} xl={6}>
           <GenericCard 
-            className={`flex justify-around !mt-0 hover:shadow-lg transition-shadow duration-300 ${card.bgColor}`}
+            className={`flex justify-around !mt-0 hover:shadow-lg transition-shadow duration-300 `}
           >
             <div>
               <Typography 
@@ -51,7 +51,7 @@ const DataOverviewCards = () => {
               </span>
             </div>
             <div className="flex items-center">
-              <div className="p-4 rounded-full bg-green-100/50">
+              <div className="p-4 rounded-full bg-[rgb(252,252,252)]">
                 {card.icon}
               </div>
             </div>

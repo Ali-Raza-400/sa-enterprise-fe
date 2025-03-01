@@ -54,6 +54,7 @@ const Index = (): ReactElement => {
       pageSize: 10,
     },
   });
+
   const [form] = Form.useForm();
   console.log("tableOptions::", tableOptions)
   const { data, isLoading: userLoading, isFetching, refetch } = useGetUsersQuery(tableOptions);
@@ -69,6 +70,7 @@ const Index = (): ReactElement => {
     const payload = {
       ...userData,
     };
+    console.log("payload::::",payload)
     try {
       await registerFunc(payload).unwrap();
       showAlert({

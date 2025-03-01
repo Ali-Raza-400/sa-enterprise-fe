@@ -20,6 +20,9 @@ const COURSE_REQUEST = React.lazy(
 const MANAGE_STUDENTS = React.lazy(
 	() => import("./Institute/ManageStudents/Index")
 );
+const ADD_USER = React.lazy(
+	() => import("./Institute/ManageStudents/createUser")
+);
 const INSTITUTE_SETTINGS = React.lazy(
 	() => import("./Institute/Settings/Index")
 );
@@ -75,6 +78,7 @@ const STUDENT_ENROLLED_COURSES = React.lazy(
 	() => import("../pages/Students/Courses/EnrolledCourses/Index")
 );
 
+
 //Courses
 const COURSES = React.lazy(() => import("./Courses/List/Index"));
 const COURSE_VIEW = React.lazy(() => import("./Courses/View/View"));
@@ -102,6 +106,7 @@ const WEB_PAGES = {
 	INSTITUTE_PROFILE,
 	INSTITUTE_SETTINGS,
 	MANAGE_STUDENTS,
+	ADD_USER,
 	OTP_SCREEN,
 
 	// No page found

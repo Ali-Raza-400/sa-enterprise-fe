@@ -99,11 +99,11 @@ export const items = [
 				icon:<PiUsersFill />,
 				label:<Link to={PATH.MANAGE_STUDENTS}>{STRINGS.USER}</Link>,
 			},
-			// {
-			// 	key: PATH.EARNINGS,
-			// 	icon: <RiMoneyDollarCircleFill size={18} />,
-			// 	label: <Link to={PATH.EARNINGS}>{STRINGS.EARNINGS}</Link>,
-			// },
+			{
+				key: PATH.CREATE_USER,
+				icon: <FaFolderPlus />,
+				label: <Link to={PATH.CREATE_USER}>{STRINGS.ADD_USER}</Link>,
+			},
 		],
 	},
 	{
@@ -160,6 +160,7 @@ export const roleBasedItems = {
 	/** INSTITUTE */
 	[LOOKUP_TYPES.Role.SUPER_ADMIN]: [
 		PATH.MANAGE_STUDENTS,
+		PATH.CREATE_USER,
 		PATH.TEACHER_DASHBOARD,
 		// PATH.COUPONS,
 		PATH.EARNINGS,

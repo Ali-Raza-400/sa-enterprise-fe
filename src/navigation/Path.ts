@@ -1,6 +1,7 @@
 const PATH = {
 	NOPAGE: "*",
 	CLOSED: "/closed",
+	CREATE_USER:'/create-user',
 
 	//  AUTH PATHS
 	LOGIN: "/",
