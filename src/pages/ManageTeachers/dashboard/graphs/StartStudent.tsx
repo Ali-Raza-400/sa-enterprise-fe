@@ -1,68 +1,89 @@
 import { Col } from "antd";
 import { List } from "antd";
 import Typography from "../../../../components/UI/Typography";
+import { FaTruck, FaStar } from "react-icons/fa";
+import IMAGES from "../../../../assets/images";
 
-const StartStudent = () => {
-  interface StarStudent {
+const TopDrivers = () => {
+  interface Driver {
     name: string;
-    class: string;
-    position: number;
-    image: string; // URL of the student's image
+    route: string;
+    performance: number; // Percentage
+    collections: number;
+    image: string;
   }
 
-  // Example star students data
-  const starStudents: StarStudent[] = [
+  // Example top drivers data
+  const topDrivers: Driver[] = [
     {
-      name: "John Doe",
-      class: "5A",
-      position: 1,
-      image: "https://via.placeholder.com/50",
+      name: "John Smith",
+      route: "Route A",
+      performance: 98,
+      collections: 156,
+      image: `${IMAGES.PERSON_IMG}`,
     },
     {
-      name: "Jane Smith",
-      class: "5B",
-      position: 2,
-      image: "https://via.placeholder.com/50",
+      name: "Maria Garcia",
+      route: "Route B",
+      performance: 97,
+      collections: 149,
+      image: `${IMAGES.PERSON_IMG}`,
     },
     {
-      name: "Alice Johnson",
-      class: "5A",
-      position: 3,
-      image: "https://via.placeholder.com/50",
+      name: "David Wilson",
+      route: "Route C",
+      performance: 95,
+      collections: 142,
+      image: `${IMAGES.PERSON_IMG}`,
     },
     {
-      name: "Bob Brown",
-      class: "5C",
-      position: 4,
-      image: "https://via.placeholder.com/50",
+      name: "Sarah Johnson",
+      route: "Route D",
+      performance: 94,
+      collections: 138,
+      image: `${IMAGES.PERSON_IMG}`,
     },
   ];
 
   return (
     <Col span={24} sm={12} md={12} lg={12}>
-      <div className="bg-white shadow-md rounded-lg p-6">
-        <Typography variant="headingThreeLight" className="text-[#2F3237]">
-          Star Students
-        </Typography>
+      <div className="bg-white shadow-md rounded-lg p-6 pb-4">
+        <div className="flex items-center gap-2 mb-4">
+          <FaTruck className="text-green-600 text-xl" />
+          <Typography variant="headingThreeLight" className="text-[#2F3237]">
+            Top Performing Drivers
+          </Typography>
+        </div>
         <List
           itemLayout="horizontal"
-          dataSource={starStudents}
-          className="overflow-y-auto min-h-80 max-h-80" // Allow vertical scrolling
-          renderItem={(student: StarStudent) => (
-            <List.Item>
+          dataSource={topDrivers}
+          className="overflow-y-auto min-h-80 max-h-80"
+          renderItem={(driver: Driver) => (
+            <List.Item className="hover:bg-green-50 transition-colors duration-200 rounded-lg px-4">
               <List.Item.Meta
                 avatar={
                   <img
-                    src={student.image}
-                    alt={student.name}
-                    className="rounded-full w-12 h-12 object-cover" // Avatar styling
+                    src={driver.image || "/placeholder.svg"}
+                    alt={driver.name}
+                    className="rounded-full w-12 h-12 object-cover border-2 border-green-500"
                   />
                 }
-                title={<span className="font-medium">{student.name}</span>}
+                title={
+                  <div className="flex items-center gap-2">
+                    <span className="font-medium">{driver.name}</span>
+                    <FaStar className="text-yellow-400" />
+                    <span className="text-green-600 text-sm">
+                      {driver.performance}%
+                    </span>
+                  </div>
+                }
                 description={
-                  <span className="text-gray-600">
-                    Class: {student.class}, Position: {student.position}
-                  </span>
+                  <div className="text-gray-600">
+                    <div>Route: {driver.route}</div>
+                    <div className="text-sm">
+                      Collections: {driver.collections} pickups this month
+                    </div>
+                  </div>
                 }
               />
             </List.Item>
@@ -73,4 +94,4 @@ const StartStudent = () => {
   );
 };
 
-export default StartStudent;
+export default TopDrivers;

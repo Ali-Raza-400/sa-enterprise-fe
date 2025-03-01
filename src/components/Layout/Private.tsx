@@ -288,9 +288,7 @@ function PrivateLayout({ children }: LayoutProps) {
 								<Space className="profile-dropdown-space">
 									<Avatar
 										src={
-											user?.imageUrl
-												? user?.imageUrl
-												: `https://ui-avatars.com/api/?name=${`${user?.fullName || "USER"}`}&background=C95151&color=fff`
+											IMAGES.PERSON_IMG
 										}
 										size={40}
 										className="cursor-pointer"

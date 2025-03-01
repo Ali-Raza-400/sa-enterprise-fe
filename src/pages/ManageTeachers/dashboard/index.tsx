@@ -1,18 +1,18 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Row } from "antd";
-import StudentRatioChart from "./graphs/StudentRatioChart";
 import DataOverviewCards from "./graphs/DataOverviewCards";
-import StartStudent from "./graphs/StartStudent";
 import TeacherVideoLectureCountChart from "./graphs/TeacherVideoLectureCountChart";
 import CourseStatusChart from "./graphs/CourseStatusChart ";
+import TruckOperationsChart from "./graphs/StudentRatioChart";
+import TopDrivers from "./graphs/StartStudent";
 
 const TeacherDashboard = () => {
   return (
     <div>
       <DataOverviewCards />
       <Row justify="center" gutter={[16, 16]} className="py-4">
-        <StudentRatioChart />
-        <StartStudent />
+        <TruckOperationsChart />
+        <TopDrivers />
       </Row>
       <Row justify="center" gutter={[16, 16]} className="py-4">
         <CourseStatusChart />
