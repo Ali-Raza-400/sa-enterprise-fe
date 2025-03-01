@@ -11,6 +11,7 @@ import { LOOKUP_TYPES } from "../../../utils/lookup";
 import { TiUserAdd } from "react-icons/ti";
 import { FaFolderPlus } from "react-icons/fa";
 import { CiSettings } from "react-icons/ci";
+// import { RiCoupon3Fill, RiMoneyDollarCircleFill } from "react-icons/ri";
 
 export const items = [
 	
@@ -26,12 +27,7 @@ export const items = [
 		label: <Link to={PATH.TEACHER_DASHBOARD}>{STRINGS.TEACHER_DASHBOARD}</Link>,
 		show: true,
 	},
-	{
-		key: PATH.MANAGE_STUDENTS,
-		icon: <PiUsersFill />,
-		label: <Link to={PATH.MANAGE_STUDENTS}>{STRINGS.MANAGE_STUDENTS}</Link>,
-		show: true,
-	},
+
 	{
 		key: PATH.STUDENT_ASSIGNMENTS,
 		icon: <IoDocumentText />,
@@ -80,26 +76,36 @@ export const items = [
 		label: <Link to={PATH.MANAGE_TEACHER}>{STRINGS.MANAGE_TEACHER}</Link>,
 		show: true,
 	},
-	
-	
 	// {
-	// 	key: STRINGS.FINANCE,
-	// 	icon: <FaHandHoldingDollar />,
-	// 	label: STRINGS.FINANCE,
+	// 	key: PATH.MANAGE_STUDENTS,
+	// 	icon: <PiUsersFill />,
+	// 	label: <Link to={PATH.MANAGE_STUDENTS}>{STRINGS.MANAGE_STUDENTS}</Link>,
 	// 	show: true,
-	// 	children: [
-	// 		{
-	// 			key: PATH.COUPONS,
-	// 			icon: <RiCoupon3Fill />,
-	// 			label: <Link to={PATH.COUPONS}>{STRINGS.COUPONS}</Link>,
-	// 		},
-	// 		{
-	// 			key: PATH.EARNINGS,
-	// 			icon: <RiMoneyDollarCircleFill size={18} />,
-	// 			label: <Link to={PATH.EARNINGS}>{STRINGS.EARNINGS}</Link>,
-	// 		},
-	// 	],
 	// },
+	
+	{
+		// key: PATH.MANAGE_STUDENTS,
+		// icon: <PiUsersFill />,
+		// label: <Link to={PATH.MANAGE_STUDENTS}>{STRINGS.MANAGE_STUDENTS}</Link>,
+		// show: true,
+
+		key: STRINGS.USERNAME,
+		icon: <PiUsersFill />,
+		label: STRINGS.MANAGE_STUDENTS,
+		show: true,
+		children: [
+			{
+				key: PATH.MANAGE_STUDENTS,
+				icon:<PiUsersFill />,
+				label:<Link to={PATH.MANAGE_STUDENTS}>{STRINGS.USER}</Link>,
+			},
+			// {
+			// 	key: PATH.EARNINGS,
+			// 	icon: <RiMoneyDollarCircleFill size={18} />,
+			// 	label: <Link to={PATH.EARNINGS}>{STRINGS.EARNINGS}</Link>,
+			// },
+		],
+	},
 	{
 		key: STRINGS.REQUESTS,
 		icon: <FaFolderPlus />,
@@ -156,7 +162,7 @@ export const roleBasedItems = {
 		PATH.MANAGE_STUDENTS,
 		PATH.TEACHER_DASHBOARD,
 		// PATH.COUPONS,
-		// PATH.EARNINGS,
+		PATH.EARNINGS,
 		// PATH.REGISTRATION_REQUEST,
 		// PATH.COURSE_REQUEST,
 		 PATH.COURSES,
