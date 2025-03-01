@@ -34,7 +34,7 @@ const authApi = rtkQApi.injectEndpoints({
 				url: `${API_PATHS.DELETE_USER}/${id}`,
 				method: "DELETE",
 			}),
-      invalidatesTags: [{ type: RTK_TAGS.STUDENTS, id: "LIST" }],
+      invalidatesTags: [{ type: RTK_TAGS.USER, id: "LIST" }],
 		}),
     forgot: builder.mutation<ForgotResponseDTO, string>({
       query: (email) => {

@@ -2,15 +2,11 @@ import React from "react";
 import { Empty, Table } from "antd";
 import type { TableProps } from "antd";
 
-interface PaginationData {
-	totalRecords: number;
-	page: number;
-	pageSize: number;
-}
+
 
 interface GenericTableProps<T> {
 	columns: TableProps<T>["columns"];
-	data: T[] | { list: T[]; pagination: PaginationData };
+	data: any;
 	tableProps?: TableProps<T>;
 	enablePagination?: boolean;
 	updatePaginationFunc?: (pagination: {
@@ -40,7 +36,7 @@ const GenericTable = <T extends object>({
 	rowKey = "id",
 	showScroll=false
 }: GenericTableProps<T>) => {
-	const paginationData = !Array.isArray(data) ? data?.pagination : undefined;
+	const paginationData = !Array.isArray(data) ? data?.pagination?.metadata : undefined;
 	const listData = Array.isArray(data) ? data : data?.list;
 
 	const rowSelection: TableProps<T>["rowSelection"] = enableSelection

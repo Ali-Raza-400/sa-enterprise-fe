@@ -1,18 +1,14 @@
 import { ReactElement, useEffect, useState } from "react";
 import { Button, Flex, TableProps } from "antd";
-// import useNotification from "antd/es/notification/useNotification";
-import SearchFilter from "../../../components/UI/SearchFilter";
 import ActionDropdown from "../../../components/UI/ActionDropdown";
 import useGenericAlert from "../../../components/Hooks/GenericAlert";
 import GenericTable from "../../../components/UI/GenericTable";
-// import { useNavigate } from "react-router-dom";
-// import PATH from "../../../navigation/Path";
 import GenericButton from "../../../components/UI/GenericButton";
 import { FaPlus } from "react-icons/fa6";
 import { useGetUsersQuery, useUpdateUserMutation } from "../../../redux/slices/user";
 import { Modal, Form, Input, Select } from "antd";
 import { useDeleteUserMutation, useRegisterMutation } from "../../../redux/slices/auth";
-// import { getErrorMessage } from "../../../utils/helper";
+import PageLoader from "../../../components/Loader/PageLoader";
 
 const { Option } = Select;
 interface UserFormValues {
@@ -51,13 +47,18 @@ interface StudentType {
 const Index = (): ReactElement => {
   const [selectedUser, setSelectedUser] = useState<any>()
   console.log("selectedUser", selectedUser);
-  const [form] = Form.useForm();
-  const { data, isLoading: userLoading, isFetching, refetch } = useGetUsersQuery({
-    page: 1,
-    pageSize: 8,
+  const [tableOptions, setTableOptions] = useState({
+    filters: {},
+    pagination: {
+      page: 1,
+      pageSize: 10,
+    },
   });
-  console.log("data",data)
-  const [deleteUser] = useDeleteUserMutation();
+  const [form] = Form.useForm();
+  console.log("tableOptions::", tableOptions)
+  const { data, isLoading: userLoading, isFetching, refetch } = useGetUsersQuery(tableOptions);
+  console.log("data", data)
+  const [deleteUser,{isLoading:deleteUserLoading}] = useDeleteUserMutation();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isUpdateModalVisible, setIsUpdateModalVisible] = useState(false);
   const [registerFunc, { isLoading }] = useRegisterMutation();
@@ -73,7 +74,7 @@ const Index = (): ReactElement => {
       showAlert({
         type: "success",
         title: `User registered!`,
-        message: `You have successfully registered. Welcome to the SA-Enterprize System`,
+        message: `User Added Successfully. Welcome to the SA-Enterprize System`,
         confirmButtonText: "OK",
         onConfirm: () => refetch(),
       });
@@ -198,12 +199,15 @@ const Index = (): ReactElement => {
       ),
     },
   ];
+  if(userLoading || update||deleteUserLoading){
+    return <><PageLoader/></>
+  }
 
   return (
     <>
       {/* {contextHolder} */}
-      <Flex className="justify-between">
-        <SearchFilter position="end" />
+      <Flex className="justify-end mb-4">
+        {/* <SearchFilter position="end" /> */}
         <GenericButton
           icon={<FaPlus size={20} />}
           label="Create New User"
@@ -223,7 +227,21 @@ const Index = (): ReactElement => {
           selectedUser={selectedUser}
         />
       </Flex>
-      <GenericTable loading={userLoading} columns={columns} data={data} enablePagination={true} />
+      <GenericTable
+        loading={userLoading || update||deleteUserLoading}
+        columns={columns}
+        data={data}
+        enablePagination={true}
+        updatePaginationFunc={(data: { page: number; pageSize: number }) => {
+          console.log("data::::", data)
+
+          setTableOptions({ ...tableOptions, pagination: data })
+        }
+        }
+      // updatePaginationFunc={(data: any) =>
+      //   setTableOptions({ ...tableOptions, pagination: data.pagination?.metadata })
+      // }
+      />
     </>
   );
 };

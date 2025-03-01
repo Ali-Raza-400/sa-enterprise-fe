@@ -12,8 +12,8 @@ const PATH = {
 
 	INSTITUTE_PROFILE: "/institute-profile",
 	INSTITUTE_SETTINGS: "/institute/settings",
-	MANAGE_STUDENTS: "/manage-students/list",
-	COURSES: "/courses",
+	MANAGE_STUDENTS: "/user/list",
+	COURSES: "/truck/list",
 	COURSE_VIEW: "/course/view/:id",
 	COURSE_VIEW_STUDENT: "/student/course/view/:id",
 	NEW_COURSE: "/course/create",

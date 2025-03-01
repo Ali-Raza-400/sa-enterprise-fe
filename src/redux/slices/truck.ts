@@ -14,7 +14,7 @@ const userApi = rtkQApi.injectEndpoints({
                     params: params,
                 };
             },
-            providesTags: (result) => providesList(result?.data, RTK_TAGS.ITEMS),
+            providesTags: (result) => providesList(result?.data, RTK_TAGS.TRUCK),
         }),
 
         addTruck: builder.mutation<truckFormValues, any>({
@@ -23,7 +23,7 @@ const userApi = rtkQApi.injectEndpoints({
                 method: "POST",
                 data: payload,
             }),
-            //   invalidatesTags: [{ type: RTK_TAGS.STUDENTS, id: "LIST" }],
+              invalidatesTags: [{ type: RTK_TAGS.TRUCK, id: "LIST" }],
         }),
         updateTruck: builder.mutation<truckFormValues, any>({
             query: ({ payload, truckId }) => {
@@ -34,7 +34,7 @@ const userApi = rtkQApi.injectEndpoints({
                     data: payload,
                 };
             },
-            //   invalidatesTags: [{ type: RTK_TAGS.STUDENTS, id: "LIST" }],
+              invalidatesTags: [{ type: RTK_TAGS.TRUCK, id: "LIST" }],
         }),
 
         deleteTruck: builder.mutation<any, string>({
@@ -42,7 +42,7 @@ const userApi = rtkQApi.injectEndpoints({
                 url: `${API_PATHS.TRUCK}/${id}`,
                 method: "DELETE",
             }),
-            //   invalidatesTags: [{ type: RTK_TAGS.STUDENTS, id: "LIST" }],
+              invalidatesTags: [{ type: RTK_TAGS.TRUCK, id: "LIST" }],
         }),
         getUserById: builder.query<any, string>({
             query: (id) => ({

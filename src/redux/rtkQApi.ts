@@ -48,7 +48,7 @@ const axiosBaseQuery: BaseQueryFn<AxiosBaseQueryArgs> = async (
 		const resp = await axios({
 			url: customBaseUrl
 				? customBaseUrl + url
-				: import.meta.env.VITE_BASE_URL + url,
+				: 'https://sa.wholesalerspk.com/' + url,
 			method,
 			data,
 			params,
@@ -74,7 +74,7 @@ const axiosBaseQuery: BaseQueryFn<AxiosBaseQueryArgs> = async (
 				return {
 					data: {
 						list: resp.data.data,
-						pagination: resp.data.metadata,
+						pagination: resp.data,
 					},
 				};
 			}
