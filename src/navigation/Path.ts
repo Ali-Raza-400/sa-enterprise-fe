@@ -33,7 +33,7 @@ const PATH = {
 	STUDENTS: "/student/list",
 	MANAGE_TEACHER_CREATE: "/manage-teacher/create",
 	TEACHER_PROFILE: "/teacher-profile/:id",
-	TEACHER_DASHBOARD: "/teacher-dashboard",
+	TEACHER_DASHBOARD: "/admin-dashboard",
 	TEACHER_STUDENT_PROFILE_VIEW: "/teacher/student-profile-view/:id",
 
 	//Finance
