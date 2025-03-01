@@ -11,8 +11,8 @@ const userApi = rtkQApi.injectEndpoints({
 			query: (tableOptions) => {
 				const params = {
 					...tableOptions.filters,
-					page: tableOptions.pagination.page,
-					limit: tableOptions.pagination.pageSize,
+					skip:2,
+					limit: 20,
 				};
 				return {
 					url: 'users',
