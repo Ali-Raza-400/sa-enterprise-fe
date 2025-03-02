@@ -42,6 +42,7 @@ const axiosBaseQuery: BaseQueryFn<AxiosBaseQueryArgs> = async (
 		headers = {
 			...headers,
 			Authorization: `Bearer ${token}`,
+			
 		};
 	}
 	try {

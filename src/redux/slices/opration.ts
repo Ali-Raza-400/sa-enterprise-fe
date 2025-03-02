@@ -17,17 +17,16 @@ const userApi = rtkQApi.injectEndpoints({
             providesTags: (result) => providesList(result?.data, RTK_TAGS.OPRATION),
         }),
         uploadFileData: builder.mutation<any, FormData>({
-            query: (formData) => {
-                return {
-                    url: API_PATHS.OPRATION,
-					method: "POST",
-					// customHeader: {
-					// 	"Content-Type": "multipart/form-data",
-					// },
-					data: formData,
-				};
-            }
-        }),
+            query: (formData) => ({
+              url: API_PATHS.OPRATION,
+              method: "POST",
+              headers: {
+                Accept: "application/json", // Ensure Authorization is included
+              },
+            data: formData, // Use 'body' instead of 'data'
+            }),
+          }),
+          
         updateOpration: builder.mutation<any, any>({
             query: ({ payload, oprationId }) => {
                 console.log("userId::>", oprationId);
