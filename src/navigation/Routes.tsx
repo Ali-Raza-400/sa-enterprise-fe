@@ -21,6 +21,13 @@ const PRIVATE_ROUTES: RouteType[] = [
 		layout: "private",
 	},
 	{
+		name: STRINGS.MANAGE_OPRATION,
+		path: PATH.MANAGE_OPRATION,
+		page: <WEB_PAGES.MANAGE_OPRATION />,
+		routeType: ProtectedRoute,
+		layout: "private",
+	},
+	{
 		name: STRINGS.STUDENTS,
 		path: PATH.STUDENTS,
 		page: <WEB_PAGES.STUDENTS />,
@@ -38,6 +45,13 @@ const PRIVATE_ROUTES: RouteType[] = [
 		name: STRINGS.MANAGE_TEACHER_CREATE,
 		path: PATH.MANAGE_TEACHER_CREATE,
 		page: <WEB_PAGES.MANAGE_TEACHER_CREATE />,
+		routeType: ProtectedRoute,
+		layout: "private",
+	},
+	{
+		name: STRINGS.MANAGE_OPRATION_CREATE,
+		path: PATH.MANAGE_OPRATION_CREATE,
+		page: <WEB_PAGES.MANAGE_OPRATION_CREATE />,
 		routeType: ProtectedRoute,
 		layout: "private",
 	},
