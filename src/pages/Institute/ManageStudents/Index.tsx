@@ -56,9 +56,7 @@ const Index = (): ReactElement => {
   });
 
   const [form] = Form.useForm();
-  console.log("tableOptions::", tableOptions)
   const { data, isLoading: userLoading, isFetching, refetch } = useGetUsersQuery(tableOptions);
-  console.log("data", data)
   const [deleteUser, { isLoading: deleteUserLoading }] = useDeleteUserMutation();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isUpdateModalVisible, setIsUpdateModalVisible] = useState(false);

@@ -1,7 +1,9 @@
 const STRINGS = {
 	USERNAME: "Username",
+	OPRATIONNAME: "Operations",
 	ADD_USER:"Add User",
 	USER:'Users',
+	OPRATION:"Operation List",
 	REMEMBER_ME: "Remember Me",
 	PASSWORD: "Password",
 	FIRSTNAME: "First Name",
@@ -28,6 +30,9 @@ const STRINGS = {
 	INSTITUTE_PROFILE: "Institute Profile",
 	INSTITUTE_SETTINGS: "Settings",
 	MANAGE_STUDENTS: "Manage Users",
+	MANAGE_OPRATION: "Operations",
+	MANAGE_OPRATION_CREATE: "Add Operation",
+	MANAGE_OPRATION_UPDATE: "Update Operation",
 	INSTITUTE: "Institute Name",
 
 	FINANCE: "Finance",
@@ -55,7 +60,7 @@ const STRINGS = {
 	STUDENT_GRADING: "Grading",
 	STUDENT_GRADE_ASSIGNMENTS: "Assignment",
 	STUDENT_GRADE_QUIZZES: "Quizzes",
-	STUDENT_ENROLLED_COURSES: "Enrolled Courses",
+	STUDENT_ENROLLED_COURSES: "Operations",
 	AGE: "Age",
 	PHONE: "Phone No",
 };

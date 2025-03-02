@@ -75,11 +75,6 @@ export const items = [
 	// },
 	
 	{
-		// key: PATH.MANAGE_STUDENTS,
-		// icon: <PiUsersFill />,
-		// label: <Link to={PATH.MANAGE_STUDENTS}>{STRINGS.MANAGE_STUDENTS}</Link>,
-		// show: true,
-
 		key: STRINGS.USERNAME,
 		icon: <PiUsersFill />,
 		label: STRINGS.MANAGE_STUDENTS,
@@ -94,6 +89,24 @@ export const items = [
 				key: PATH.CREATE_USER,
 				icon: <FaFolderPlus />,
 				label: <Link to={PATH.CREATE_USER}>{STRINGS.ADD_USER}</Link>,
+			},
+		],
+	},
+	{
+		key: STRINGS.OPRATIONNAME,
+		icon: <PiUsersFill />,
+		label: STRINGS.MANAGE_OPRATION,
+		show: true,
+		children: [
+			{
+				key: PATH.MANAGE_OPRATION,
+				icon:<PiUsersFill />,
+				label:<Link to={PATH.MANAGE_OPRATION}>{STRINGS.OPRATION}</Link>,
+			},
+			{
+				key: PATH.MANAGE_OPRATION_CREATE,
+				icon: <FaFolderPlus />,
+				label: <Link to={PATH.MANAGE_OPRATION_CREATE}>{STRINGS.MANAGE_OPRATION_CREATE}</Link>,
 			},
 		],
 	},
@@ -153,12 +166,13 @@ export const roleBasedItems = {
 		PATH.MANAGE_STUDENTS,
 		PATH.CREATE_USER,
 		PATH.TEACHER_DASHBOARD,
+		PATH.MANAGE_OPRATION,
+		PATH.MANAGE_OPRATION_CREATE,
 		// PATH.COUPONS,
 		PATH.EARNINGS,
 		// PATH.REGISTRATION_REQUEST,
 		// PATH.COURSE_REQUEST,
 		 PATH.COURSES,
-		PATH.STUDENT_ENROLLED_COURSES,
 
 		// PATH.INSTITUTE_SETTINGS,
 	],

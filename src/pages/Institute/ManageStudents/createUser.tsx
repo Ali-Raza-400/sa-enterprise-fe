@@ -114,7 +114,6 @@ const CreateUser = () => {
                             <Option value="driver">Driver</Option>
                         </Select>
                     </Form.Item>
-
                     <Form.Item<UserFormValues>
                         name="password"
                         label="Password"
