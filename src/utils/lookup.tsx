@@ -1,6 +1,6 @@
 const Role = {
 	INSTITUTE: "Institute",
-	STUDENT: "Resource",
+	STUDENT: "supervisor",
 	TEACHING_ASSISTANT: "Teacher Assistant",
 	TEACHER: "TeamLead",
 	INDIVIDUAL: "Individual",

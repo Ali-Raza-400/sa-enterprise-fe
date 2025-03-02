@@ -54,7 +54,7 @@ const PATH = {
 	STUDENT_QUIZZES: "/student/quizzes",
 	STUDENT_GRADE_ASSIGNMENTS: "/student/grade/assignments",
 	STUDENT_GRADE_QUIZZES: "/student/grade/quizzes",
-	STUDENT_ENROLLED_COURSES: "/student/enrolled-courses",
+	STUDENT_ENROLLED_COURSES: "/opration/list",
 };
 
 export default PATH;

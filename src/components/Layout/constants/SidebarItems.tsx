@@ -52,16 +52,7 @@ export const items = [
 		label: <Link to={PATH.STUDENT_COURSES_LIST}>{STRINGS.COURSES}</Link>,
 		show: true,
 	},
-	{
-		key: PATH.STUDENT_ENROLLED_COURSES,
-		icon: <IoBookSharp />,
-		label: (
-			<Link to={PATH.STUDENT_ENROLLED_COURSES}>
-				{STRINGS.STUDENT_ENROLLED_COURSES}
-			</Link>
-		),
-		show: true,
-	},
+	
 	{
 		key: PATH.COURSES,
 		icon: <IoBookSharp />,
@@ -80,7 +71,16 @@ export const items = [
 		label: <Link to={PATH.MANAGE_TEACHER}>{STRINGS.MANAGE_TEACHER}</Link>,
 		show: true,
 	},
-	
+	{
+		key: PATH.STUDENT_ENROLLED_COURSES,
+		icon: <CiSettings />,
+		label: (
+			<Link to={PATH.STUDENT_ENROLLED_COURSES}>
+				{STRINGS.STUDENT_ENROLLED_COURSES}
+			</Link>
+		),
+		show: true,
+	},
 	
 	// {
 	// 	key: STRINGS.FINANCE,
@@ -160,11 +160,15 @@ export const roleBasedItems = {
 		// PATH.REGISTRATION_REQUEST,
 		// PATH.COURSE_REQUEST,
 		 PATH.COURSES,
+		PATH.STUDENT_ENROLLED_COURSES,
+
 		// PATH.INSTITUTE_SETTINGS,
 	],
 	/** STUDENT */
 	[LOOKUP_TYPES.Role.STUDENT]: [
-		PATH.STUDENT_DASHBOARD,
+		// PATH.STUDENT_DASHBOARD,
+		PATH.STUDENT_ENROLLED_COURSES,
+
 	],
 	/** TEACHER */
 	[LOOKUP_TYPES.Role.TEACHER]: [
