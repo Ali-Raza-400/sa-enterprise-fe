@@ -54,11 +54,12 @@ const Index = (): ReactElement => {
       pageSize: 10,
     },
   });
+
   const [form] = Form.useForm();
   console.log("tableOptions::", tableOptions)
   const { data, isLoading: userLoading, isFetching, refetch } = useGetUsersQuery(tableOptions);
   console.log("data", data)
-  const [deleteUser,{isLoading:deleteUserLoading}] = useDeleteUserMutation();
+  const [deleteUser, { isLoading: deleteUserLoading }] = useDeleteUserMutation();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isUpdateModalVisible, setIsUpdateModalVisible] = useState(false);
   const [registerFunc, { isLoading }] = useRegisterMutation();
@@ -69,6 +70,7 @@ const Index = (): ReactElement => {
     const payload = {
       ...userData,
     };
+    console.log("payload::::",payload)
     try {
       await registerFunc(payload).unwrap();
       showAlert({
@@ -138,16 +140,16 @@ const Index = (): ReactElement => {
 
   const columns: TableProps<StudentType>["columns"] = [
     {
-      title: "First Name",
-      dataIndex: "first_name",
+      title: "Name",
       key: "first_name",
+      render: (obj) => {
+        return (
+          <div>
+            {obj.first_name} {obj.last_name}
+          </div>
+        )
+      },
       width: 150,
-    },
-    {
-      title: "Last Name",
-      dataIndex: "last_name",
-      key: "last_name",
-      width: 120,
     },
     {
       title: "Email",
@@ -199,8 +201,8 @@ const Index = (): ReactElement => {
       ),
     },
   ];
-  if(userLoading || update||deleteUserLoading){
-    return <><PageLoader/></>
+  if (userLoading || update || deleteUserLoading) {
+    return <><PageLoader /></>
   }
 
   return (
@@ -228,7 +230,7 @@ const Index = (): ReactElement => {
         />
       </Flex>
       <GenericTable
-        loading={userLoading || update||deleteUserLoading}
+        loading={userLoading || update || deleteUserLoading}
         columns={columns}
         data={data}
         enablePagination={true}

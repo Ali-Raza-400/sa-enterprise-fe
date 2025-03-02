@@ -230,6 +230,13 @@ const PRIVATE_ROUTES: RouteType[] = [
 		routeType: ProtectedRoute,
 		layout: "private",
 	},
+	{
+		name: STRINGS.ADD_USER,
+		path: PATH.CREATE_USER,
+		page: <WEB_PAGES.ADD_USER />,
+		routeType: ProtectedRoute,
+		layout: "private",
+	},
 ];
 
 const AUTH_ROUTES: RouteType[] = [

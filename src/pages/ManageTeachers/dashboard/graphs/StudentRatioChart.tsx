@@ -10,10 +10,10 @@ const TruckOperationsChart: React.FC = () => {
     onTimePickups: number; 
     missedPickups: number; 
   }[] = [
-    { month: "Jan", totalCollections: 850, onTimePickups: 800, missedPickups: 50 },
-    { month: "Feb", totalCollections: 920, onTimePickups: 880, missedPickups: 40 },
-    { month: "Mar", totalCollections: 880, onTimePickups: 850, missedPickups: 30 },
-    { month: "Apr", totalCollections: 960, onTimePickups: 920, missedPickups: 40 },
+    { month: "Jan", totalCollections: 850, onTimePickups: 800, missedPickups: 550 },
+    { month: "Feb", totalCollections: 920, onTimePickups: 880, missedPickups: 440 },
+    { month: "Mar", totalCollections: 880, onTimePickups: 850, missedPickups: 130 },
+    { month: "Apr", totalCollections: 960, onTimePickups: 920, missedPickups: 240 },
   ];
 
   const operationsChartData: { series: ApexAxisChartSeries; options: ApexOptions } = {
@@ -68,7 +68,7 @@ const TruckOperationsChart: React.FC = () => {
           color: '#2F3237'
         }
       },
-      colors: ["#2F855A", "#38A169", "#E53E3E"], // Green colors for eco theme
+      colors: ["#8970d6", "#70d6bc", "#E53E3E"], // Green colors for eco theme
       dataLabels: {
         enabled: true,
       },

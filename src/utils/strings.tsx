@@ -1,5 +1,7 @@
 const STRINGS = {
 	USERNAME: "Username",
+	ADD_USER:"Add User",
+	USER:'Users',
 	REMEMBER_ME: "Remember Me",
 	PASSWORD: "Password",
 	FIRSTNAME: "First Name",
