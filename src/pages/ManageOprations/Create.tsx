@@ -5,9 +5,9 @@ import type { UploadFile } from 'antd/es/upload/interface';
 import { useGetTrucksQuery } from '../../redux/slices/truck';
 import { useGetUserByRoleQuery } from '../../redux/slices/user';
 import useNotification from '../../components/UI/Notification';
-import { useUploadFileDataMutation } from '../../redux/slices/opration';
 import GenericButton from '../../components/UI/GenericButton';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const { Title, Paragraph } = Typography;
 
@@ -23,12 +23,11 @@ const CreateOperation: React.FC = () => {
   const { data: supervisor } = useGetUserByRoleQuery({
     role: 'supervisor',
   });
-
+  const navigate=useNavigate()
   const { openNotification, contextHolder } = useNotification();
   const [form] = Form.useForm();
   const [fileList, setFileList] = useState<UploadFile[]>([]);
   console.log("fileList", fileList);
-  const [uploadFileData, { isLoading }] = useUploadFileDataMutation();
 
   const handleSubmit = () => {
     handleUpload();
@@ -57,9 +56,6 @@ const CreateOperation: React.FC = () => {
           formData.append("files", file.originFileObj); // API expects 'files'
         }
       });
-
-      // Debug: Check FormData before sending
-      console.log("FormData contents:");
       for (let pair of formData.entries()) {
         console.log(pair[0], pair[1]);
       }
@@ -78,6 +74,7 @@ const CreateOperation: React.FC = () => {
       console.log("API Response:", result);
 
       if (response.ok) {
+        navigate(PATH.MANAGE_OPRATION)
         openNotification({
           type: "success",
           title: "Image uploaded successfully!",
@@ -183,8 +180,8 @@ const CreateOperation: React.FC = () => {
               variant="solid"
               htmlType="submit"
               label="Add Operation"
-              disabled={isLoading}
-              loading={isLoading}
+              // disabled={isLoading}
+              // loading={isLoading}
               style={{
                 height: "44px",
                 minWidth: "120px",

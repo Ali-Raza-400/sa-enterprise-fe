@@ -16,6 +16,7 @@ const PATH = {
 	MANAGE_STUDENTS: "/user/list",
 	MANAGE_OPRATION: "/operation/list",
 	MANAGE_OPRATION_CREATE: "/manage-operation/create",
+	MANAGE_OPRATION_UPDATE: "/manage-operation/update",
 	COURSES: "/truck/list",
 	COURSE_VIEW: "/course/view/:id",
 	COURSE_VIEW_STUDENT: "/student/course/view/:id",

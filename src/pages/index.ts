@@ -31,6 +31,7 @@ const INSTITUTE_SETTINGS = React.lazy(
 const MANAGE_TEACHER = React.lazy(() => import("./ManageTeachers/Index"));
 const MANAGE_OPRATION = React.lazy(() => import("./ManageOprations/Index"));
 const MANAGE_OPRATION_CREATE = React.lazy(() => import("./ManageOprations/Create"));
+const MANAGE_OPRATION_UPDATE = React.lazy(() => import("./ManageOprations/Update"));
 const STUDENTS = React.lazy(() => import("./ManageTeachers/Students/index"));
 const MANAGE_TEACHER_CREATE = React.lazy(
 	() => import("./ManageTeachers/Create")
@@ -120,6 +121,7 @@ const WEB_PAGES = {
 	//Manage-opration
 	MANAGE_OPRATION,
 	MANAGE_OPRATION_CREATE,
+	MANAGE_OPRATION_UPDATE,
 	//Manage-teacher
 	MANAGE_TEACHER,
 	STUDENTS,

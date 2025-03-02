@@ -32,6 +32,7 @@ const STRINGS = {
 	MANAGE_STUDENTS: "Manage Users",
 	MANAGE_OPRATION: "Operations",
 	MANAGE_OPRATION_CREATE: "Add Operation",
+	MANAGE_OPRATION_UPDATE: "Update Operation",
 	INSTITUTE: "Institute Name",
 
 	FINANCE: "Finance",

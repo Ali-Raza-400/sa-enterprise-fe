@@ -111,8 +111,10 @@ const OprationsList = () => {
 					// viewProfileOnClick={() => {
 					//   navigate(PATH.STUDENT_PROFILE);
 					// }}
-
-					editOnClick={() => navigate(PATH.MANAGE_OPRATION_CREATE)}
+					editOnClick={() => navigate(PATH.MANAGE_OPRATION_UPDATE, {
+						state: obj
+					})}
+					// editOnClick={() => navigate(PATH.MANAGE_OPRATION_CREATE)}
 					deleteOnClick={() => onDelete(obj.id)}
 				/>
 			),
