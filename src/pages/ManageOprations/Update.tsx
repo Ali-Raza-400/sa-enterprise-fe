@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Form, Input, Select, Card, Typography, Upload, Button, List } from 'antd';
+import { Form, Input, Select, Card, Typography, Upload, Button } from 'antd';
 import { CloseOutlined, UploadOutlined } from '@ant-design/icons';
 import { useLocation, useNavigate } from "react-router-dom";
 import type { UploadFile } from 'antd/es/upload/interface';
@@ -89,7 +89,7 @@ const UpdateOperation: React.FC = () => {
                     description: result.message || "Something went wrong.",
                 });
             }
-        } catch (error) {
+        } catch (error:any) {
             console.error("Upload Error:", error);
             openNotification({
                 type: "error",

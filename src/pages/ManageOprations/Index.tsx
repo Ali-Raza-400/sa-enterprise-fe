@@ -47,10 +47,6 @@ const OprationsList = () => {
 			},
 		});
 	};
-
-	const onEdit = () => {
-		console.log("onEdit")
-	};
 	interface OprationType {
 		id: string;
 		location: string;

@@ -8,6 +8,7 @@ import useNotification from '../../components/UI/Notification';
 import GenericButton from '../../components/UI/GenericButton';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import PATH from '../../navigation/Path';
 
 const { Title, Paragraph } = Typography;
 
@@ -88,7 +89,7 @@ const CreateOperation: React.FC = () => {
           description: result.message || "Something went wrong.",
         });
       }
-    } catch (error) {
+    } catch (error:any) {
       console.error("Upload Error:", error);
       openNotification({
         type: "error",
