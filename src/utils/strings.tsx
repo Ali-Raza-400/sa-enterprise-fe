@@ -3,7 +3,7 @@ const STRINGS = {
 	OPRATIONNAME: "Oprations",
 	ADD_USER:"Add User",
 	USER:'Users',
-	OPRATION:"Oprations",
+	OPRATION:"Opration List",
 	REMEMBER_ME: "Remember Me",
 	PASSWORD: "Password",
 	FIRSTNAME: "First Name",
@@ -30,7 +30,7 @@ const STRINGS = {
 	INSTITUTE_PROFILE: "Institute Profile",
 	INSTITUTE_SETTINGS: "Settings",
 	MANAGE_STUDENTS: "Manage Users",
-	MANAGE_OPRATION: "Manage Opration",
+	MANAGE_OPRATION: "Oprations",
 	MANAGE_OPRATION_CREATE: "Add Opration",
 	INSTITUTE: "Institute Name",
 

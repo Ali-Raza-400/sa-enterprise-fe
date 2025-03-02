@@ -1,8 +1,11 @@
-import {  Spin, Image, TableProps } from "antd";
+import { Spin, Image, TableProps } from "antd";
 import { useState } from "react";
-import { useGetOprationsQuery } from "../../redux/slices/opration";
+import { useDeleteOprationMutation, useGetOprationsQuery } from "../../redux/slices/opration";
 import GenericTable from "../../components/UI/GenericTable";
 import ActionDropdown from "../../components/UI/ActionDropdown";
+import useGenericAlert from "../../components/Hooks/GenericAlert";
+import PATH from "../../navigation/Path";
+import { useNavigate } from "react-router-dom";
 
 const OprationsList = () => {
 	const [tableOptions, setTableOptions] = useState({
@@ -16,10 +19,35 @@ const OprationsList = () => {
 		page: 1,
 		pageSize: 8,
 	});
-	
-	const onDelete = () => {
-		console.log("onDelete")
+	const navigate = useNavigate();
+	const [deleteOpration, { isLoading: deleteUserLoading }] = useDeleteOprationMutation();
+	const { showAlert } = useGenericAlert();
+	const onDelete = async (id: string) => {
+		showAlert({
+			type: "question",
+			title: `Delete Opration Confirmation`,
+			message: `Are you sure you want to delete this Opration? This action cannot be undone.`,
+			confirmButtonText: "Delete",
+			cancelButtonText: "Cancel",
+			onConfirm: async () => {
+				try {
+					await deleteOpration(id).unwrap(); // Ensures better error handling
+					showAlert({
+						type: "success",
+						title: `Opration Deleted Successfully`,
+						message: `The Opration has been deleted successfully.`,
+					});
+				} catch (error) {
+					showAlert({
+						type: "error",
+						title: `Deletion Failed`,
+						message: `An error occurred while deleting the Opration. Please try again.`,
+					});
+				}
+			},
+		});
 	};
+
 	const onEdit = () => {
 		console.log("onEdit")
 	};
@@ -52,7 +80,7 @@ const OprationsList = () => {
 					<div>
 						{obj.map((url: any) => {
 							return (
-								<Image width={25} height={25} src={url} alt="opration_image"  style={{marginRight:"5px"}}/>
+								<Image width={25} height={25} src={url} alt="opration_image" style={{ marginRight: "5px" }} />
 							)
 						})}
 					</div>
@@ -78,14 +106,14 @@ const OprationsList = () => {
 			key: "action",
 			fixed: "right",
 			width: 120,
-			render: (obj:any) => (
+			render: (obj: any) => (
 				<ActionDropdown
 					// viewProfileOnClick={() => {
 					//   navigate(PATH.STUDENT_PROFILE);
 					// }}
 
-					editOnClick={() => onEdit(obj)}
-					deleteOnClick={() => onDelete(obj?.id)}
+					editOnClick={() => navigate(PATH.MANAGE_OPRATION_CREATE)}
+					deleteOnClick={() => onDelete(obj.id)}
 				/>
 			),
 		},
@@ -97,21 +125,21 @@ const OprationsList = () => {
 			)
 				: (
 					<div className="">
-						
 
-							<GenericTable
-								loading={oprationLoading}
-								columns={columns}
-								data={oprationData}
-								enablePagination={true}
-								updatePaginationFunc={(data: { page: number; pageSize: number }) => {
-									console.log("data::::", data)
-									setTableOptions({ ...tableOptions, pagination: data })
-								}
-								}
-						
-							/>
-						
+
+						<GenericTable
+							loading={oprationLoading || deleteUserLoading}
+							columns={columns}
+							data={oprationData}
+							enablePagination={true}
+							updatePaginationFunc={(data: { page: number; pageSize: number }) => {
+								console.log("data::::", data)
+								setTableOptions({ ...tableOptions, pagination: data })
+							}
+							}
+
+						/>
+
 					</div>)}
 
 		</>)
