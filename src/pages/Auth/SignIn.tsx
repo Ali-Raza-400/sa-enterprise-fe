@@ -21,41 +21,84 @@ function Index() {
   const [_login, { isLoading: isLoginLoading }] = useLoginMutation()
   const navigate = useNavigate()
 
+  // const onFinish = async (values: LoginRequestDTO) => {
+  //   dispatch(setTheme("LIGHT"))
+  //   setThemeInLS("LIGHT")
+  //   try {
+  //     axios
+  //       .post("https://sa.wholesalerspk.com/login", values)
+  //       .then((response) => {
+  //         const obj = {
+  //           isActive: true,
+  //           email: values?.email,
+  //           fullName: "shafiq",
+  //           role: "super_admin",
+  //           access_token:
+  //             "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJzaGFmaXFzaWRkaXFAZ21haWwuY29tIiwiZXhwIjoxNzQxMTk1ODE5fQ.E6V2RmZiia0fSrIUqyN5YPtFrOqcNKDyKaBa6hLOYH8",
+  //         }
+  //         const newObj = { ...obj, access_token: response?.data?.access_token }
+  //         setUser(newObj as AuthResponseDTO)
+  //         dispatch(setCredentials(newObj))
+  //         navigate("/")
+  //         openNotification({
+  //           type: "success",
+  //           title: "Login Success",
+  //         })
+  //       })
+  //       .catch((err) => {
+  //         openNotification({
+  //           type: "error",
+  //           title: err?.response?.data?.detail,
+  //         })
+  //       })
+  //   } catch (error: unknown) {
+  //     console.log(error, "ERROR")
+  //   }
+  // }
   const onFinish = async (values: LoginRequestDTO) => {
-    dispatch(setTheme("LIGHT"))
-    setThemeInLS("LIGHT")
+    dispatch(setTheme("LIGHT"));
+    setThemeInLS("LIGHT");
+  
     try {
-      axios
-        .post("https://sa.wholesalerspk.com/login", values)
-        .then((response) => {
-          const obj = {
-            isActive: true,
-            email: values?.email,
-            fullName: "shafiq",
-            role: "super_admin",
-            access_token:
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJzaGFmaXFzaWRkaXFAZ21haWwuY29tIiwiZXhwIjoxNzQxMTk1ODE5fQ.E6V2RmZiia0fSrIUqyN5YPtFrOqcNKDyKaBa6hLOYH8",
-          }
-          const newObj = { ...obj, access_token: response?.data?.access_token }
-          setUser(newObj as AuthResponseDTO)
-          dispatch(setCredentials(newObj))
-          navigate("/")
-          openNotification({
-            type: "success",
-            title: "Login Success",
-          })
-        })
-        .catch((err) => {
-          openNotification({
-            type: "error",
-            title: err?.response?.data?.detail,
-          })
-        })
-    } catch (error: unknown) {
-      console.log(error, "ERROR")
+      const loginResponse = await axios.post("https://sa.wholesalerspk.com/login", values);
+      const accessToken = loginResponse?.data?.access_token;
+  
+      if (accessToken) {
+        const userResponse = await axios.get("https://sa.wholesalerspk.com/users/current-user", {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
+  
+        const userData = userResponse?.data?.data;
+        console.log("userData",userData);
+        // Construct new object with user data
+        const newObj = {
+          isActive: true,
+          email: values?.email,
+           fullName: userData?.first_name+" "+userData?.last_name ,
+           role: userData?.role ,
+          access_token: accessToken,
+        } as AuthResponseDTO;
+  
+        setUser(newObj);
+        dispatch(setCredentials(newObj));
+        if(userData?.role==="")
+        navigate("/");
+  
+        openNotification({
+          type: "success",
+          title: "Login Success",
+        });
+      }
+    } catch (error: any) {
+      openNotification({
+        type: "error",
+        title: error?.response?.data?.detail || "Login failed",
+      });
+      console.log(error, "ERROR");
     }
-  }
-
+  };
   return (
     <>
       {contextHolder}

@@ -37,11 +37,7 @@ function RouterConfig() {
 	return (
 		<>
 			{progress && <TopBarProgress />}
-			<ScreenOverlay
-				isApproved={
-					user?.role === LOOKUP_TYPES.Role.STUDENT ? user?.isApproved : true
-				}
-			>
+		
 				<Routes>
 					{ROUTES.map((item) => {
 						const RouteType = item.routeType;
@@ -94,7 +90,6 @@ function RouterConfig() {
 					{/* NO PAGE FOUND */}
 					<Route path={PATH.NOPAGE} element={<WEB_PAGES.NO_PAGE_FOUND />} />
 				</Routes>
-			</ScreenOverlay>
 		</>
 	);
 }

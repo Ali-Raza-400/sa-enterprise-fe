@@ -14,7 +14,7 @@ function PublicRoute({ element, layout }: RouteTypeProps) {
 		if (user) {
 			window.location.href =
 				user.role === LOOKUP_TYPES.Role.STUDENT
-					? PATH.STUDENT_COURSES_LIST
+					? PATH.MANAGE_STUDENTS
 					: user.role === LOOKUP_TYPES.Role.TEACHER
 						? PATH.TEACHER_DASHBOARD
 						: PATH.MANAGE_STUDENTS; 
