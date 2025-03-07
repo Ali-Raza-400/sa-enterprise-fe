@@ -5,8 +5,6 @@ import ROUTES from "./Routes.tsx";
 import WEB_PAGES from "../pages/index.ts";
 import PATH from "./Path.ts";
 import { useSelector } from "react-redux";
-import ScreenOverlay from "../components/UI/ScreenOverlay.tsx";
-import { LOOKUP_TYPES } from "../utils/lookup.tsx";
 
 // Router Configuration
 function RouterConfig() {

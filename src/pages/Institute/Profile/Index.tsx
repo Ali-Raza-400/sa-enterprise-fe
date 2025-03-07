@@ -1,7 +1,6 @@
 import IMAGES from "../../../assets/images";
 import Typography from "../../../components/UI/Typography";
 import { Col, Divider, Form, Row } from "antd";
-import SearchFilter from "../../../components/UI/SearchFilter";
 // import CourseCard from "../../Courses/Shared/CourseCard";
 import { useDispatch, useSelector } from "react-redux";
 // import GenericCard from "../../../components/UI/GenericCard";
@@ -20,7 +19,6 @@ import { setCredentials } from "../../../redux/features/authSlice";
 import { useUpdateUserProfileMutation } from "../../../redux/slices/user";
 // import PublishedCourses from "../../Courses/List/Published/Index"
 import { useGetInstituteByIdQuery } from "../../../redux/slices/institute";
-import PublishedContent from "../../Courses/List/Published/Index";
 import { FaFacebook, FaLinkedin, FaSquareXTwitter } from "react-icons/fa6";
 import GenericCard from "../../../components/UI/GenericCard";
 
@@ -30,7 +28,6 @@ interface AddModal {
 }
 
 const Index = () => {
-  const published = PublishedContent();
 
   const [form] = Form.useForm();
   const [updateUserProfile] = useUpdateUserProfileMutation();

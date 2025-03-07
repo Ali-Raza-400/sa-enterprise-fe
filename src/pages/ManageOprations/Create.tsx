@@ -14,14 +14,14 @@ const { Title, Paragraph } = Typography;
 
 const CreateOperation: React.FC = () => {
   const { Option } = Select;
-  const [tableOptions, setTableOptions] = useState({
+  const [tableOptions, _setTableOptions] = useState({
     filters: {},
     pagination: {
       page: 1,
       pageSize: 10,
     },
   });
-  const { data: truck, isLoading: truckLoading, isFetching, refetch } = useGetTrucksQuery(tableOptions);
+  const { data: truck, isLoading: truckLoading } = useGetTrucksQuery(tableOptions);
   useEffect(() => {
     document.title = "Add Opration | SA Enterprise"
   }, [])

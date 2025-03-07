@@ -1,4 +1,3 @@
-import { AuthResponseDTO, truckFormValues } from "../../pages/Auth/type";
 import { API_PATHS } from "../../utils/apiPaths";
 // import { providesList } from "../../utils/helper";
 import { rtkQApi } from "../rtkQApi";

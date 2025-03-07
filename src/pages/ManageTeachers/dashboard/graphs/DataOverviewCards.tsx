@@ -7,7 +7,7 @@ import { useGetTilesInfoQuery } from "../../../../redux/slices/dashboardCount";
 import { useEffect } from "react";
 
 const DataOverviewCards = () => {
-  const { data: countsData, isLoading: userLoading } = useGetTilesInfoQuery({});
+  const { data: countsData } = useGetTilesInfoQuery({});
   useEffect(() => {
     document.title = "Dashboard | SA Enterprise"
   }, [])
