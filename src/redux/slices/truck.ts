@@ -7,7 +7,12 @@ import { RTK_TAGS } from "../tags";
 const userApi = rtkQApi.injectEndpoints({
     endpoints: (builder) => ({
         getTrucks: builder.query<any, any>({
-            query: (params) => {
+            query: (tableOptions) => {
+                const params = {
+                    ...tableOptions.filters,
+                    skip: `${tableOptions.pagination.page - 1}0`,
+                    limit: tableOptions.pagination.pageSize,
+                };
                 return {
                     url: API_PATHS.TRUCK,
                     method: "GET",
@@ -23,7 +28,7 @@ const userApi = rtkQApi.injectEndpoints({
                 method: "POST",
                 data: payload,
             }),
-              invalidatesTags: [{ type: RTK_TAGS.TRUCK, id: "LIST" }],
+            invalidatesTags: [{ type: RTK_TAGS.TRUCK, id: "LIST" }],
         }),
         updateTruck: builder.mutation<truckFormValues, any>({
             query: ({ payload, truckId }) => {
@@ -34,7 +39,7 @@ const userApi = rtkQApi.injectEndpoints({
                     data: payload,
                 };
             },
-              invalidatesTags: [{ type: RTK_TAGS.TRUCK, id: "LIST" }],
+            invalidatesTags: [{ type: RTK_TAGS.TRUCK, id: "LIST" }],
         }),
 
         deleteTruck: builder.mutation<any, string>({
@@ -42,7 +47,7 @@ const userApi = rtkQApi.injectEndpoints({
                 url: `${API_PATHS.TRUCK}/${id}`,
                 method: "DELETE",
             }),
-              invalidatesTags: [{ type: RTK_TAGS.TRUCK, id: "LIST" }],
+            invalidatesTags: [{ type: RTK_TAGS.TRUCK, id: "LIST" }],
         }),
         getUserById: builder.query<any, string>({
             query: (id) => ({

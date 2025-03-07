@@ -7,6 +7,7 @@ import useNotification from "../../../components/UI/Notification"
 import { getErrorMessage } from "../../../utils/helper"
 import { useNavigate } from "react-router-dom"
 import PATH from "../../../navigation/Path"
+import { useEffect } from "react"
 
 const { Title, Paragraph } = Typography
 
@@ -17,6 +18,9 @@ const CreateUser = () => {
     const [registerFunc, { isLoading }] = useRegisterMutation()
     const { showAlert } = useGenericAlert()
     const { openNotification, contextHolder } = useNotification()
+    useEffect(() => {
+        document.title = "Add User | SA Enterprise"
+      }, [])
     const handleAddUser = async (userData: any) => {
         const payload = {
             ...userData,

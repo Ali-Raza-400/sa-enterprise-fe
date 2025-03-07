@@ -2,6 +2,7 @@ export const API_PATHS: { [key: string]: string } = {
 	LOGIN: "login",
 	ITEMS: "items",
 	USER: "users",
+	DASHBOARD_COUNTS: "dashboard/counts",
 	OPRATION:"photo-logs",
 	USER_BY_ROLE: "users/by-role",
 	TRUCK: "trucks",

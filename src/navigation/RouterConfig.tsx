@@ -5,8 +5,6 @@ import ROUTES from "./Routes.tsx";
 import WEB_PAGES from "../pages/index.ts";
 import PATH from "./Path.ts";
 import { useSelector } from "react-redux";
-import ScreenOverlay from "../components/UI/ScreenOverlay.tsx";
-import { LOOKUP_TYPES } from "../utils/lookup.tsx";
 
 // Router Configuration
 function RouterConfig() {
@@ -37,11 +35,7 @@ function RouterConfig() {
 	return (
 		<>
 			{progress && <TopBarProgress />}
-			<ScreenOverlay
-				isApproved={
-					user?.role === LOOKUP_TYPES.Role.STUDENT ? user?.isApproved : true
-				}
-			>
+		
 				<Routes>
 					{ROUTES.map((item) => {
 						const RouteType = item.routeType;
@@ -94,7 +88,6 @@ function RouterConfig() {
 					{/* NO PAGE FOUND */}
 					<Route path={PATH.NOPAGE} element={<WEB_PAGES.NO_PAGE_FOUND />} />
 				</Routes>
-			</ScreenOverlay>
 		</>
 	);
 }

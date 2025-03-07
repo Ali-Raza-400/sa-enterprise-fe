@@ -1,7 +1,9 @@
 import {
+	AutoComplete,
 	Avatar,
 	Button,
 	Dropdown,
+	Input,
 	Layout,
 	Menu,
 	MenuProps,
@@ -12,6 +14,7 @@ import {
 	UserOutlined,
 	MenuFoldOutlined,
 	MenuUnfoldOutlined,
+	SearchOutlined,
 } from "@ant-design/icons";
 import { LayoutProps } from "./type";
 import { useEffect, useState } from "react";
@@ -81,19 +84,19 @@ function PrivateLayout({ children }: LayoutProps) {
 			label: (
 				<div
 					className="flex items-center"
-					// onClick={() => navigate(PATH.INSTITUTE_PROFILE)}
-					onClick={() => {
-						if (user?.role == "Institute") {
-							navigate(PATH.INSTITUTE_PROFILE);
-						} else if (user?.role == "Teacher") {
-							navigate(PATH.TEACHER_PROFILE.replace(":id", user.id));
-						} else if (user?.role == "Student") {
-							navigate(PATH.STUDENT_PROFILE.replace(":tab", "profile"));
-						}
-					}}
+					 onClick={() => navigate(PATH.INSTITUTE_PROFILE)}
+					// onClick={() => {
+					// 	if (user?.role == "Institute") {
+					// 		navigate(PATH.INSTITUTE_PROFILE);
+					// 	} else if (user?.role == "Teacher") {
+					// 		navigate(PATH.TEACHER_PROFILE.replace(":id", user.id));
+					// 	} else if (user?.role == "Student") {
+					// 		navigate(PATH.STUDENT_PROFILE.replace(":tab", "profile"));
+					// 	}
+					// }}
 				>
 					<CgProfile size={20} className="mr-2" />
-					My Profile
+					My Profile ss
 				</div>
 			),
 		},
@@ -138,6 +141,22 @@ function PrivateLayout({ children }: LayoutProps) {
 
 	// 	checkVersion();
 	// }, []);
+	const [searchValue, setSearchValue] = useState<string>("");
+
+	const onSelect = (value: string, option: any) => {
+		setSearchValue(option.label); // Display label instead of value (URL)
+		navigate(value); // Navigate to the selected module
+	};
+	const modules = [
+		{ label: "Dashboard", value: "/admin-dashboard" },
+		{ label: "Manage Trucks", value: "/truck/list" },
+		{ label: "Manage Users", value: "/user/list" },
+		{ label: "Add User", value: "/create-user" },
+		{ label: "Manage Oprations", value: "/operation/list" },
+		{ label: "Add Oprations", value: "/manage-operation/create" },
+	];
+
+
 
 	return (
 		<Layout className={`min-h-screen ${theme.toLowerCase()} mobile-responsive`}>
@@ -156,6 +175,9 @@ function PrivateLayout({ children }: LayoutProps) {
 					position: "fixed",
 					insetInlineStart: 0,
 					top: 0,
+					maxWidth: "220px",
+					minWidth: "220px",
+					width: "220px",
 					zIndex: 2,
 					bottom: 0,
 					scrollbarWidth: "thin",
@@ -178,7 +200,7 @@ function PrivateLayout({ children }: LayoutProps) {
 				</div>
 				<div className="flex flex-col h-full justify-between py-5 px-1">
 					<div>
-						<img src={IMAGES.ALMS_LOGO_NEW2} className="mb-5 w-[60%] mx-auto" />
+						<img src={IMAGES.ALMS_LOGO_NEW2} className="mb-5 w-[60%] mx-auto cursor-pointer" onClick={() => navigate("/admin-dashboard")} />
 						<Menu
 							theme={theme.toLowerCase()}
 							mode="inline"
@@ -248,8 +270,9 @@ function PrivateLayout({ children }: LayoutProps) {
 				</div>
 			</Sider>
 			<Layout className="ms-[4rem] sm:ms-[4.5rem] md:ms-[4.5rem] lg:ms-[12.5rem] xl:ms-[12.5rem]">
+
 				<Header
-					className={`bg-white dark:bg-[#212529] px-8 flex justify-between items-center`}
+					className="bg-white dark:bg-[#212529] px-8 flex justify-between items-center"
 					style={{
 						position: "sticky",
 						top: 0,
@@ -259,7 +282,7 @@ function PrivateLayout({ children }: LayoutProps) {
 						alignItems: "center",
 					}}
 				>
-					<div className="flex items-center gap-2 ">
+					<div className="flex items-center gap-4">
 						<Button
 							type="text"
 							icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
@@ -270,16 +293,37 @@ function PrivateLayout({ children }: LayoutProps) {
 						<Typography variant="headingFour" className="hide-on-mobile">
 							{getPageName()}
 						</Typography>
+
+						{/* Search Bar Moved to the Left Side */}
+						{pathname === "/admin-dashboard" &&
+							<div className="ml-4 w-[250px]">
+								<AutoComplete
+									options={modules}
+									onSelect={onSelect}
+									value={searchValue}
+									allowClear
+									onChange={(value) => setSearchValue(value)} // Update state when typing
+									filterOption={(inputValue, option) =>
+										option!.label.toLowerCase().includes(inputValue.toLowerCase())
+									}
+									style={{ width: "100%" }}
+								>
+									<Input
+										placeholder="Search Modules..."
+										prefix={<SearchOutlined style={{ fontSize: "14px" }} />} // Smaller search icon
+										size="middle"
+									/>
+								</AutoComplete>
+							</div>}
 					</div>
+
 					<div className="flex justify-center items-center gap-2 xs:gap-4">
 						<div className="p-2 rounded-full">
 							<LuBell size={25} color="#8970D6" />
 						</div>
 						<div>
 							<Dropdown
-								menu={{
-									items: profileDropdownItems,
-								}}
+								menu={{ items: profileDropdownItems }}
 								trigger={["click"]}
 								className="profile-dropdown"
 								placement="bottomRight"
@@ -287,9 +331,7 @@ function PrivateLayout({ children }: LayoutProps) {
 							>
 								<Space className="profile-dropdown-space">
 									<Avatar
-										src={
-											IMAGES.PERSON_IMG
-										}
+										src={IMAGES.PERSON_IMG}
 										size={40}
 										className="cursor-pointer"
 										icon={<UserOutlined />}
@@ -303,6 +345,7 @@ function PrivateLayout({ children }: LayoutProps) {
 						</div>
 					</div>
 				</Header>
+
 				<Content className={`p-8 bg-[#F5F5F5] dark:bg-[#212529]`}>
 					<div className={` h-full`}>
 						{!match && (

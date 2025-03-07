@@ -12,6 +12,7 @@ import { useAddTruckMutation, useDeleteTruckMutation, useGetTrucksQuery, useUpda
 import { useGetUserByRoleQuery } from "../../../redux/slices/user";
 import { truckFormValues } from "../../Auth/type";
 import PageLoader from "../../../components/Loader/PageLoader";
+import { useSelector } from "react-redux";
 // import { getErrorMessage } from "../../../utils/helper";
 
 const { Option } = Select;
@@ -43,11 +44,18 @@ const Index = (): ReactElement => {
 	const [form] = Form.useForm();
 	const [selectedTruck, setSelectedTruck] = useState<any>()
 	const [isUpdateModalVisible, setIsUpdateModalVisible] = useState(false);
-	const { data, isLoading: userLoading, isFetching, refetch } = useGetTrucksQuery({
-		page: 1,
-		pageSize: 8,
-	});
-
+	const { user } = useSelector((state: any) => state.auth);
+	const [tableOptions, setTableOptions] = useState({
+		filters: {},
+		pagination: {
+		  page: 1,
+		  pageSize: 10,
+		},
+	  });
+	const { data, isLoading: userLoading, isFetching, refetch } = useGetTrucksQuery(tableOptions);
+	useEffect(() => {
+		document.title = "Manage Trucks | SA Enterprise"
+	  }, [])
 	const [deleteTruck,{isLoading:DeleteTruckLoading}] = useDeleteTruckMutation();
 	const [isModalVisible, setIsModalVisible] = useState(false);
 	const [registerFunc, { isLoading }] = useAddTruckMutation();
@@ -173,11 +181,12 @@ const Index = (): ReactElement => {
 			{/* {contextHolder} */}
 			<Flex className="justify-end mb-4">
 				{/* <SearchFilter position="end" /> */}
+				{user?.role != "supervisor" &&
 				<GenericButton
 					icon={<FaPlus size={20} />}
-					label="Create New Truck"
+					label="Add New Truck"
 					onClick={() => setIsModalVisible(true)}
-				/>
+				/>}
 
 
 				<AddUserModal
@@ -192,7 +201,20 @@ const Index = (): ReactElement => {
 					selectedTruck={selectedTruck}
 				/>
 			</Flex>
-			<GenericTable loading={userLoading||DeleteTruckLoading||updateLoading} columns={columns} data={data ? data.list : []} />
+			<GenericTable
+        loading={userLoading||DeleteTruckLoading||updateLoading}
+        columns={columns}
+        data={data}
+        enablePagination={true}
+        updatePaginationFunc={(data: { page: number; pageSize: number }) => {
+          console.log("data::::", data)
+
+          setTableOptions({ ...tableOptions, pagination: data })
+        }
+        }
+    
+      />
+			{/* <GenericTable loading={userLoading||DeleteTruckLoading||updateLoading} columns={columns} data={data ? data.list : []} /> */}
 		</>
 	);
 };

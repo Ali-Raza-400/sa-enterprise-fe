@@ -14,8 +14,8 @@ function PublicRoute({ element, layout }: RouteTypeProps) {
 		if (user) {
 			window.location.href =
 				user.role === LOOKUP_TYPES.Role.STUDENT
-					? PATH.STUDENT_COURSES_LIST
-					: user.role === LOOKUP_TYPES.Role.TEACHER
+					? PATH.COURSES
+					: user.role === LOOKUP_TYPES.Role.SUPER_ADMIN
 						? PATH.TEACHER_DASHBOARD
 						: PATH.MANAGE_STUDENTS; 
 			// axiosInstance.defaults.headers.common['Authorization'] = 'Bearer YOUR_NEW_TOKEN';
