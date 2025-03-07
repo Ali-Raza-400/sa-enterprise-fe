@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Form, Input, Select, Card, Typography, Upload, Button } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import type { UploadFile } from 'antd/es/upload/interface';
@@ -14,21 +14,28 @@ const { Title, Paragraph } = Typography;
 
 const CreateOperation: React.FC = () => {
   const { Option } = Select;
-  const { data: truck, isLoading: truckLoading } = useGetTrucksQuery({
-    page: 1,
-    pageSize: 8,
+  const [tableOptions, setTableOptions] = useState({
+    filters: {},
+    pagination: {
+      page: 1,
+      pageSize: 10,
+    },
   });
-
+  const { data: truck, isLoading: truckLoading, isFetching, refetch } = useGetTrucksQuery(tableOptions);
+  useEffect(() => {
+    document.title = "Add Opration | SA Enterprise"
+  }, [])
   const { user } = useSelector((state: any) => state.auth);
   console.log("user:::", user)
   const { data: supervisor } = useGetUserByRoleQuery({
     role: 'supervisor',
   });
-  const navigate=useNavigate()
+  const navigate = useNavigate()
   const { openNotification, contextHolder } = useNotification();
   const [form] = Form.useForm();
   const [fileList, setFileList] = useState<UploadFile[]>([]);
-  console.log("fileList", fileList);
+  console.log("truck", truck);
+  console.log("supervisor", supervisor);
 
   const handleSubmit = () => {
     handleUpload();
@@ -48,7 +55,7 @@ const CreateOperation: React.FC = () => {
 
       const formData = new FormData();
       formData.append("truck_id", values.truck_id);
-      formData.append("supervisor_id", values.supervisor_id);
+      formData.append("supervisor_id", user?.role === "supervisor" ? user?.id : values.supervisor_id);
       formData.append("location", values.location);
 
       // Append files correctly
@@ -65,7 +72,7 @@ const CreateOperation: React.FC = () => {
       const response = await fetch("https://sa.wholesalerspk.com/photo-logs/", {
         method: "POST",
         headers: {
-          Authorization:`Bearer ${user?.access_token}`, // Replace with actual token
+          Authorization: `Bearer ${user?.access_token}`, // Replace with actual token
           Accept: "application/json", // Accept header
         },
         body: formData, // FormData should be sent directly
@@ -89,7 +96,7 @@ const CreateOperation: React.FC = () => {
           description: result.message || "Something went wrong.",
         });
       }
-    } catch (error:any) {
+    } catch (error: any) {
       console.error("Upload Error:", error);
       openNotification({
         type: "error",
@@ -107,7 +114,7 @@ const CreateOperation: React.FC = () => {
       <div>
         <div className="mb-6">
           <Title level={3} style={{ margin: 0, marginBottom: "8px" }}>
-            Create New Operation
+            Add New Operation
           </Title>
           <Paragraph type="secondary">Fill in the details to add a new operation to the system</Paragraph>
         </div>
@@ -116,14 +123,15 @@ const CreateOperation: React.FC = () => {
             <Form.Item
               name="supervisor_id"
               label="Supervisor"
-              rules={[{ required: true, message: "Supervisor is required" }]}
+              rules={[{ required: user?.role != "supervisor" && true, message: "Supervisor is required" }]}
             >
               <Select
-                placeholder="Select Supervisor"
+                disabled={user?.role === "supervisor"}
+                placeholder={`${user?.role === "supervisor" ? user.fullName : "Select Supervisor"}`}
                 size="large"
                 style={{ width: "100%" }}
-                dropdownStyle={{ maxHeight: "200px" }}
-                loading={!supervisor}
+                // dropdownStyle={{ maxHeight: "200px" }}
+              // loading={!supervisor}
               >
                 {(supervisor?.list || [])?.map((role: any) => (
                   <Option key={role.id} value={role.id}>

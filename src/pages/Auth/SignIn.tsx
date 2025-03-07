@@ -78,6 +78,7 @@ function Index() {
           email: values?.email,
            fullName: userData?.first_name+" "+userData?.last_name ,
            role: userData?.role ,
+           id: userData?.id ,
           access_token: accessToken,
         } as AuthResponseDTO;
   

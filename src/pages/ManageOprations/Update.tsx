@@ -230,7 +230,7 @@ const UpdateOperation: React.FC = () => {
                         <GenericButton
                             variant="solid"
                             htmlType="submit"
-                            label="Add Operation"
+                            label="Update Operation"
                             // disabled={isLoading}
                             // loading={isLoading}
                             style={{

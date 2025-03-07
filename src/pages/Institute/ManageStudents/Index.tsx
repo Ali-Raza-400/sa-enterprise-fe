@@ -54,7 +54,9 @@ const Index = (): ReactElement => {
       pageSize: 10,
     },
   });
-
+  useEffect(() => {
+    document.title = "Manage Users | SA Enterprise"
+  }, [])
   const [form] = Form.useForm();
   const { data, isLoading: userLoading, isFetching, refetch } = useGetUsersQuery(tableOptions);
   const [deleteUser, { isLoading: deleteUserLoading }] = useDeleteUserMutation();
@@ -210,7 +212,7 @@ const Index = (): ReactElement => {
         {/* <SearchFilter position="end" /> */}
         <GenericButton
           icon={<FaPlus size={20} />}
-          label="Create New User"
+          label="Add New User"
           onClick={() => setIsModalVisible(true)}
         />
 
@@ -238,9 +240,7 @@ const Index = (): ReactElement => {
           setTableOptions({ ...tableOptions, pagination: data })
         }
         }
-      // updatePaginationFunc={(data: any) =>
-      //   setTableOptions({ ...tableOptions, pagination: data.pagination?.metadata })
-      // }
+    
       />
     </>
   );

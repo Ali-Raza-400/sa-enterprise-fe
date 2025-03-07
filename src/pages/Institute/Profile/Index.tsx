@@ -275,14 +275,14 @@ const Index = () => {
 
       <Divider />
 
-      <div className="flex justify-between px-2">
+      {/* <div className="flex justify-between px-2">
         <Typography variant="headingThreeLight">Course Offering</Typography>
         <SearchFilter />
       </div>
 
       <GenericCard>
         <div className="mt-10">{published.gridContent}</div>
-      </GenericCard>
+      </GenericCard> */}
 
       <Form form={form} initialValues={{ ...user }} onFinish={handleFinish}>
         <GenericModal

@@ -6,7 +6,14 @@ import { RTK_TAGS } from "../tags";
 const userApi = rtkQApi.injectEndpoints({
     endpoints: (builder) => ({
         getOprations: builder.query<any, any>({
-            query: (params) => {
+            query: (options) => {
+                console.log("options",options);
+                const params = {
+					...options.tableOptions.filters,
+					skip: `${options.tableOptions.pagination.page-1}0`,
+					limit: options.tableOptions.pagination.pageSize,
+                    supervisor_id:options.supervisor_id
+				};
                 return {
                     url: API_PATHS.OPRATION,
                     method: "GET",
