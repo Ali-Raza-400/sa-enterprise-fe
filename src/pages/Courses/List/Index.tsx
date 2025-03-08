@@ -61,17 +61,17 @@ const Index = (): ReactElement => {
 	const [registerFunc, { isLoading }] = useAddTruckMutation();
 	const [updateTruck, { isLoading: updateLoading }] = useUpdateTruckMutation();
 	console.log("updateLoading",updateLoading);
-	const handleuPDATEUser = async (userData: any) => {
+	const handleUpdateTruck = async (values: any) => {
 		const payload = {
 			truckId: selectedTruck.id,
-			payload: userData,
+			payload: values,
 		};
 		try {
 			await updateTruck(payload).unwrap();
 			showAlert({
 				type: "success",
-				title: `User Updated!`,
-				message: `You have successfully update the user`,
+				title: `Truck Updated!`,
+				message: `You have successfully update the truck`,
 				confirmButtonText: "OK",
 				onConfirm: () => refetch(),
 			});
@@ -79,15 +79,15 @@ const Index = (): ReactElement => {
 		}
 	};
 	console.log("isLoading", isLoading, isFetching);
-	const handleAddUser = async (userData: any) => {
+	const handleAddTruck = async (values: any) => {
 		const payload = {
-			...userData,
+			...values,
 		};
 		try {
 			await registerFunc(payload).unwrap();
 			showAlert({
 				type: "success",
-				title: `Truck registered!`,
+				title: `Truck created!`,
 				message: `You have successfully created truck.`,
 				confirmButtonText: "OK",
 				onConfirm: () => refetch(),
@@ -124,7 +124,7 @@ const Index = (): ReactElement => {
 					showAlert({
 						type: "error",
 						title: `Deletion Failed`,
-						message: `An error occurred while deleting the user. Please try again.`,
+						message: `An error occurred while deleting the truck. Please try again.`,
 					});
 				}
 			},
@@ -192,12 +192,12 @@ const Index = (): ReactElement => {
 				<AddUserModal
 					isVisible={isModalVisible}
 					onClose={() => setIsModalVisible(false)}
-					onAddUser={handleAddUser}
+					onAddUser={handleAddTruck}
 				/>
 				<UpdateUserModal
 					isVisible={isUpdateModalVisible}
 					onClose={() => setIsUpdateModalVisible(false)}
-					onUpdateTruck={handleuPDATEUser}
+					onUpdateTruck={handleUpdateTruck}
 					selectedTruck={selectedTruck}
 				/>
 			</Flex>

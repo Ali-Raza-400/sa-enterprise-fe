@@ -109,9 +109,9 @@ const OprationsList = () => {
 			width: 120,
 			render: (obj: any) => (
 				<ActionDropdown
-					viewProfileOnClick={() => {
-					  navigate(PATH.STUDENT_PROFILE);
-					}}
+					// viewProfileOnClick={() => {
+					//   navigate(PATH.STUDENT_PROFILE);
+					// }}
 					editOnClick={() => navigate(PATH.MANAGE_OPRATION_UPDATE, {
 						state: obj
 					})}
