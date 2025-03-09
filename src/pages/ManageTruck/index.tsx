@@ -44,7 +44,7 @@ interface TruckType {
 
 const Index = (): ReactElement => {
 	const [form] = Form.useForm();
-	const [selectedTruck, setSelectedTruck] = useState<any>()
+	const [selectedTruck, _setSelectedTruck] = useState<any>()
 	const [isUpdateModalVisible, setIsUpdateModalVisible] = useState(false);
 	const { user } = useSelector((state: any) => state.auth);
     const navigate=useNavigate()
@@ -103,10 +103,10 @@ const Index = (): ReactElement => {
 			// });
 		}
 	};
-	const onEdit = (truck: any) => {
-		setIsUpdateModalVisible(true)
-		setSelectedTruck(truck)
-	};
+	// const onEdit = (truck: any) => {
+	// 	setIsUpdateModalVisible(true)
+	// 	setSelectedTruck(truck)
+	// };
 	const { showAlert } = useGenericAlert();
 	const onDelete = async (id: string) => {
 		showAlert({
