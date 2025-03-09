@@ -118,7 +118,7 @@ export const items = [
 		children: [
 			{
 				key: PATH.TRUCK,
-				icon: <IoBookSharp />,
+				icon: <MdLocalShipping />,
 				label: <Link to={PATH.TRUCK}>{STRINGS.TRUCKS}</Link>,
 			},
 			{
