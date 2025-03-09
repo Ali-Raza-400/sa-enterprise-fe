@@ -1,6 +1,6 @@
 import { ReactElement, useEffect, useState } from "react";
-import { Button, Flex, TableProps } from "antd";
-import ActionDropdown from "../../../components/UI/ActionDropdown";
+import { Button, Flex, TableProps, Tooltip } from "antd";
+import { EyeOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import useGenericAlert from "../../../components/Hooks/GenericAlert";
 import GenericTable from "../../../components/UI/GenericTable";
 import GenericButton from "../../../components/UI/GenericButton";
@@ -9,6 +9,8 @@ import { useGetUsersQuery, useUpdateUserMutation } from "../../../redux/slices/u
 import { Modal, Form, Input, Select } from "antd";
 import { useDeleteUserMutation, useRegisterMutation } from "../../../redux/slices/auth";
 import PageLoader from "../../../components/Loader/PageLoader";
+import PATH from "../../../navigation/Path";
+import { useNavigate } from "react-router-dom";
 
 const { Option } = Select;
 interface UserFormValues {
@@ -45,7 +47,8 @@ interface StudentType {
 }
 
 const Index = (): ReactElement => {
-  const [selectedUser, setSelectedUser] = useState<any>()
+  const [selectedUser, _setSelectedUser] = useState<any>()
+    const navigate = useNavigate()
   console.log("selectedUser", selectedUser);
   const [tableOptions, setTableOptions] = useState({
     filters: {},
@@ -70,7 +73,7 @@ const Index = (): ReactElement => {
     const payload = {
       ...userData,
     };
-    console.log("payload::::",payload)
+    console.log("payload::::", payload)
     try {
       await registerFunc(payload).unwrap();
       showAlert({
@@ -88,10 +91,10 @@ const Index = (): ReactElement => {
       // });
     }
   };
-  const onEdit = (user: any) => {
-    setIsUpdateModalVisible(true)
-    setSelectedUser(user)
-  };
+  // const onEdit = (user: any) => {
+  //   setIsUpdateModalVisible(true)
+  //   setSelectedUser(user)
+  // };
   const handleuPDATEUser = async (userData: any) => {
     const payload = {
       userId: selectedUser.id,
@@ -189,16 +192,49 @@ const Index = (): ReactElement => {
       key: "action",
       fixed: "right",
       width: 120,
-      render: (obj) => (
-        <ActionDropdown
-          // viewProfileOnClick={() => {
-          //   navigate(PATH.STUDENT_PROFILE);
-          // }}
+      render: (obj: any) => (
+				<div style={{ display: "flex", gap: "15px" }}>
+					<Tooltip title="View">
+						<EyeOutlined
+							onClick={() => navigate(PATH.MANAGE_USER_VIEW, {
+                state: obj
+              })}
+							style={{ color: "#007bff", cursor: "pointer" }}
+						/>
+					</Tooltip>
 
-          editOnClick={() => onEdit(obj)}
-          deleteOnClick={() => onDelete(obj?.id)}
-        />
-      ),
+				
+							<Tooltip title="Edit">
+								<EditOutlined
+									onClick={() => navigate(PATH.MANAGE_USER_UPDATE, {
+                    state: obj
+                  })}
+									style={{ color: "#ffa500", cursor: "pointer" }}
+								/>
+							</Tooltip>
+
+							<Tooltip title="Delete">
+								<DeleteOutlined
+									onClick={() => onDelete(obj.id)}
+									style={{ color: "#dc3545", cursor: "pointer" }}
+								/>
+							</Tooltip>
+						
+				</div>
+			),
+      // render: (obj: any) => (
+      //   <ActionDropdown
+      //     viewProfileOnClick={() => navigate(PATH.MANAGE_USER_VIEW, {
+      //       state: obj
+      //     })}
+      //     editOnClick={() => navigate(PATH.MANAGE_USER_UPDATE, {
+      //       state: obj
+      //     })}
+      //     // editOnClick={() => navigate(PATH.MANAGE_OPRATION_CREATE)}
+      //     deleteOnClick={() => onDelete(obj?.id)}
+      //   />
+      // ),
+    
     },
   ];
   if (userLoading || update || deleteUserLoading) {
@@ -240,7 +276,7 @@ const Index = (): ReactElement => {
           setTableOptions({ ...tableOptions, pagination: data })
         }
         }
-    
+
       />
     </>
   );

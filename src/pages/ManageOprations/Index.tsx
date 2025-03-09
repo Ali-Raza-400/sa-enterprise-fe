@@ -1,8 +1,9 @@
 import { Spin, Image, TableProps } from "antd";
+import { EyeOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons"; 
+import { Tooltip } from "antd";
 import { useEffect, useState } from "react";
 import { useDeleteOprationMutation, useGetOprationsQuery } from "../../redux/slices/opration";
 import GenericTable from "../../components/UI/GenericTable";
-import ActionDropdown from "../../components/UI/ActionDropdown";
 import useGenericAlert from "../../components/Hooks/GenericAlert";
 import PATH from "../../navigation/Path";
 import { useNavigate } from "react-router-dom";
@@ -56,7 +57,8 @@ const OprationsList = () => {
 		id: string;
 		location: string;
 		photo_urls: string;
-		truck_id: string;
+		driver_name: string;
+		truck_plate: string;
 		supervisor_id: string;
 	}
 	const columns: TableProps<OprationType>["columns"] = [
@@ -91,14 +93,20 @@ const OprationsList = () => {
 		},
 		{
 			title: "Supervisor",
-			dataIndex: "supervisor_id",
-			key: "supervisor_id",
+			dataIndex: "supervisor_name",
+			key: "supervisor_name",
+			width: 200,
+		},
+		{
+			title: "Driver",
+			dataIndex: "driver_name",
+			key: "driver_name",
 			width: 200,
 		},
 		{
 			title: "Truck",
-			dataIndex: "truck_id",
-			key: "truck_id",
+			dataIndex: "truck_plate",
+			key: "truck_plate",
 			width: 200,
 
 		},
@@ -106,19 +114,51 @@ const OprationsList = () => {
 			title: "Actions", // Updated title for actions
 			key: "action",
 			fixed: "right",
-			width: 120,
+			width: 50,
 			render: (obj: any) => (
-				<ActionDropdown
-					// viewProfileOnClick={() => {
-					//   navigate(PATH.STUDENT_PROFILE);
-					// }}
-					editOnClick={() => navigate(PATH.MANAGE_OPRATION_UPDATE, {
-						state: obj
-					})}
-					// editOnClick={() => navigate(PATH.MANAGE_OPRATION_CREATE)}
-					deleteOnClick={() => onDelete(obj.id)}
-				/>
+				<div style={{ display: "flex", gap: "15px" }}>
+					{/* View Icon (Blue) */}
+					<Tooltip title="View">
+						<EyeOutlined
+							onClick={() => navigate(PATH.MANAGE_OPRATION_VIEW, { state: obj })}
+							style={{ color: "#007bff", cursor: "pointer" }}
+						/>
+					</Tooltip>
+
+					{user?.role !== "supervisor" && (
+						<>
+							{/* Edit Icon (Orange) */}
+							<Tooltip title="Edit">
+								<EditOutlined
+									onClick={() => navigate(PATH.MANAGE_OPRATION_UPDATE, { state: obj })}
+									style={{ color: "#ffa500", cursor: "pointer" }}
+								/>
+							</Tooltip>
+
+							{/* Delete Icon (Red) */}
+							<Tooltip title="Delete">
+								<DeleteOutlined
+									onClick={() => onDelete(obj.id)}
+									style={{ color: "#dc3545", cursor: "pointer" }}
+								/>
+							</Tooltip>
+						</>
+					)}
+				</div>
 			),
+			// render: (obj: any) => (
+			// 	<ActionDropdown
+			// 		viewProfileOnClick={() => navigate(PATH.MANAGE_OPRATION_VIEW, {
+			// 			state: obj
+			// 		})}
+			// 		{...(user?.role !== "supervisor" && {
+			// 			editOnClick: () => navigate(PATH.MANAGE_OPRATION_UPDATE, {
+			// 				state: obj
+			// 			}),
+			// 			deleteOnClick: () => onDelete(obj.id)
+			// 		})}
+			// 	/>
+			// ),
 		},
 	];
 	return (

@@ -1,8 +1,8 @@
 import { ReactElement, useEffect, useState } from "react";
-import { Button, Flex, TableProps } from "antd";
+import { Button, Flex, TableProps, Tooltip } from "antd";
+import { EyeOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
 // import useNotification from "antd/es/notification/useNotification";
 // import SearchFilter from "../../../components/UI/SearchFilter";
-import ActionDropdown from "../../../components/UI/ActionDropdown";
 import useGenericAlert from "../../../components/Hooks/GenericAlert";
 import GenericTable from "../../../components/UI/GenericTable";
 import GenericButton from "../../../components/UI/GenericButton";
@@ -48,15 +48,15 @@ const Index = (): ReactElement => {
 	const [tableOptions, setTableOptions] = useState({
 		filters: {},
 		pagination: {
-		  page: 1,
-		  pageSize: 10,
+			page: 1,
+			pageSize: 10,
 		},
-	  });
+	});
 	const { data, isLoading: userLoading, isFetching, refetch } = useGetTrucksQuery(tableOptions);
 	useEffect(() => {
 		document.title = "Manage Trucks | SA Enterprise"
-	  }, [])
-	const [deleteTruck,{isLoading:DeleteTruckLoading}] = useDeleteTruckMutation();
+	}, [])
+	const [deleteTruck, { isLoading: DeleteTruckLoading }] = useDeleteTruckMutation();
 	const [isModalVisible, setIsModalVisible] = useState(false);
 	const [registerFunc, { isLoading }] = useAddTruckMutation();
 	const [updateTruck, { isLoading: updateLoading }] = useUpdateTruckMutation();
@@ -161,19 +161,41 @@ const Index = (): ReactElement => {
 			key: "action",
 			fixed: "right",
 			width: 120,
-			render: (obj) => (
-				<ActionDropdown
-					// viewProfileOnClick={() => {
-					// 	navigate(PATH.STUDENT_PROFILE);
-					// }}
-					editOnClick={() => onEdit(obj)}
-					deleteOnClick={() => onDelete(obj?.id)}
-				/>
+			render: (obj: any) => (
+				<div style={{ display: "flex", gap: "15px" }}>
+					{/* View Icon (Blue) */}
+					<Tooltip title="View">
+						<EyeOutlined
+							onClick={() => onEdit(obj)}
+							style={{ color: "#007bff", cursor: "pointer" }}
+						/>
+					</Tooltip>
+
+					{user?.role !== "supervisor" && (
+						<>
+							{/* Edit Icon (Orange) */}
+							<Tooltip title="Edit">
+								<EditOutlined
+									onClick={() => onEdit(obj)}
+									style={{ color: "#ffa500", cursor: "pointer" }}
+								/>
+							</Tooltip>
+
+							{/* Delete Icon (Red) */}
+							<Tooltip title="Delete">
+								<DeleteOutlined
+									onClick={() => onDelete(obj.id)}
+									style={{ color: "#dc3545", cursor: "pointer" }}
+								/>
+							</Tooltip>
+						</>
+					)}
+				</div>
 			),
 		},
 	];
-	if(updateLoading||DeleteTruckLoading||isLoading){
-		return <><PageLoader/></>
+	if (updateLoading || DeleteTruckLoading || isLoading) {
+		return <><PageLoader /></>
 	}
 
 	return (
@@ -182,12 +204,11 @@ const Index = (): ReactElement => {
 			<Flex className="justify-end mb-4">
 				{/* <SearchFilter position="end" /> */}
 				{user?.role != "supervisor" &&
-				<GenericButton
-					icon={<FaPlus size={20} />}
-					label="Add New Truck"
-					onClick={() => setIsModalVisible(true)}
-				/>}
-
+					<GenericButton
+						icon={<FaPlus size={20} />}
+						label="Add New Truck"
+						onClick={() => setIsModalVisible(true)}
+					/>}
 
 				<AddUserModal
 					isVisible={isModalVisible}
@@ -202,18 +223,18 @@ const Index = (): ReactElement => {
 				/>
 			</Flex>
 			<GenericTable
-        loading={userLoading||DeleteTruckLoading||updateLoading}
-        columns={columns}
-        data={data}
-        enablePagination={true}
-        updatePaginationFunc={(data: { page: number; pageSize: number }) => {
-          console.log("data::::", data)
+				loading={userLoading || DeleteTruckLoading || updateLoading}
+				columns={columns}
+				data={data}
+				enablePagination={true}
+				updatePaginationFunc={(data: { page: number; pageSize: number }) => {
+					console.log("data::::", data)
 
-          setTableOptions({ ...tableOptions, pagination: data })
-        }
-        }
-    
-      />
+					setTableOptions({ ...tableOptions, pagination: data })
+				}
+				}
+
+			/>
 			{/* <GenericTable loading={userLoading||DeleteTruckLoading||updateLoading} columns={columns} data={data ? data.list : []} /> */}
 		</>
 	);
