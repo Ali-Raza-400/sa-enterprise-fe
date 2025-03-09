@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Form, Input, Select, Card, Typography, Upload, Button, Image } from 'antd';
-import { CloseOutlined, UploadOutlined } from '@ant-design/icons';
+import { Form, Input, Select, Card, Typography, Image } from 'antd';
 import { useLocation, useNavigate } from "react-router-dom";
 import type { UploadFile } from 'antd/es/upload/interface';
 import { useGetTrucksQuery } from '../../redux/slices/truck';
@@ -9,11 +8,11 @@ import GenericButton from '../../components/UI/GenericButton';
 import { useSelector } from 'react-redux';
 import PATH from '../../navigation/Path';
 
-const { Title, Paragraph } = Typography;
+const { Title } = Typography;
 
 const ViewOperation: React.FC = () => {
     const { Option } = Select;
-    const [tableOptions, setTableOptions] = useState({
+    const [tableOptions, _setTableOptions] = useState({
         filters: {},
         pagination: {
           page: 1,

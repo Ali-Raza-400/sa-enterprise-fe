@@ -15,7 +15,7 @@ const { Title, Paragraph } = Typography;
 const UpdateOperation: React.FC = () => {
     const { Option } = Select;
    
-    const [tableOptions, setTableOptions] = useState({
+    const [tableOptions, _setTableOptions] = useState({
 		filters: {},
 		pagination: {
 		  page: 1,

@@ -3,7 +3,6 @@ import { Button, Flex, TableProps, Tooltip } from "antd";
 import { EyeOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
 // import useNotification from "antd/es/notification/useNotification";
 // import SearchFilter from "../../../components/UI/SearchFilter";
-import ActionDropdown from "../../../components/UI/ActionDropdown";
 import useGenericAlert from "../../../components/Hooks/GenericAlert";
 import GenericTable from "../../../components/UI/GenericTable";
 import GenericButton from "../../../components/UI/GenericButton";
@@ -61,18 +60,18 @@ const Index = (): ReactElement => {
 	const [isModalVisible, setIsModalVisible] = useState(false);
 	const [registerFunc, { isLoading }] = useAddTruckMutation();
 	const [updateTruck, { isLoading: updateLoading }] = useUpdateTruckMutation();
-	console.log("updateLoading", updateLoading);
-	const handleuPDATEUser = async (userData: any) => {
+	console.log("updateLoading",updateLoading);
+	const handleUpdateTruck = async (values: any) => {
 		const payload = {
 			truckId: selectedTruck.id,
-			payload: userData,
+			payload: values,
 		};
 		try {
 			await updateTruck(payload).unwrap();
 			showAlert({
 				type: "success",
-				title: `User Updated!`,
-				message: `You have successfully update the user`,
+				title: `Truck Updated!`,
+				message: `You have successfully update the truck`,
 				confirmButtonText: "OK",
 				onConfirm: () => refetch(),
 			});
@@ -80,15 +79,15 @@ const Index = (): ReactElement => {
 		}
 	};
 	console.log("isLoading", isLoading, isFetching);
-	const handleAddUser = async (userData: any) => {
+	const handleAddTruck = async (values: any) => {
 		const payload = {
-			...userData,
+			...values,
 		};
 		try {
 			await registerFunc(payload).unwrap();
 			showAlert({
 				type: "success",
-				title: `Truck registered!`,
+				title: `Truck created!`,
 				message: `You have successfully created truck.`,
 				confirmButtonText: "OK",
 				onConfirm: () => refetch(),
@@ -125,7 +124,7 @@ const Index = (): ReactElement => {
 					showAlert({
 						type: "error",
 						title: `Deletion Failed`,
-						message: `An error occurred while deleting the user. Please try again.`,
+						message: `An error occurred while deleting the truck. Please try again.`,
 					});
 				}
 			},
@@ -214,12 +213,12 @@ const Index = (): ReactElement => {
 				<AddUserModal
 					isVisible={isModalVisible}
 					onClose={() => setIsModalVisible(false)}
-					onAddUser={handleAddUser}
+					onAddUser={handleAddTruck}
 				/>
 				<UpdateUserModal
 					isVisible={isUpdateModalVisible}
 					onClose={() => setIsUpdateModalVisible(false)}
-					onUpdateTruck={handleuPDATEUser}
+					onUpdateTruck={handleUpdateTruck}
 					selectedTruck={selectedTruck}
 				/>
 			</Flex>

@@ -1,7 +1,6 @@
 import { ReactElement, useEffect, useState } from "react";
 import { Button, Flex, TableProps, Tooltip } from "antd";
 import { EyeOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
-import ActionDropdown from "../../../components/UI/ActionDropdown";
 import useGenericAlert from "../../../components/Hooks/GenericAlert";
 import GenericTable from "../../../components/UI/GenericTable";
 import GenericButton from "../../../components/UI/GenericButton";
@@ -48,7 +47,7 @@ interface StudentType {
 }
 
 const Index = (): ReactElement => {
-  const [selectedUser, setSelectedUser] = useState<any>()
+  const [selectedUser, _setSelectedUser] = useState<any>()
     const navigate = useNavigate()
   console.log("selectedUser", selectedUser);
   const [tableOptions, setTableOptions] = useState({
@@ -92,10 +91,10 @@ const Index = (): ReactElement => {
       // });
     }
   };
-  const onEdit = (user: any) => {
-    setIsUpdateModalVisible(true)
-    setSelectedUser(user)
-  };
+  // const onEdit = (user: any) => {
+  //   setIsUpdateModalVisible(true)
+  //   setSelectedUser(user)
+  // };
   const handleuPDATEUser = async (userData: any) => {
     const payload = {
       userId: selectedUser.id,

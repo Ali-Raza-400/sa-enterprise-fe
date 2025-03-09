@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Form, Input, Button, Select, message } from "antd";
+import { Form, Input, Select } from "antd";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useUpdateUserMutation } from "../../../redux/slices/user";
 import GenericButton from "../../../components/UI/GenericButton";
@@ -23,7 +23,7 @@ const ViewUser: React.FC = () => {
     const navigate = useNavigate();
     const selectedUser = location.state;
 
-    const [updateUser, { isLoading }] = useUpdateUserMutation();
+    const [_updateUser, { isLoading }] = useUpdateUserMutation();
 
     useEffect(() => {
         if (selectedUser) {
@@ -33,7 +33,7 @@ const ViewUser: React.FC = () => {
         }
     }, [selectedUser, form]);
 
-    const handleSubmit = async (values: UserFormValues) => {
+    const handleSubmit = async (_values: UserFormValues) => {
         navigate("/user/list");
     };
 

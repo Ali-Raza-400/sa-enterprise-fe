@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Form, Input, Button, Select, message } from "antd";
+import { Form, Input, Select, message } from "antd";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useUpdateUserMutation } from "../../../redux/slices/user";
 import GenericButton from "../../../components/UI/GenericButton";

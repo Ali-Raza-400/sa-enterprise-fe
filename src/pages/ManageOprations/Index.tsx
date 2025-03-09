@@ -1,10 +1,9 @@
 import { Spin, Image, TableProps } from "antd";
 import { EyeOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons"; 
-import { Button, Tooltip } from "antd";
+import { Tooltip } from "antd";
 import { useEffect, useState } from "react";
 import { useDeleteOprationMutation, useGetOprationsQuery } from "../../redux/slices/opration";
 import GenericTable from "../../components/UI/GenericTable";
-import ActionDropdown from "../../components/UI/ActionDropdown";
 import useGenericAlert from "../../components/Hooks/GenericAlert";
 import PATH from "../../navigation/Path";
 import { useNavigate } from "react-router-dom";

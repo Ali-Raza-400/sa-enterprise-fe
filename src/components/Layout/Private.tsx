@@ -157,21 +157,21 @@ function PrivateLayout({ children }: LayoutProps) {
 	];
 
 
-	const styles = {
-		footer: {
-			backgroundColor: "#006400", // Dark green color
-			color: "#ffffff", // White text
-			textAlign: "center",
-			padding: "10px 0",
-			position: "fixed",
-			bottom: 0,
-			width: "100%",
-			fontSize: "14px",
-		},
-		text: {
-			margin: 0,
-		},
-	};
+	// const styles = {
+	// 	footer: {
+	// 		backgroundColor: "#006400", // Dark green color
+	// 		color: "#ffffff", // White text
+	// 		textAlign: "center",
+	// 		padding: "10px 0",
+	// 		position: "fixed",
+	// 		bottom: 0,
+	// 		width: "100%",
+	// 		fontSize: "14px",
+	// 	},
+	// 	text: {
+	// 		margin: 0,
+	// 	},
+	// };
 	return (
 		<Layout className={`min-h-screen ${theme.toLowerCase()} mobile-responsive`}>
 			<Sider
