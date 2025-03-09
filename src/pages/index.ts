@@ -87,6 +87,10 @@ const STUDENT_ENROLLED_COURSES = React.lazy(
 
 //Courses
 const COURSES = React.lazy(() => import("./Courses/List/Index"));
+const TRUCK = React.lazy(() => import("./ManageTruck/index"));
+const VIEW_TRUCK = React.lazy(() => import("./ManageTruck/view/index"));
+const UPDATE_TRUCK = React.lazy(() => import("./ManageTruck/UpdateTruck/index"));
+const ADD_TRUCK = React.lazy(() => import("./ManageTruck/AddTruck/index"));
 const COURSE_VIEW = React.lazy(() => import("./Courses/View/View"));
 const NEW_COURSE = React.lazy(() => import("./Courses/Generate/Index"));
 const STUDENT_COURSES_LIST = React.lazy(
@@ -147,7 +151,11 @@ const WEB_PAGES = {
 
 	//Courses
 	COURSES,
+	TRUCK,
+	VIEW_TRUCK,
 	COURSE_VIEW,
+	UPDATE_TRUCK,
+	ADD_TRUCK,
 
 	//STUDENT
 	STUDENT_PROFILE,

@@ -1294,11 +1294,26 @@ h6 {
   font-size: 16px;
 }
 
-.ant-layout-sider{
-  min-width: 200px !important;
+.ant-layout-sider {
+  min-width: 50px !important;
   width: 220px !important;
-  max-width: 220px !important;
 }
+
+@media (max-width: 768px) { /* Small screens */
+  .ant-layout-sider {
+    max-width: 0px !important;
+    width: 0px !important;
+    overflow: hidden;
+  }
+}
+
+@media (min-width: 1024px) { /* Large screens */
+  .ant-layout-sider {
+    max-width: 220px !important;
+    width: 220px !important;
+  }
+}
+
 
 .ant-table-thead {
   background: radial-gradient(circle, #e5e7eb, #d1d5db) !important;

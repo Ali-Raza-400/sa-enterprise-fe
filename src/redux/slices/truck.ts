@@ -49,6 +49,12 @@ const userApi = rtkQApi.injectEndpoints({
             }),
             invalidatesTags: [{ type: RTK_TAGS.TRUCK, id: "LIST" }],
         }),
+        getTruckById: builder.query<any, string>({
+            query: (id) => ({
+                url: `${API_PATHS.TRUCK}/${id}`,
+                method: "GET",
+            }),
+        }),
         getUserById: builder.query<any, string>({
             query: (id) => ({
                 url: `${API_PATHS.USER}/${id}`,
@@ -157,4 +163,5 @@ export const {
     useLazyGetStatesQuery,
     useGetCitiesQuery,
     useLazyGetCitiesQuery,
+    useGetTruckByIdQuery
 } = userApi;

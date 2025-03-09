@@ -2,19 +2,18 @@ import PATH from "../../../navigation/Path";
 // import { RiCoupon3Fill, RiMoneyDollarCircleFill } from "react-icons/ri";
 import STRINGS from "../../../utils/strings";
 import { Link } from "react-router-dom";
-import { MdDashboard, MdPerson } from "react-icons/md";
+import { MdDashboard, MdLocalShipping, MdPerson } from "react-icons/md";
 import { FaBookOpen } from "react-icons/fa6";
 // import { FaBookOpen, FaHandHoldingDollar } from "react-icons/fa6";
 import { IoBookSharp, IoDocumentText } from "react-icons/io5";
 import { PiUsersFill } from "react-icons/pi";
 import { LOOKUP_TYPES } from "../../../utils/lookup";
-import { TiUserAdd } from "react-icons/ti";
-import { FaFolderPlus } from "react-icons/fa";
+import { FaFolderPlus, FaPlusSquare, FaTruck } from "react-icons/fa";
 import { CiSettings } from "react-icons/ci";
 // import { RiCoupon3Fill, RiMoneyDollarCircleFill } from "react-icons/ri";
 
 export const items = [
-	
+
 	{
 		key: PATH.STUDENT_DASHBOARD,
 		icon: <MdDashboard />,
@@ -48,13 +47,8 @@ export const items = [
 		label: <Link to={PATH.STUDENT_COURSES_LIST}>{STRINGS.COURSES}</Link>,
 		show: true,
 	},
-	
-	{
-		key: PATH.COURSES,
-		icon: <IoBookSharp />,
-		label: <Link to={PATH.COURSES}>{STRINGS.COURSES}</Link>,
-		show: true,
-	},
+
+
 	{
 		key: PATH.STUDENTS,
 		icon: <PiUsersFill />,
@@ -73,7 +67,7 @@ export const items = [
 	// 	label: <Link to={PATH.MANAGE_STUDENTS}>{STRINGS.MANAGE_STUDENTS}</Link>,
 	// 	show: true,
 	// },
-	
+
 	{
 		key: STRINGS.USERNAME,
 		icon: <PiUsersFill />,
@@ -82,8 +76,8 @@ export const items = [
 		children: [
 			{
 				key: PATH.MANAGE_STUDENTS,
-				icon:<PiUsersFill />,
-				label:<Link to={PATH.MANAGE_STUDENTS}>{STRINGS.USER}</Link>,
+				icon: <PiUsersFill />,
+				label: <Link to={PATH.MANAGE_STUDENTS}>{STRINGS.USER}</Link>,
 			},
 			{
 				key: PATH.CREATE_USER,
@@ -100,8 +94,8 @@ export const items = [
 		children: [
 			{
 				key: PATH.MANAGE_OPRATION,
-				icon:<PiUsersFill />,
-				label:<Link to={PATH.MANAGE_OPRATION}>{STRINGS.OPRATION}</Link>,
+				icon: <PiUsersFill />,
+				label: <Link to={PATH.MANAGE_OPRATION}>{STRINGS.OPRATION}</Link>,
 			},
 			{
 				key: PATH.MANAGE_OPRATION_CREATE,
@@ -110,25 +104,37 @@ export const items = [
 			},
 		],
 	},
+	// {
+	// 	key: PATH.TRUCK,
+	// 	icon: <IoBookSharp />,
+	// 	label: <Link to={PATH.TRUCK}>{STRINGS.TRUCK}</Link>,
+	// 	show: true,
+	// },
 	{
-		key: STRINGS.REQUESTS,
-		icon: <FaFolderPlus />,
-		label: STRINGS.REQUESTS,
+		key: STRINGS.TRUCK,
+		icon: <FaTruck />,
+		label: STRINGS.TRUCK,
 		show: true,
 		children: [
 			{
-				key: PATH.REGISTRATION_REQUEST,
-				icon: <TiUserAdd size={18} />,
-				label: (
-					<Link to={PATH.REGISTRATION_REQUEST}>
-						{STRINGS.REGISTRATION_REQUEST}
-					</Link>
-				),
+				key: PATH.TRUCK,
+				icon: <IoBookSharp />,
+				label: <Link to={PATH.TRUCK}>{STRINGS.TRUCKS}</Link>,
 			},
 			{
-				key: PATH.COURSE_REQUEST,
+				key: PATH.VIEW_TRUCK,
+				icon: <MdLocalShipping size={18} />,
+				label: <Link to={PATH.VIEW_TRUCK}>{STRINGS.VIEW_TRUCK}</Link>,
+			},
+			{
+				key: PATH.UPDATE_TRUCK,
 				icon: <FaBookOpen size={18} />,
-				label: <Link to={PATH.COURSE_REQUEST}>{STRINGS.COURSE_REQUEST}</Link>,
+				label: <Link to={PATH.UPDATE_TRUCK}>{STRINGS.UPDATE_TRUCK}</Link>,
+			},
+			{
+				key: PATH.ADD_TRUCK,
+				icon: <FaPlusSquare size={18} />,
+				label: <Link to={PATH.ADD_TRUCK}>{STRINGS.ADD_TRUCK}</Link>,
 			},
 		],
 	},
@@ -172,25 +178,27 @@ export const roleBasedItems = {
 		PATH.EARNINGS,
 		// PATH.REGISTRATION_REQUEST,
 		// PATH.COURSE_REQUEST,
-		 PATH.COURSES,
+		PATH.TRUCK,
+		// PATH.VIEW_TRUCK,
+		PATH.ADD_TRUCK
 
 		// PATH.INSTITUTE_SETTINGS,
 	],
 	/** STUDENT */
 	[LOOKUP_TYPES.Role.STUDENT]: [
 		// PATH.STUDENT_DASHBOARD,
-		PATH.COURSES,
+		PATH.TRUCK,
 		PATH.MANAGE_OPRATION,
 		PATH.MANAGE_OPRATION_CREATE,
 
 	],
 	/** TEACHER */
 	[LOOKUP_TYPES.Role.TEACHER]: [
-		PATH.COURSES,
+		PATH.TRUCK,
 		PATH.STUDENTS,
 	],
 	/** INDIVIDUAL */
-	[LOOKUP_TYPES.Role.INDIVIDUAL]: [PATH.COURSES],
+	[LOOKUP_TYPES.Role.INDIVIDUAL]: [PATH.TRUCK],
 	/** SUPER ADMIN */
 	// [LOOKUP_TYPES.Role.SUPER_ADMIN]: [],
 	/** TEACHING ASSISTANT */
