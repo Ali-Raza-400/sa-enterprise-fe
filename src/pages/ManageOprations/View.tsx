@@ -1,108 +1,46 @@
 import React, { useEffect, useState } from 'react';
-import { Form, Input, Select, Card, Typography, Upload, Button } from 'antd';
+import { Form, Input, Select, Card, Typography, Upload, Button, Image } from 'antd';
 import { CloseOutlined, UploadOutlined } from '@ant-design/icons';
 import { useLocation, useNavigate } from "react-router-dom";
 import type { UploadFile } from 'antd/es/upload/interface';
 import { useGetTrucksQuery } from '../../redux/slices/truck';
 import { useGetUserByRoleQuery } from '../../redux/slices/user';
-import useNotification from '../../components/UI/Notification';
 import GenericButton from '../../components/UI/GenericButton';
 import { useSelector } from 'react-redux';
 import PATH from '../../navigation/Path';
 
 const { Title, Paragraph } = Typography;
 
-const UpdateOperation: React.FC = () => {
+const ViewOperation: React.FC = () => {
     const { Option } = Select;
-   
     const [tableOptions, setTableOptions] = useState({
-		filters: {},
-		pagination: {
-		  page: 1,
-		  pageSize: 10,
-		},
-	  });
-	const { data: truck, isLoading: truckLoading } = useGetTrucksQuery(tableOptions);
+        filters: {},
+        pagination: {
+          page: 1,
+          pageSize: 10,
+        },
+      });
+    const { data: truck, isLoading: truckLoading } = useGetTrucksQuery(tableOptions);
     const navigate = useNavigate()
     const location = useLocation();
     const editData = location?.state;
+    console.log("locationData", editData);
     const { user } = useSelector((state: any) => state.auth);
+    console.log("user:::", user)
     const { data: supervisor } = useGetUserByRoleQuery({
         role: 'supervisor',
     });
 
-    const { openNotification, contextHolder } = useNotification();
     const [form] = Form.useForm();
     const [fileList, setFileList] = useState<UploadFile[]>([]);
+    console.log("fileList", fileList);
 
     const handleSubmit = () => {
-        handleUpload();
+        navigate(PATH.MANAGE_OPRATION)
     };
 
-    const handleUpload = async () => {
-        try {
-            const values = await form.validateFields();
-            if (fileList.length === 0) {
-                openNotification({
-                    type: "error",
-                    title: "Please select at least one file!",
-                });
-                return;
-            }
-
-            const formData = new FormData();
-            formData.append("truck_id", values.truck_id);
-            formData.append("supervisor_id", values.supervisor_id);
-            formData.append("location", values.location);
-            // Append files correctly
-            fileList.forEach((file: UploadFile) => {
-                if (file.originFileObj) {
-                    formData.append("files", file.originFileObj); // API expects 'files'
-                }
-            });
-            for (let pair of formData.entries()) {
-                console.log(pair[0], pair[1]);
-            }
-
-            // Make the API call
-            const response = await fetch(`https://sa.wholesalerspk.com/photo-logs/${editData?.id}`, {
-                method: "PUT",
-                headers: {
-                    Authorization: `Bearer ${user?.access_token}`, // Replace with actual token
-                    Accept: "application/json", // Accept header
-                },
-                body: formData, // FormData should be sent directly
-            });
-            const result = await response.json();
-            console.log("API Response:", result);
-            if (response.ok) {
-                navigate(PATH.MANAGE_OPRATION)
-
-                openNotification({
-                    type: "success",
-                    title: "Image uploaded successfully!",
-                });
-                form.resetFields();
-                setFileList([]);
-            } else {
-                openNotification({
-                    type: "error",
-                    title: "Upload Failed",
-                    description: result.message || "Something went wrong.",
-                });
-            }
-        } catch (error:any) {
-            console.error("Upload Error:", error);
-            openNotification({
-                type: "error",
-                title: "Upload Failed",
-                description: error.message,
-            });
-        }
-    };
-    const handleRemove = (file: any) => {
-        setFileList((prevList) => prevList.filter((item) => item.uid !== file.uid));
-    };
+   
+    
     useEffect(() => {
         if (editData?.photo_urls) {
             const formattedFiles = editData.photo_urls.map((url: string, index: number) => ({
@@ -126,13 +64,12 @@ const UpdateOperation: React.FC = () => {
 
     return (
         <Card bordered={false} className="w-full max-w-4xl mx-auto shadow-lg p-6 rounded-lg">
-            {contextHolder}
             <div>
                 <div className="mb-6">
                     <Title level={3} style={{ margin: 0, marginBottom: "8px" }}>
-                        Update Operation
+                        View Operation
                     </Title>
-                    <Paragraph type="secondary">Fill in the details to Update operation to the system</Paragraph>
+                    {/* <Paragraph type="secondary">Fill in the details to View operation to the system</Paragraph> */}
                 </div>
                 <Form form={form} layout="vertical" onFinish={handleSubmit} className="space-y-4"
                     initialValues={{
@@ -149,6 +86,7 @@ const UpdateOperation: React.FC = () => {
                             <Select
                                 placeholder="Select Supervisor"
                                 size="large"
+                                disabled
                                 style={{ width: "100%" }}
                                 dropdownStyle={{ maxHeight: "200px" }}
                                 loading={!supervisor}
@@ -168,6 +106,7 @@ const UpdateOperation: React.FC = () => {
                             <Select
                                 placeholder="Select Truck"
                                 size="large"
+                                disabled
                                 style={{ width: "100%" }}
                                 dropdownStyle={{ maxHeight: "200px" }}
                                 loading={truckLoading}
@@ -180,48 +119,24 @@ const UpdateOperation: React.FC = () => {
                             </Select>
                         </Form.Item>
                     </div>
+
                     <Form.Item
                         name="location"
                         label="Location"
                         rules={[{ required: true, message: 'Location is required' }]}
                     >
-                        <Input.TextArea rows={3} style={{ resize: "none" }} />
+                        <Input.TextArea  disabled rows={3} style={{ resize: "none" }} />
                     </Form.Item>
 
-                    <Form.Item label="Upload Files">
+                    <Form.Item label="Uploaded Files" >
                         <>
-                            <Upload
-                                fileList={fileList}
-                                beforeUpload={() => false}
-                                onChange={({ fileList }) => setFileList(fileList)}
-                                onRemove={(file) => {
-                                    setFileList((prevList) => prevList.filter((item) => item.uid !== file.uid));
-                                }}
-                                multiple
-                                showUploadList={{ showRemoveIcon: true }}
-                            >
-                                <Button icon={<UploadOutlined />}>Select Files</Button>
-                            </Upload>
                             {fileList.length > 0 && (
-                                <div style={{ marginTop: "10px", display: "flex", flexWrap: "wrap", gap: "10px" }}>
-                                    {fileList.map((file) => (
-                                        <div key={file.uid} style={{
-                                            display: "flex",
-                                            alignItems: "center",
-                                            background: "#f0f0f0",
-                                            padding: "5px 10px",
-                                            borderRadius: "4px",
-                                        }}>
-                                            <span style={{ marginRight: "8px" }}>{file.name}</span>
-                                            <Button
-                                                type="text"
-                                                icon={<CloseOutlined />}
-                                                size="small"
-                                                onClick={() => handleRemove(file)}
-                                                style={{ color: "red", fontSize: "14px" }}
-                                            />
-                                        </div>
-                                    ))}
+                                <div style={{ marginTop: "10px", display: "flex", flexWrap: "wrap", gap: "20px" }}>
+                                       {fileList.map((url: any) => {
+                                        return (
+                                            <Image width={413} height={320} src={url.url} alt="opration_image" style={{ marginRight: "5px", borderRadius: "10px" }} />
+                                        )
+                                    })}
                                 </div>
                             )}
                         </>
@@ -230,7 +145,7 @@ const UpdateOperation: React.FC = () => {
                         <GenericButton
                             variant="solid"
                             htmlType="submit"
-                            label="Update Operation"
+                            label="Back"
                             // disabled={isLoading}
                             // loading={isLoading}
                             style={{
@@ -251,4 +166,4 @@ const UpdateOperation: React.FC = () => {
 
 
 
-export default UpdateOperation;
+export default ViewOperation;

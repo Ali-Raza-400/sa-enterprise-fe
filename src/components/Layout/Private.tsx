@@ -84,16 +84,16 @@ function PrivateLayout({ children }: LayoutProps) {
 			label: (
 				<div
 					className="flex items-center"
-					 onClick={() => navigate(PATH.INSTITUTE_PROFILE)}
-					// onClick={() => {
-					// 	if (user?.role == "Institute") {
-					// 		navigate(PATH.INSTITUTE_PROFILE);
-					// 	} else if (user?.role == "Teacher") {
-					// 		navigate(PATH.TEACHER_PROFILE.replace(":id", user.id));
-					// 	} else if (user?.role == "Student") {
-					// 		navigate(PATH.STUDENT_PROFILE.replace(":tab", "profile"));
-					// 	}
-					// }}
+					onClick={() => navigate(PATH.INSTITUTE_PROFILE)}
+				// onClick={() => {
+				// 	if (user?.role == "Institute") {
+				// 		navigate(PATH.INSTITUTE_PROFILE);
+				// 	} else if (user?.role == "Teacher") {
+				// 		navigate(PATH.TEACHER_PROFILE.replace(":id", user.id));
+				// 	} else if (user?.role == "Student") {
+				// 		navigate(PATH.STUDENT_PROFILE.replace(":tab", "profile"));
+				// 	}
+				// }}
 				>
 					<CgProfile size={20} className="mr-2" />
 					My Profile ss
@@ -157,7 +157,21 @@ function PrivateLayout({ children }: LayoutProps) {
 	];
 
 
-
+	const styles = {
+		footer: {
+			backgroundColor: "#006400", // Dark green color
+			color: "#ffffff", // White text
+			textAlign: "center",
+			padding: "10px 0",
+			position: "fixed",
+			bottom: 0,
+			width: "100%",
+			fontSize: "14px",
+		},
+		text: {
+			margin: 0,
+		},
+	};
 	return (
 		<Layout className={`min-h-screen ${theme.toLowerCase()} mobile-responsive`}>
 			<Sider
@@ -357,6 +371,11 @@ function PrivateLayout({ children }: LayoutProps) {
 						{children}
 					</div>
 				</Content>
+				<footer className="bg-gray-800 text-white py-3 text-center">
+					<p className="text-sm">
+						Copyright © {new Date().getFullYear()} SA-Enterprize, Powered by SA-Enterprize. All Rights Reserved.
+					</p>
+				</footer>
 			</Layout>
 		</Layout>
 	);
