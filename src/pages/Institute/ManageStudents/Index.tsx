@@ -5,9 +5,15 @@ import useGenericAlert from "../../../components/Hooks/GenericAlert";
 import GenericTable from "../../../components/UI/GenericTable";
 import GenericButton from "../../../components/UI/GenericButton";
 import { FaPlus } from "react-icons/fa6";
-import { useGetUsersQuery, useUpdateUserMutation } from "../../../redux/slices/user";
+import {
+  useGetUsersQuery,
+  useUpdateUserMutation,
+} from "../../../redux/slices/user";
 import { Modal, Form, Input, Select } from "antd";
-import { useDeleteUserMutation, useRegisterMutation } from "../../../redux/slices/auth";
+import {
+  useDeleteUserMutation,
+  useRegisterMutation,
+} from "../../../redux/slices/auth";
 import PageLoader from "../../../components/Loader/PageLoader";
 import PATH from "../../../navigation/Path";
 import { useNavigate } from "react-router-dom";
@@ -33,7 +39,7 @@ interface UpdateUserModalProps {
   isVisible: boolean;
   onClose: () => void;
   onUpdateUser: (user: UserFormValues) => void;
-  selectedUser: any
+  selectedUser: any;
 }
 interface StudentType {
   id: string;
@@ -47,8 +53,8 @@ interface StudentType {
 }
 
 const Index = (): ReactElement => {
-  const [selectedUser, _setSelectedUser] = useState<any>()
-    const navigate = useNavigate()
+  const [selectedUser, _setSelectedUser] = useState<any>();
+  const navigate = useNavigate();
   console.log("selectedUser", selectedUser);
   const [tableOptions, setTableOptions] = useState({
     filters: {},
@@ -58,11 +64,17 @@ const Index = (): ReactElement => {
     },
   });
   useEffect(() => {
-    document.title = "Manage Users | SA Enterprise"
-  }, [])
+    document.title = "Manage Users | SA Enterprise";
+  }, []);
   const [form] = Form.useForm();
-  const { data, isLoading: userLoading, isFetching, refetch } = useGetUsersQuery(tableOptions);
-  const [deleteUser, { isLoading: deleteUserLoading }] = useDeleteUserMutation();
+  const {
+    data,
+    isLoading: userLoading,
+    isFetching,
+    refetch,
+  } = useGetUsersQuery(tableOptions);
+  const [deleteUser, { isLoading: deleteUserLoading }] =
+    useDeleteUserMutation();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isUpdateModalVisible, setIsUpdateModalVisible] = useState(false);
   const [registerFunc, { isLoading }] = useRegisterMutation();
@@ -73,13 +85,13 @@ const Index = (): ReactElement => {
     const payload = {
       ...userData,
     };
-    console.log("payload::::", payload)
+    console.log("payload::::", payload);
     try {
       await registerFunc(payload).unwrap();
       showAlert({
         type: "success",
         title: `User registered!`,
-        message: `User Added Successfully. Welcome to the SA-Enterprize System`,
+        message: `User Added Successfully. Welcome to the S.A Enterprises System`,
         confirmButtonText: "OK",
         onConfirm: () => refetch(),
       });
@@ -109,8 +121,7 @@ const Index = (): ReactElement => {
         confirmButtonText: "OK",
         onConfirm: () => refetch(),
       });
-    } catch (error: unknown) {
-    }
+    } catch (error: unknown) {}
   };
 
   // const navigate = useNavigate();
@@ -150,7 +161,7 @@ const Index = (): ReactElement => {
           <div>
             {obj.first_name} {obj.last_name}
           </div>
-        )
+        );
       },
       width: 150,
     },
@@ -171,21 +182,18 @@ const Index = (): ReactElement => {
       dataIndex: "cnic_number",
       key: "cnic_number",
       width: 200,
-
     },
     {
       title: "Address",
       dataIndex: "address",
       key: "address",
       width: 200,
-
     },
     {
       title: "Role",
       dataIndex: "role",
       key: "role",
       width: 200,
-
     },
     {
       title: "Actions", // Updated title for actions
@@ -193,35 +201,37 @@ const Index = (): ReactElement => {
       fixed: "right",
       width: 120,
       render: (obj: any) => (
-				<div style={{ display: "flex", gap: "15px" }}>
-					<Tooltip title="View">
-						<EyeOutlined
-							onClick={() => navigate(PATH.MANAGE_USER_VIEW, {
-                state: obj
-              })}
-							style={{ color: "#007bff", cursor: "pointer" }}
-						/>
-					</Tooltip>
+        <div style={{ display: "flex", gap: "15px" }}>
+          <Tooltip title="View">
+            <EyeOutlined
+              onClick={() =>
+                navigate(PATH.MANAGE_USER_VIEW, {
+                  state: obj,
+                })
+              }
+              style={{ color: "#007bff", cursor: "pointer" }}
+            />
+          </Tooltip>
 
-				
-							<Tooltip title="Edit">
-								<EditOutlined
-									onClick={() => navigate(PATH.MANAGE_USER_UPDATE, {
-                    state: obj
-                  })}
-									style={{ color: "#ffa500", cursor: "pointer" }}
-								/>
-							</Tooltip>
+          <Tooltip title="Edit">
+            <EditOutlined
+              onClick={() =>
+                navigate(PATH.MANAGE_USER_UPDATE, {
+                  state: obj,
+                })
+              }
+              style={{ color: "#ffa500", cursor: "pointer" }}
+            />
+          </Tooltip>
 
-							<Tooltip title="Delete">
-								<DeleteOutlined
-									onClick={() => onDelete(obj.id)}
-									style={{ color: "#dc3545", cursor: "pointer" }}
-								/>
-							</Tooltip>
-						
-				</div>
-			),
+          <Tooltip title="Delete">
+            <DeleteOutlined
+              onClick={() => onDelete(obj.id)}
+              style={{ color: "#dc3545", cursor: "pointer" }}
+            />
+          </Tooltip>
+        </div>
+      ),
       // render: (obj: any) => (
       //   <ActionDropdown
       //     viewProfileOnClick={() => navigate(PATH.MANAGE_USER_VIEW, {
@@ -234,11 +244,14 @@ const Index = (): ReactElement => {
       //     deleteOnClick={() => onDelete(obj?.id)}
       //   />
       // ),
-    
     },
   ];
   if (userLoading || update || deleteUserLoading) {
-    return <><PageLoader /></>
+    return (
+      <>
+        <PageLoader />
+      </>
+    );
   }
 
   return (
@@ -251,7 +264,6 @@ const Index = (): ReactElement => {
           label="Add New User"
           onClick={() => navigate(PATH.CREATE_USER)}
         />
-
 
         <AddUserModal
           isVisible={isModalVisible}
@@ -271,19 +283,21 @@ const Index = (): ReactElement => {
         data={data}
         enablePagination={true}
         updatePaginationFunc={(data: { page: number; pageSize: number }) => {
-          console.log("data::::", data)
+          console.log("data::::", data);
 
-          setTableOptions({ ...tableOptions, pagination: data })
-        }
-        }
-
+          setTableOptions({ ...tableOptions, pagination: data });
+        }}
       />
     </>
   );
 };
 
 export default Index;
-const AddUserModal: React.FC<AddUserModalProps> = ({ isVisible, onClose, onAddUser }) => {
+const AddUserModal: React.FC<AddUserModalProps> = ({
+  isVisible,
+  onClose,
+  onAddUser,
+}) => {
   const [form] = Form.useForm<UserFormValues>();
   const handleSubmit = (values: UserFormValues) => {
     onAddUser(values);
@@ -299,33 +313,65 @@ const AddUserModal: React.FC<AddUserModalProps> = ({ isVisible, onClose, onAddUs
         <div style={{ display: "flex", justifyContent: "flex-end" }}>
           <Button key="cancel" onClick={onClose}>
             Cancel
-          </Button>,
+          </Button>
+          ,
           <Button key="submit" type="primary" onClick={() => form.submit()}>
             Add User
-          </Button>,
+          </Button>
+          ,
         </div>,
       ]}
     >
       <Form form={form} layout="vertical" onFinish={handleSubmit}>
-        <Form.Item<UserFormValues> name="first_name" label="First Name" rules={[{ required: true, message: "First name is required" }]}>
+        <Form.Item<UserFormValues>
+          name="first_name"
+          label="First Name"
+          rules={[{ required: true, message: "First name is required" }]}
+        >
           <Input />
         </Form.Item>
-        <Form.Item<UserFormValues> name="last_name" label="Last Name" rules={[{ required: true, message: "Last name is required" }]}>
+        <Form.Item<UserFormValues>
+          name="last_name"
+          label="Last Name"
+          rules={[{ required: true, message: "Last name is required" }]}
+        >
           <Input />
         </Form.Item>
-        <Form.Item<UserFormValues> name="email" label="Email" rules={[{ required: true, type: "email", message: "Valid email is required" }]}>
+        <Form.Item<UserFormValues>
+          name="email"
+          label="Email"
+          rules={[
+            {
+              required: true,
+              type: "email",
+              message: "Valid email is required",
+            },
+          ]}
+        >
           <Input />
         </Form.Item>
         <Form.Item<UserFormValues> name="address" label="Address">
           <Input />
         </Form.Item>
-        <Form.Item<UserFormValues> name="phone_number" label="Phone Number" rules={[{ required: true, message: "Phone number is required" }]}>
+        <Form.Item<UserFormValues>
+          name="phone_number"
+          label="Phone Number"
+          rules={[{ required: true, message: "Phone number is required" }]}
+        >
           <Input />
         </Form.Item>
-        <Form.Item<UserFormValues> name="cnic_number" label="CNIC Number" rules={[{ required: true, message: "CNIC is required" }]}>
+        <Form.Item<UserFormValues>
+          name="cnic_number"
+          label="CNIC Number"
+          rules={[{ required: true, message: "CNIC is required" }]}
+        >
           <Input />
         </Form.Item>
-        <Form.Item<UserFormValues> name="role" label="Role" rules={[{ required: true, message: "Role is required" }]}>
+        <Form.Item<UserFormValues>
+          name="role"
+          label="Role"
+          rules={[{ required: true, message: "Role is required" }]}
+        >
           <Select placeholder="Select Role">
             <Option value="super_admin">Superadmin</Option>
             <Option value="operations_manager">Operations Manager</Option>
@@ -333,7 +379,11 @@ const AddUserModal: React.FC<AddUserModalProps> = ({ isVisible, onClose, onAddUs
             <Option value="driver">Driver</Option>
           </Select>
         </Form.Item>
-        <Form.Item<UserFormValues> name="password" label="Password" rules={[{ required: true, message: "Password is required" }]}>
+        <Form.Item<UserFormValues>
+          name="password"
+          label="Password"
+          rules={[{ required: true, message: "Password is required" }]}
+        >
           <Input.Password />
         </Form.Item>
       </Form>
@@ -344,7 +394,7 @@ const UpdateUserModal: React.FC<UpdateUserModalProps> = ({
   isVisible,
   onClose,
   onUpdateUser,
-  selectedUser
+  selectedUser,
 }) => {
   const [form] = Form.useForm<UserFormValues>();
 
@@ -369,36 +419,71 @@ const UpdateUserModal: React.FC<UpdateUserModalProps> = ({
       open={isVisible}
       onCancel={onClose}
       footer={[
-        <div style={{ display: "flex", justifyContent: "flex-end" }} key="footer">
+        <div
+          style={{ display: "flex", justifyContent: "flex-end" }}
+          key="footer"
+        >
           <Button key="cancel" onClick={onClose}>
             Cancel
-          </Button>,
+          </Button>
+          ,
           <Button key="submit" type="primary" onClick={() => form.submit()}>
             Update User
-          </Button>,
+          </Button>
+          ,
         </div>,
       ]}
     >
       <Form form={form} layout="vertical" onFinish={handleSubmit}>
-        <Form.Item name="first_name" label="First Name" rules={[{ required: true, message: "First name is required" }]}>
+        <Form.Item
+          name="first_name"
+          label="First Name"
+          rules={[{ required: true, message: "First name is required" }]}
+        >
           <Input />
         </Form.Item>
-        <Form.Item name="last_name" label="Last Name" rules={[{ required: true, message: "Last name is required" }]}>
+        <Form.Item
+          name="last_name"
+          label="Last Name"
+          rules={[{ required: true, message: "Last name is required" }]}
+        >
           <Input />
         </Form.Item>
-        <Form.Item name="email" label="Email" rules={[{ required: true, type: "email", message: "Valid email is required" }]}>
+        <Form.Item
+          name="email"
+          label="Email"
+          rules={[
+            {
+              required: true,
+              type: "email",
+              message: "Valid email is required",
+            },
+          ]}
+        >
           <Input />
         </Form.Item>
         <Form.Item name="address" label="Address">
           <Input />
         </Form.Item>
-        <Form.Item name="phone_number" label="Phone Number" rules={[{ required: true, message: "Phone number is required" }]}>
+        <Form.Item
+          name="phone_number"
+          label="Phone Number"
+          rules={[{ required: true, message: "Phone number is required" }]}
+        >
           <Input />
         </Form.Item>
-        <Form.Item name="cnic_number" label="CNIC Number" rules={[{ required: true, message: "CNIC is required" }]}>
+        <Form.Item
+          name="cnic_number"
+          label="CNIC Number"
+          rules={[{ required: true, message: "CNIC is required" }]}
+        >
           <Input />
         </Form.Item>
-        <Form.Item name="role" label="Role" rules={[{ required: true, message: "Role is required" }]}>
+        <Form.Item
+          name="role"
+          label="Role"
+          rules={[{ required: true, message: "Role is required" }]}
+        >
           <Select placeholder="Select Role">
             <Option value="super_admin">Superadmin</Option>
             <Option value="operations_manager">Operations Manager</Option>
@@ -407,7 +492,11 @@ const UpdateUserModal: React.FC<UpdateUserModalProps> = ({
           </Select>
         </Form.Item>
         {!selectedUser && (
-          <Form.Item name="password" label="Password" rules={[{ required: true, message: "Password is required" }]}>
+          <Form.Item
+            name="password"
+            label="Password"
+            rules={[{ required: true, message: "Password is required" }]}
+          >
             <Input.Password />
           </Form.Item>
         )}
