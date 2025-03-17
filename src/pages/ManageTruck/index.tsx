@@ -1,8 +1,6 @@
 import { ReactElement, useEffect, useState } from "react";
 import { Button, Flex, TableProps, Tooltip } from "antd";
 import { EyeOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
-// import useNotification from "antd/es/notification/useNotification";
-// import SearchFilter from "../../../components/UI/SearchFilter";
 import useGenericAlert from "../../components/Hooks/GenericAlert";
 import GenericTable from "../../components/UI/GenericTable";
 import GenericButton from "../../components/UI/GenericButton";
@@ -15,7 +13,6 @@ import PageLoader from "../../components/Loader/PageLoader";
 import { useSelector } from "react-redux";
 import PATH from "../../navigation/Path";
 import { useNavigate } from "react-router-dom";
-// import { getErrorMessage } from "../../../utils/helper";
 
 const { Option } = Select;
 
@@ -55,7 +52,7 @@ const Index = (): ReactElement => {
 			pageSize: 10,
 		},
 	});
-	const { data, isLoading: userLoading, isFetching, refetch } = useGetTrucksQuery(tableOptions);
+	const { data, isLoading: userLoading, refetch } = useGetTrucksQuery(tableOptions);
 	useEffect(() => {
 		document.title = "Manage Trucks | SA Enterprise"
 	}, [])
@@ -63,7 +60,6 @@ const Index = (): ReactElement => {
 	const [isModalVisible, setIsModalVisible] = useState(false);
 	const [registerFunc, { isLoading }] = useAddTruckMutation();
 	const [updateTruck, { isLoading: updateLoading }] = useUpdateTruckMutation();
-	console.log("updateLoading",updateLoading);
 	const handleUpdateTruck = async (values: any) => {
 		const payload = {
 			truckId: selectedTruck.id,
@@ -81,7 +77,7 @@ const Index = (): ReactElement => {
 		} catch (error: unknown) {
 		}
 	};
-	console.log("isLoading", isLoading, isFetching);
+	console.log("isLoading", isLoading);
 	const handleAddTruck = async (values: any) => {
 		const payload = {
 			...values,
@@ -148,15 +144,15 @@ const Index = (): ReactElement => {
 			width: 120,
 		},
 		{
-			title: "SupervisorId",
-			dataIndex: "supervisor_id",
-			key: "supervisor_id",
+			title: "Supervisor",
+			dataIndex: "supervisor_name",
+			key: "supervisor_name",
 			width: 120,
 		},
 		{
-			title: "DriverId",
-			dataIndex: "driver_id",
-			key: "driver_id",
+			title: "Driver",
+			dataIndex: "driver_name",
+			key: "driver_name",
 			width: 200,
 		},
 		{

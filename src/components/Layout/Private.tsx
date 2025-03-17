@@ -283,7 +283,7 @@ function PrivateLayout({ children }: LayoutProps) {
 					</div> */}
 				</div>
 			</Sider>
-			<Layout className="ms-[4rem] sm:ms-[4.5rem] md:ms-[4.5rem] lg:ms-[12.5rem] xl:ms-[12.5rem]">
+			<Layout className="ms-[4rem] sm:ms-[4.5rem] md:ms-[4.5rem] lg:ms-[13.6rem] xl:ms-[13.6rem]">
 
 				<Header
 					className="bg-white dark:bg-[#212529] px-8 flex justify-between items-center"
