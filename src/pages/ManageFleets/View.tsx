@@ -105,12 +105,12 @@ const ViewFleet: React.FC = () => {
                             />
                             <InfoItem
                                 icon={<FaUserTie className="w-5 h-5 text-purple-600" />}
-                                label="Supervisor ID"
+                                label="Supervisor"
                                 value={selectedFleet.supervisor_name}
                             />
                             <InfoItem
                                 icon={<FaUserAlt className="w-5 h-5 text-purple-600" />}
-                                label="Driver ID"
+                                label="Driver"
                                 value={selectedFleet.driver_name}
                             />
                         </div>
