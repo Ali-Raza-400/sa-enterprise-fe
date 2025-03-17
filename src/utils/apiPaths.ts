@@ -14,6 +14,7 @@ export const API_PATHS: { [key: string]: string } = {
 	FILE_UPLOAD: "s3/upload",
 	DELETE_FILE: "s3/files",
 	COURSE: "courses",
+	FLEET: "fleets",
 	INSTITUTE_COURSES: "courses/institute-courses",
 	STUDENT_ANALYTICS: "student/analytics",
 	STUDENT_COMPLETED_COURSES_ANALYTICS: "student/completed-courses-analytics",
