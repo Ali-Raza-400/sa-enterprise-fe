@@ -83,6 +83,13 @@ const CreateUser = () => {
                     >
                         <Input size="large" style={{ height: "40px" }} />
                     </Form.Item>
+                    <Form.Item<UserFormValues>
+                        name="zone"
+                        label="Zone"
+                        rules={[{ required: true, message: "Zone is required" }]}
+                    >
+                        <Input size="large" style={{ height: "40px" }} />
+                    </Form.Item>
 
                     <Form.Item<UserFormValues> name="address" label="Address">
                         <Input.TextArea rows={3} style={{ resize: "none" }} />

@@ -14,6 +14,7 @@ interface UserFormValues {
     phone_number: string;
     cnic_number: string;
     role: string;
+    zone: string;
     password?: string;
 }
 
@@ -61,6 +62,9 @@ const UserUpdatePage: React.FC = () => {
                     <Input />
                 </Form.Item>
                 <Form.Item name="email" label="Email" rules={[{ required: true, type: "email", message: "Valid email is required" }]}>
+                    <Input />
+                </Form.Item>
+                <Form.Item name="zone" label="Zone" rules={[{ required: true, message: "Zone is required" }]}>
                     <Input />
                 </Form.Item>
                 <Form.Item name="address" label="Address">

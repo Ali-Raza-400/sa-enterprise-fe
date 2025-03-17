@@ -1,10 +1,9 @@
 import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useUpdateUserMutation } from "../../../redux/slices/user";
-// import GenericButton from "../../../components/UI/GenericButton";
 import { BiCheckCircle, BiUserCircle } from "react-icons/bi";
 import { PiMailboxDuotone, PiUsersFill } from "react-icons/pi";
-import { FaCreditCard, FaMapPin } from "react-icons/fa";
+import {  FaCreditCard, FaMapPin } from "react-icons/fa";
 import { FaPhoneFlip, FaRegCircleUser } from "react-icons/fa6";
 import GenericButton from "../../../components/UI/GenericButton";
 

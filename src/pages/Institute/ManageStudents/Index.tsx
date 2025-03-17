@@ -249,7 +249,7 @@ const Index = (): ReactElement => {
         <GenericButton
           icon={<FaPlus size={20} />}
           label="Add New User"
-          onClick={() => setIsModalVisible(true)}
+          onClick={() => navigate(PATH.CREATE_USER)}
         />
 
 

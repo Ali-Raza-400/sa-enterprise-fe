@@ -7,7 +7,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import PATH from "../../../navigation/Path";
 import useNotification from "../../../components/UI/Notification";
 import { getErrorMessage } from "../../../utils/helper";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useGetFleetsQuery } from "../../../redux/slices/fleet";
 
 const { Title, Paragraph } = Typography;
 const { Option } = Select;
@@ -17,12 +19,20 @@ const UpdateTruck = () => {
     const { data: truckData, isLoading: isFetching } = useGetTruckByIdQuery(id as any);
     const { data: supervisor } = useGetUserByRoleQuery({ role: "supervisor" });
     const { data: driver } = useGetUserByRoleQuery({ role: "driver" });
+    const { user } = useSelector((state: any) => state.auth);
     const [updateTruck, { isLoading }] = useUpdateTruckMutation();
     const { openNotification, contextHolder } = useNotification();
     const { showAlert } = useGenericAlert();
     const [form] = Form.useForm();
     const navigate = useNavigate();
-
+  const [tableOptions] = useState({
+        filters: {},
+        pagination: {
+            page: 1,
+            pageSize: 10,
+        },
+    });
+    const { data: fleetList } = useGetFleetsQuery(tableOptions);
     useEffect(() => {
         if (truckData) {
             form.setFieldsValue(truckData.list);
@@ -70,7 +80,7 @@ const UpdateTruck = () => {
                         <Form.Item name="license_plate" label="License Plate" rules={[{ required: true, message: "License Plate is required" }]}>
                             <Input size="large" style={{ height: "40px" }} placeholder="Enter license plate" />
                         </Form.Item>
-                    </div>
+                  
 
                     <Form.Item name="supervisor_id" label="Supervisor" rules={[{ required: true, message: "Supervisor is required" }]}>
                         <Select placeholder="Select Supervisor" size="large" style={{ width: "100%" }}>
@@ -79,7 +89,14 @@ const UpdateTruck = () => {
                             ))}
                         </Select>
                     </Form.Item>
-
+                    {user?.role !== "supervisor" && (
+                            <Form.Item name="fleet_type" label="Fleet type" rules={[{ required: false }]}>
+                                <Select placeholder="Select Fleet type" size="large" style={{ width: "100%" }}>
+                                    {(fleetList?.list || []).map((fleet: any) => (
+                                        <Option key={fleet.id} value={fleet.fleet_type}>{fleet.fleet_type}</Option>
+                                    ))}
+                                </Select>
+                            </Form.Item>)}
                     <Form.Item name="driver_id" label="Driver" rules={[{ required: true, message: "Driver is required" }]}>
                         <Select placeholder="Select Driver" size="large" style={{ width: "100%" }}>
                             {(driver?.list || []).map((role:any) => (
@@ -87,7 +104,7 @@ const UpdateTruck = () => {
                             ))}
                         </Select>
                     </Form.Item>
-
+                    </div>
                     <div className="flex justify-end pt-4">
                         <GenericButton
                             variant="solid"
