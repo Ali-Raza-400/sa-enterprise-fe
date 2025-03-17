@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Row } from "antd";
 import DataOverviewCards from "./graphs/DataOverviewCards";
-import TeacherVideoLectureCountChart from "./graphs/TeacherVideoLectureCountChart";
-import CourseStatusChart from "./graphs/CourseStatusChart ";
 import TruckOperationsChart from "./graphs/StudentRatioChart";
 import TopDrivers from "./graphs/StartStudent";
 
@@ -14,11 +12,11 @@ const TeacherDashboard = () => {
         <TruckOperationsChart />
         <TopDrivers />
       </Row>
-      <Row justify="center" gutter={[16, 16]} className="py-4">
+      {/* <Row justify="center" gutter={[16, 16]} className="py-4">
         <CourseStatusChart />
         <CourseStatusChart />
       </Row>
-      <TeacherVideoLectureCountChart />
+      <TeacherVideoLectureCountChart /> */}
     </div>
   );
 };

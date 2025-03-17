@@ -229,7 +229,7 @@ export const roleBasedItems = {
 		PATH.TRUCK,
 		PATH.MANAGE_OPRATION,
 		PATH.MANAGE_OPRATION_CREATE,
-		// PATH.ADD_TRUCK,
+		PATH.ADD_TRUCK,
 
 	],
 	/** TEACHER */

@@ -37,9 +37,9 @@ const AddTruck = () => {
     }, []);
 
     const handleSubmit = async (values: any) => {
-        let req={
+        let req = {
             ...values,
-            supervisor_id:  user?.role === "supervisor" ? user?.id :values.supervisor_id,
+            supervisor_id: user?.role === "supervisor" ? user?.id : values.supervisor_id,
         }
         try {
             await registerFunc(req).unwrap();
@@ -77,33 +77,33 @@ const AddTruck = () => {
                             <Input size="large" style={{ height: "40px" }} placeholder="Enter license plate" />
                         </Form.Item>
                         {user?.role !== "supervisor" && (
-                            <Form.Item name="fleet_type" label="Fleet type" rules={[{ required: false }]}>
+                            <Form.Item name="fleet_type" label="Fleet type" rules={[{ required: user?.role != "supervisor" ? true : false, message: "Fleet type is required" }]}>
                                 <Select placeholder="Select Fleet type" size="large" style={{ width: "100%" }}>
                                     {(fleetList?.list || []).map((fleet: any) => (
                                         <Option key={fleet.id} value={fleet.fleet_type}>{fleet.fleet_type}</Option>
                                     ))}
                                 </Select>
                             </Form.Item>)}
-                              <Form.Item
-                                          name="supervisor_id"
-                                          label="Supervisor"
-                                          rules={[{ required: user?.role != "supervisor" && true, message: "Supervisor is required" }]}
-                                        >
-                                          <Select
-                                            disabled={user?.role === "supervisor"}
-                                            placeholder={`${user?.role === "supervisor" ? user.fullName : "Select Supervisor"}`}
-                                            size="large"
-                                            style={{ width: "100%" }}
-                                            // dropdownStyle={{ maxHeight: "200px" }}
-                                          // loading={!supervisor}
-                                          >
-                                            {(supervisor?.list || [])?.map((role: any) => (
-                                              <Option key={role.id} value={role.id}>
-                                                {role.first_name + " " + role.last_name}
-                                              </Option>
-                                            ))}
-                                          </Select>
-                                        </Form.Item>
+                        <Form.Item
+                            name="supervisor_id"
+                            label="Supervisor"
+                            rules={[{ required: user?.role != "supervisor" && true, message: "Supervisor is required" }]}
+                        >
+                            <Select
+                                disabled={user?.role === "supervisor"}
+                                placeholder={`${user?.role === "supervisor" ? user.fullName : "Select Supervisor"}`}
+                                size="large"
+                                style={{ width: "100%" }}
+                            // dropdownStyle={{ maxHeight: "200px" }}
+                            // loading={!supervisor}
+                            >
+                                {(supervisor?.list || [])?.map((role: any) => (
+                                    <Option key={role.id} value={role.id}>
+                                        {role.first_name + " " + role.last_name}
+                                    </Option>
+                                ))}
+                            </Select>
+                        </Form.Item>
                         {/* <Form.Item name="supervisor_id" label="Supervisor" rules={[{ required: true, message: "Supervisor is required" }]}>
                             <Select placeholder="Select Supervisor" size="large" style={{ width: "100%" }}>
                                 {(supervisor?.list || []).map((role: any) => (

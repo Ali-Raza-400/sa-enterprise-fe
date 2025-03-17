@@ -96,7 +96,7 @@ function PrivateLayout({ children }: LayoutProps) {
 				// }}
 				>
 					<CgProfile size={20} className="mr-2" />
-					My Profile ss
+					My Profile
 				</div>
 			),
 		},
