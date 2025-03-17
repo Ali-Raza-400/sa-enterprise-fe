@@ -215,7 +215,7 @@ function PrivateLayout({ children }: LayoutProps) {
           <div>
             <img
               src={IMAGES.ALMS_LOGO_NEW2}
-              className="mb-5 w-[70%] mx-auto cursor-pointer"
+              className="mb-5 w-[70%] h-[150px] mx-auto cursor-pointer rounded-[2px]"
               onClick={() => navigate("/admin-dashboard")}
             />
             <Menu
@@ -312,7 +312,7 @@ function PrivateLayout({ children }: LayoutProps) {
 
             {/* Search Bar Moved to the Left Side */}
             {pathname === "/admin-dashboard" && (
-              <div className="ml-4 w-[250px]">
+              <div className="ml-4 w-[350px]">
                 <AutoComplete
                   options={modules}
                   onSelect={onSelect}
