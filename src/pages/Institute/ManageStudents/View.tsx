@@ -9,7 +9,7 @@ import { FaPhoneFlip, FaRegCircleUser } from "react-icons/fa6";
 import GenericButton from "../../../components/UI/GenericButton";
 
 
-const ViewUser: React.FC = () => {
+const ViewUser: React.FC = () => { 
     const location = useLocation();
     const navigate = useNavigate();
     const selectedUser = location.state;
