@@ -4,19 +4,36 @@ import { ApexOptions } from "apexcharts";
 
 const TruckOperationsChart: React.FC = () => {
   // Example data for waste collection operations
-  const data: { 
-    month: string; 
-    totalCollections: number; 
-    onTimePickups: number; 
-    missedPickups: number; 
+  const data: {
+    month: string;
+    totalCollections: number;
+    onTimePickups: number;
+    missedPickups: number;
   }[] = [
-    { month: "Jan", totalCollections: 850, onTimePickups: 800, missedPickups: 550 },
-    { month: "Feb", totalCollections: 920, onTimePickups: 880, missedPickups: 440 },
-    { month: "Mar", totalCollections: 880, onTimePickups: 850, missedPickups: 130 },
-    { month: "Apr", totalCollections: 960, onTimePickups: 920, missedPickups: 240 },
+    {
+      month: "Jan",
+      totalCollections: 850,
+      onTimePickups: 800,
+      missedPickups: 550,
+    },
+    {
+      month: "Feb",
+      totalCollections: 920,
+      onTimePickups: 880,
+      missedPickups: 440,
+    },
+    {
+      month: "Mar",
+      totalCollections: 880,
+      onTimePickups: 850,
+      missedPickups: 130,
+    },
   ];
 
-  const operationsChartData: { series: ApexAxisChartSeries; options: ApexOptions } = {
+  const operationsChartData: {
+    series: ApexAxisChartSeries;
+    options: ApexOptions;
+  } = {
     series: [
       {
         name: "Total Collections",
@@ -36,15 +53,15 @@ const TruckOperationsChart: React.FC = () => {
         type: "bar",
         height: 350,
         toolbar: {
-          show: true
+          show: true,
         },
-        background: '#fff'
+        background: "#fff",
       },
       plotOptions: {
         bar: {
           horizontal: false,
           columnWidth: "55%",
-          borderRadius: 4
+          borderRadius: 4,
         },
       },
       xaxis: {
@@ -60,29 +77,29 @@ const TruckOperationsChart: React.FC = () => {
         min: 0,
       },
       title: {
-        text: "Waste Collection Performance",
+        text: "Waste Collection Overview",
         align: "center",
         style: {
-          fontSize: '18px',
-          fontWeight: 'bold',
-          color: '#2F3237'
-        }
+          color: "#000",
+          fontWeight: 600,
+          fontSize: "24px",
+        },
       },
-      colors: ["#008000", "#70d6bc", "#E53E3E"], // Green colors for eco theme
+      colors: ["#008000", "#2E3383", "#ff9532"], // Green colors for eco theme
       dataLabels: {
         enabled: true,
       },
       legend: {
-        position: 'bottom',
-        horizontalAlign: 'center',
+        position: "bottom",
+        horizontalAlign: "center",
       },
       tooltip: {
         y: {
           formatter: function (val) {
-            return val + " collections"
-          }
-        }
-      }
+            return val + " collections";
+          },
+        },
+      },
     },
   };
 

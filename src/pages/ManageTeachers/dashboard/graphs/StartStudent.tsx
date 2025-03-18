@@ -1,7 +1,7 @@
 import { Col } from "antd";
 import { List } from "antd";
 import Typography from "../../../../components/UI/Typography";
-import { FaTruck, FaStar } from "react-icons/fa";
+import { FaStar, FaMedal } from "react-icons/fa";
 import IMAGES from "../../../../assets/images";
 
 const TopDrivers = () => {
@@ -49,9 +49,9 @@ const TopDrivers = () => {
     <Col span={24} sm={12} md={12} lg={12}>
       <div className="bg-white shadow-md rounded-lg p-6 pb-4">
         <div className="flex items-center gap-2 mb-4">
-          <FaTruck className="text-[#008000] text-xl" />
+          <FaMedal className="text-[#008000] text-xl" size={24} />
           <Typography variant="headingThreeLight" className="text-[#2F3237]">
-            Top Performing Drivers
+            Best Performing Drivers This Month
           </Typography>
         </div>
         <List
