@@ -76,9 +76,9 @@ const CourseStep2 = ({ form }: { form: FormInstance }) => {
 								hoverable
 								className={`w-full border-[2px] ${
 									form.getFieldValue("selectedType") === card?.title
-										? "border-[#8970D6]"
+										? "border-[#008000]"
 										: ""
-								} hover:border-[#8970D6]`}
+								} hover:border-[#008000]`}
 								onClick={() => handleCardClick(card?.title)}
 							>
 								<div className="gap-4 flex justify-center items-center">

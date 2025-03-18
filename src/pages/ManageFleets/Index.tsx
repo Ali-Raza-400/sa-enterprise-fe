@@ -122,46 +122,16 @@ const Index = (): ReactElement => {
 
   const columns: TableProps<FleetType>["columns"] = [
     {
-      title: "Fleet Number",
-      dataIndex: "fleet_number",
-      key: "fleet_number",
-      width: 120,
+      title: "Serial #",
+      key: "serialNumber",
+      width: 80,
+      render: (_text: any, _record: FleetType, index: number) => index + 1,
     },
     {
-      title: "Vehicle",
-      key: "vehicle",
-      render: (obj) => {
-        return (
-          <div>
-            {obj.make} {obj.model} ({obj.year})
-          </div>
-        );
-      },
-      width: 150,
-    },
-    {
-      title: "License Plate",
-      dataIndex: "license_plate",
-      key: "license_plate",
-      width: 120,
-    },
-    {
-      title: "Type",
+      title: "Title",
       dataIndex: "fleet_type",
       key: "fleet_type",
       width: 120,
-    },
-    {
-      title: "Status",
-      dataIndex: "status",
-      key: "status",
-      width: 100,
-    },
-    {
-      title: "VIN",
-      dataIndex: "vin",
-      key: "vin",
-      width: 150,
     },
     {
       title: "Actions",
@@ -172,17 +142,21 @@ const Index = (): ReactElement => {
         <div style={{ display: "flex", gap: "15px" }}>
           <Tooltip title="View">
             <EyeOutlined
-              onClick={() => navigate(PATH.MANAGE_FLEET_VIEW, {
-                state: obj,
-              })}
+              onClick={() =>
+                navigate(PATH.MANAGE_FLEET_VIEW, {
+                  state: obj,
+                })
+              }
               style={{ color: "#007bff", cursor: "pointer" }}
             />
           </Tooltip>
           <Tooltip title="Edit">
             <EditOutlined
-              onClick={() => navigate(PATH.MANAGE_FLEET_UPDATE, {
-                state: obj,
-              })}
+              onClick={() =>
+                navigate(PATH.MANAGE_FLEET_UPDATE, {
+                  state: obj,
+                })
+              }
               style={{ color: "#ffa500", cursor: "pointer" }}
             />
           </Tooltip>
@@ -196,6 +170,7 @@ const Index = (): ReactElement => {
       ),
     },
   ];
+  
 
   if (fleetLoading  || deleteFleetLoading) {
     return <PageLoader />;

@@ -15,25 +15,25 @@ const DataOverviewCards = () => {
     {
       title: "Total Users",
       count: countsData?.list?.total_users ?? 0,
-      icon: <FaUsers fontSize={40} color="#8970d6" />, // Green color for eco-friendly theme
+      icon: <FaUsers fontSize={40} color="#008000" />, // Green color for eco-friendly theme
       bgColor: "bg-green-50",
     },
     {
       title: "Active Trucks",
       count: countsData?.list?.trucks ?? 0,
-      icon: <FaTruck fontSize={40} color="#8970d6" />,
+      icon: <FaTruck fontSize={40} color="#008000" />,
       bgColor: "bg-green-50",
     },
     {
       title: "Inventory Items",
       count: "156",
-      icon: <FaBoxes fontSize={40} color="#8970d6" />,
+      icon: <FaBoxes fontSize={40} color="#008000" />,
       bgColor: "bg-green-50",
     },
     {
       title: "Revenue",
       count: "$100,000",
-      icon: <MdOutlineAttachMoney fontSize={40} color="#8970d6" />,
+      icon: <MdOutlineAttachMoney fontSize={40} color="#008000" />,
       bgColor: "bg-green-50",
     },
   ];

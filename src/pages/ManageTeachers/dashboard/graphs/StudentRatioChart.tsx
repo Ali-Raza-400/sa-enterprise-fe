@@ -68,7 +68,7 @@ const TruckOperationsChart: React.FC = () => {
           color: '#2F3237'
         }
       },
-      colors: ["#8970d6", "#70d6bc", "#E53E3E"], // Green colors for eco theme
+      colors: ["#008000", "#70d6bc", "#E53E3E"], // Green colors for eco theme
       dataLabels: {
         enabled: true,
       },

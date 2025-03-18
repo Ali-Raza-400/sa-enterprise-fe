@@ -193,7 +193,7 @@ const ContentView = () => {
 								noMargin
 							>
 								Created by:{" "}
-								<span className="!text-[#8970D6]">
+								<span className="!text-[#008000]">
 									{data?.creator?.fullName}
 								</span>
 							</Typography>
@@ -256,14 +256,14 @@ const ContentView = () => {
 															className={`flex items-center gap-7 p-5 cursor-pointer transition-colors duration-300 
                             ${
 															selectedAttachment === attachment.id
-																? "text-[#8970D6]"
+																? "text-[#008000]"
 																: "text-black"
 														}`}
 														>
 															<div
 																className={`text-2xl bg-[#EFEBF9] p-3 rounded-md ${
 																	selectedAttachment === attachment.id
-																		? "text-[#8970D6]"
+																		? "text-[#008000]"
 																		: "text-[#9297A0]"
 																}`}
 															>

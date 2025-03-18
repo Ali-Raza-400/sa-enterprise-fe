@@ -54,7 +54,7 @@ const Index = (): ReactElement => {
 	});
 	const { data, isLoading: userLoading, refetch } = useGetTrucksQuery(tableOptions);
 	useEffect(() => {
-		document.title = "Manage Trucks | SA Enterprise"
+		document.title = "Manage Vehicle | SA Enterprise"
 	}, [])
 	const [deleteTruck, { isLoading: DeleteTruckLoading }] = useDeleteTruckMutation();
 	const [isModalVisible, setIsModalVisible] = useState(false);
@@ -86,8 +86,8 @@ const Index = (): ReactElement => {
 			await registerFunc(payload).unwrap();
 			showAlert({
 				type: "success",
-				title: `Truck created!`,
-				message: `You have successfully created truck.`,
+				title: `Vehicle created!`,
+				message: `You have successfully created Vehicle.`,
 				confirmButtonText: "OK",
 				onConfirm: () => refetch(),
 			});
@@ -107,8 +107,8 @@ const Index = (): ReactElement => {
 	const onDelete = async (id: string) => {
 		showAlert({
 			type: "question",
-			title: `Delete Truck Confirmation`,
-			message: `Are you sure you want to delete this Truck? This action cannot be undone.`,
+			title: `Delete Vehicle Confirmation`,
+			message: `Are you sure you want to delete this Vehicle? This action cannot be undone.`,
 			confirmButtonText: "Delete",
 			cancelButtonText: "Cancel",
 			onConfirm: async () => {
@@ -116,14 +116,14 @@ const Index = (): ReactElement => {
 					await deleteTruck(id).unwrap(); // Ensures better error handling
 					showAlert({
 						type: "success",
-						title: `Truck Deleted Successfully`,
-						message: `The Truck has been deleted successfully.`,
+						title: `Vehicle Deleted Successfully`,
+						message: `The Vehicle has been deleted successfully.`,
 					});
 				} catch (error) {
 					showAlert({
 						type: "error",
 						title: `Deletion Failed`,
-						message: `An error occurred while deleting the truck. Please try again.`,
+						message: `An error occurred while deleting the Vehicle. Please try again.`,
 					});
 				}
 			},
@@ -131,7 +131,7 @@ const Index = (): ReactElement => {
 	};
 	const columns: TableProps<TruckType>["columns"] = [
 		{
-			title: "Truck Name",
+			title: "Vehicle Name",
 			dataIndex: "name",
 			key: "name",
 			width: 150,
@@ -206,7 +206,7 @@ const Index = (): ReactElement => {
 				{user?.role != "supervisor" &&
 					<GenericButton
 						icon={<FaPlus size={20} />}
-						label="Add New Truck"
+						label="Add New Vehicle"
 						onClick={() => navigate(PATH.ADD_TRUCK)}
 					/>}
 
@@ -266,13 +266,13 @@ const AddUserModal: React.FC<AddUserModalProps> = ({ isVisible, onClose, onAddUs
 						Cancel
 					</Button>,
 					<Button key="submit" type="primary" onClick={() => form.submit()}>
-						Add Truck
+						Add Vehicle
 					</Button>,
 				</div>,
 			]}
 		>
 			<Form form={form} layout="vertical" onFinish={handleSubmit}>
-				<Form.Item<truckFormValues> name="name" label="Truck Name" rules={[{ required: true, message: "Truck name is required" }]}>
+				<Form.Item<truckFormValues> name="name" label="Vehicle Name" rules={[{ required: true, message: "Vehicle name is required" }]}>
 					<Input />
 				</Form.Item>
 				<Form.Item<truckFormValues> name="license_plate" label="License Plate" rules={[{ required: true, message: "License Plate is required" }]}>
@@ -324,7 +324,7 @@ const UpdateUserModal: React.FC<UpdateUserModalProps> = ({ isVisible, onClose, o
 	};
 	return (
 		<Modal
-			title="Update Truck"
+			title="Update Vehicle"
 			open={isVisible}
 			onCancel={onClose}
 			footer={[
@@ -333,13 +333,13 @@ const UpdateUserModal: React.FC<UpdateUserModalProps> = ({ isVisible, onClose, o
 						Cancel
 					</Button>,
 					<Button key="submit" type="primary" onClick={() => form.submit()}>
-						Update Truck
+						Update Vehicle
 					</Button>,
 				</div>,
 			]}
 		>
 			<Form form={form} layout="vertical" onFinish={handleSubmit}>
-				<Form.Item<truckFormValues> name="name" label="Truck Name" rules={[{ required: true, message: "Truck name is required" }]}>
+				<Form.Item<truckFormValues> name="name" label="Vehicle Name" rules={[{ required: true, message: "Vehicle name is required" }]}>
 					<Input />
 				</Form.Item>
 				<Form.Item<truckFormValues> name="license_plate" label="License Plate" rules={[{ required: true, message: "License Plate is required" }]}>

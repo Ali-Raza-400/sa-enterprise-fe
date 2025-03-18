@@ -113,7 +113,7 @@ const Publication: React.FC<PublicationProps> = ({
                         {hasEditAccess && (
                           <CiEdit
                             size={25}
-                            color="#8970D6"
+                            color="#008000"
                             cursor={"pointer"}
                             onClick={() => onEdit(publication)}
                           />

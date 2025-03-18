@@ -145,7 +145,7 @@ const Index = () => {
 					backgroundImage: `url(${IMAGES.LMS_IMAGE})`,
 				}}
 			>
-				<div className="absolute inset-0 bg-[#8970d6] opacity-95 " />
+				<div className="absolute inset-0 bg-[#008000] opacity-95 " />
 				<Row gutter={24} className="flex justify-center w-full h-full ">
 					<Col
 						sm={24}

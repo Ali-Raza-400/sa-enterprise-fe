@@ -44,8 +44,8 @@ const UpdateTruck = () => {
             await updateTruck({ truckId: id, payload: values }).unwrap();
             showAlert({
                 type: "success",
-                title: `Truck Updated!`,
-                message: `You have successfully updated the truck.`,
+                title: `Vehicle Updated!`,
+                message: `You have successfully updated the Vehicle.`,
                 confirmButtonText: "OK",
                 onConfirm: () => navigate(PATH.TRUCK),
             });
@@ -62,8 +62,8 @@ const UpdateTruck = () => {
             {contextHolder}
             <div>
                 <div className="mb-6">
-                    <Title level={3} style={{ margin: 0, marginBottom: "8px" }}>Update Truck</Title>
-                    <Paragraph type="secondary">Modify truck details and save changes.</Paragraph>
+                    <Title level={3} style={{ margin: 0, marginBottom: "8px" }}>Update Vehicle</Title>
+                    <Paragraph type="secondary">Modify Vehicle details and save changes.</Paragraph>
                 </div>
 
                 <Form
@@ -74,8 +74,8 @@ const UpdateTruck = () => {
                     className="space-y-4"
                 >
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <Form.Item name="name" label="Truck Name" rules={[{ required: true, message: "Truck name is required" }]}>
-                            <Input size="large" style={{ height: "40px" }} placeholder="Enter truck name" />
+                        <Form.Item name="name" label="Vehicle Name" rules={[{ required: true, message: "Vehicle name is required" }]}>
+                            <Input size="large" style={{ height: "40px" }} placeholder="Enter Vehicle name" />
                         </Form.Item>
                         <Form.Item name="license_plate" label="License Plate" rules={[{ required: true, message: "License Plate is required" }]}>
                             <Input size="large" style={{ height: "40px" }} placeholder="Enter license plate" />
@@ -109,7 +109,7 @@ const UpdateTruck = () => {
                         <GenericButton
                             variant="solid"
                             htmlType="submit"
-                            label="Update Truck"
+                            label="Update Vehicle"
                             disabled={isLoading || isFetching}
                             loading={isLoading || isFetching}
                             style={{

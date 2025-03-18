@@ -182,25 +182,25 @@ const Index = () => {
 		{
 			title: "Teachers",
 			count: studentAnalytics?.totalTeacher,
-			icon: <FaChalkboardTeacher fontSize={80} color="#8970D6" />,
+			icon: <FaChalkboardTeacher fontSize={80} color="#008000" />,
 			onClick: () => setShowAnalytics((prev) => !prev),
 		},
 		{
 			title: "Enrolled",
 			count: studentAnalytics?.totalCourses,
-			icon: <MdLibraryBooks fontSize={80} color="#8970D6" />,
+			icon: <MdLibraryBooks fontSize={80} color="#008000" />,
 			onClick: () => navigate(PATH.STUDENT_ENROLLED_COURSES),
 		},
 		{
 			title: "Completed",
 			count: studentAnalytics?.completedCourses,
-			icon: <PiCertificateBold fontSize={80} color="#8970D6" />,
+			icon: <PiCertificateBold fontSize={80} color="#008000" />,
 			path: "completed",
 		},
 		{
 			title: "Ongoing",
 			count: studentAnalytics?.incompleteCourses,
-			icon: <MdOutlineIncompleteCircle fontSize={80} color="#8970D6" />,
+			icon: <MdOutlineIncompleteCircle fontSize={80} color="#008000" />,
 			path: "current",
 		},
 	];
@@ -238,7 +238,7 @@ const Index = () => {
 			align: "center",
 			render: (_: any, record: any) => (
 				<EyeOutlined
-					style={{ color: "#8970D6", fontSize: "18px" }} // Customize color and size here
+					style={{ color: "#008000", fontSize: "18px" }} // Customize color and size here
 					onClick={() =>
 						navigate(PATH.TEACHER_PROFILE.replace(":id", record?.id))
 					}
@@ -477,8 +477,8 @@ const Index = () => {
 								icon={
 									interestModal.selectedInterests.includes(value) ? (
 										<CheckCircleOutlined
-											className="text-[#8970D6]"
-											color="#8970D6"
+											className="text-[#008000]"
+											color="#008000"
 											style={{ marginRight: 4 }}
 										/>
 									) : null

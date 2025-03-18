@@ -26,7 +26,7 @@ const GenericCard: React.FC<GenericCardProps> = ({
   return (
     <Card
       hoverable
-      className={`hover:border-[1px] hover:border-[#8970D6] ${className}`}
+      className={`hover:border-[1px] hover:border-[#008000] ${className}`}
       onClick={onClick}
     >
       <div className="flex items-center gap-10">

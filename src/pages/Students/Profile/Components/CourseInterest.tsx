@@ -126,7 +126,7 @@ const CourseInterest = () => {
 								icon={
 									interestModal.selectedInterests.includes(interest.value) ? (
 										<CheckCircleOutlined
-											className="text-[#8970D6]"
+											className="text-[#008000]"
 											style={{ marginRight: 4 }}
 										/>
 									) : null

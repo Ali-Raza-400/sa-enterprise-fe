@@ -87,7 +87,7 @@ const EnrolledCourses = () => {
 						<Result 
 							className="h-[65vh] flex justify-center items-center flex-col  mt-20 xs:mt-0 
              result-title-css"
-							icon={<FaRegSmile size={100} fill="#8970D6" />}
+							icon={<FaRegSmile size={100} fill="#008000" />}
 							title="You currently have no courses enrolled. If you’ve submitted an enrollment request, it’s awaiting approval"
 							extra={
 								<div className="flex justify-center">
