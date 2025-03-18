@@ -42,7 +42,7 @@ const GenericTabs: React.FC<GenericTabsProps> = ({
 				onClick={() => setIsDropdownOpen(!isDropdownOpen)}
 				className="w-full px-4 py-2 flex items-center justify-between bg-white border border-[#e4dcf9] rounded-md"
 			>
-				<span className="text-[#8970D6] font-medium">
+				<span className="text-[#008000] font-medium">
 					{tabs[activeTab]?.name}
 				</span>
 				<FaChevronDown
@@ -57,7 +57,7 @@ const GenericTabs: React.FC<GenericTabsProps> = ({
 							key={index}
 							className={`w-full px-4 py-2 text-left hover:bg-[#f8f5ff] ${
 								index === activeTab
-									? "bg-[#f8f5ff] text-[#8970D6]"
+									? "bg-[#f8f5ff] text-[#008000]"
 									: "text-gray-700"
 							}`}
 							onClick={() => {
@@ -86,8 +86,8 @@ const GenericTabs: React.FC<GenericTabsProps> = ({
 							key={index}
 							className={`px-2 lg:px-4 h-[3rem] min-w-[6rem] lg:min-w-[8.6875rem] text-center rounded-t-md font-medium text-sm lg:text-base border-solid border-b-0 border-[1px] border-[#e4dcf9] transition-colors duration-150 whitespace-nowrap ${
 								index === activeTab
-									? "bg-[#8970D6] text-white"
-									: "text-[#8970D6]"
+									? "bg-[#008000] text-white"
+									: "text-[#008000]"
 							}`}
 							onClick={() => setActiveTab(index)}
 						>
@@ -101,8 +101,8 @@ const GenericTabs: React.FC<GenericTabsProps> = ({
 						<button
 							className={`p-2 rounded-md transition-colors duration-150 ${
 								viewMode === "list"
-									? "bg-[#8970D6] text-white"
-									: "text-[#8970D6] hover:bg-[#f8f5ff]"
+									? "bg-[#008000] text-white"
+									: "text-[#008000] hover:bg-[#f8f5ff]"
 							}`}
 							onClick={() => setViewMode("list")}
 						>
@@ -111,8 +111,8 @@ const GenericTabs: React.FC<GenericTabsProps> = ({
 						<button
 							className={`p-2 rounded-md transition-colors duration-150 ${
 								viewMode === "grid"
-									? "bg-[#8970D6] text-white"
-									: "text-[#8970D6] hover:bg-[#f8f5ff]"
+									? "bg-[#008000] text-white"
+									: "text-[#008000] hover:bg-[#f8f5ff]"
 							}`}
 							onClick={() => setViewMode("grid")}
 						>

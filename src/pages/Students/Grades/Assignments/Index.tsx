@@ -39,7 +39,7 @@ const Index = () => {
       dataIndex: ["assignment", "name"],
       key: "name",
       render: (text, record) => (
-          <a href={record?.assignment?.filePath} target="_blank" className="hover:underline hover:text-[#8970D6]">{text}
+          <a href={record?.assignment?.filePath} target="_blank" className="hover:underline hover:text-[#008000]">{text}
           </a>
       ),
       width: 100,
@@ -77,7 +77,7 @@ const Index = () => {
       render: (text,record) => {
         const fileName = record?.fileUrl?.split('/').pop();
         return record.fileUrl ? (
-          <a href={record?.fileUrl} target="_blank" className="hover:underline hover:text-[#8970D6]" rel="noopener noreferrer">
+          <a href={record?.fileUrl} target="_blank" className="hover:underline hover:text-[#008000]" rel="noopener noreferrer">
             {fileName}
           </a>
         ) : (

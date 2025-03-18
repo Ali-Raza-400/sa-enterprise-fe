@@ -49,7 +49,7 @@ const TopDrivers = () => {
     <Col span={24} sm={12} md={12} lg={12}>
       <div className="bg-white shadow-md rounded-lg p-6 pb-4">
         <div className="flex items-center gap-2 mb-4">
-          <FaTruck className="text-[#8970D6] text-xl" />
+          <FaTruck className="text-[#008000] text-xl" />
           <Typography variant="headingThreeLight" className="text-[#2F3237]">
             Top Performing Drivers
           </Typography>
@@ -65,14 +65,14 @@ const TopDrivers = () => {
                   <img
                     src={driver.image || "/placeholder.svg"}
                     alt={driver.name}
-                    className="rounded-full w-12 h-12 object-cover border-2 border-[#8970D6]"
+                    className="rounded-full w-12 h-12 object-cover border-2 border-[#008000]"
                   />
                 }
                 title={
                   <div className="flex items-center gap-2">
                     <span className="font-medium">{driver.name}</span>
                     <FaStar className="text-yellow-400" />
-                    <span className="text-[#8970D6] text-sm">
+                    <span className="text-[#008000] text-sm">
                       {driver.performance}%
                     </span>
                   </div>

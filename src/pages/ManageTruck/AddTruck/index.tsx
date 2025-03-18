@@ -33,7 +33,7 @@ const AddTruck = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        document.title = "Add Truck | SA Enterprise";
+        document.title = "Add Vehicle | SA Enterprise";
     }, []);
 
     const handleSubmit = async (values: any) => {
@@ -45,8 +45,8 @@ const AddTruck = () => {
             await registerFunc(req).unwrap();
             showAlert({
                 type: "success",
-                title: `Truck created!`,
-                message: `You have successfully created truck.`,
+                title: `Vehicle created!`,
+                message: `You have successfully created Vehicle.`,
                 confirmButtonText: "OK",
                 onConfirm: () => navigate(PATH.TRUCK),
             });
@@ -64,14 +64,14 @@ const AddTruck = () => {
             {contextHolder}
             <div>
                 <div className="mb-6">
-                    <Title level={3} style={{ margin: 0, marginBottom: "8px" }}>Add Truck</Title>
-                    <Paragraph type="secondary">Fill in the details to add a new truck to the system</Paragraph>
+                    <Title level={3} style={{ margin: 0, marginBottom: "8px" }}>Add Vehicle</Title>
+                    <Paragraph type="secondary">Fill in the details to add a new Vehicle to the system</Paragraph>
                 </div>
 
                 <Form form={form} layout="vertical" onFinish={handleSubmit} requiredMark="optional" className="space-y-4">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <Form.Item name="name" label="Truck Name" rules={[{ required: true, message: "Truck name is required" }]}>
-                            <Input size="large" style={{ height: "40px" }} placeholder="Enter truck name" />
+                        <Form.Item name="name" label="Vehicle Name" rules={[{ required: true, message: "Vehicle name is required" }]}>
+                            <Input size="large" style={{ height: "40px" }} placeholder="Enter Vehicle name" />
                         </Form.Item>
                         <Form.Item name="license_plate" label="License Plate" rules={[{ required: true, message: "License Plate is required" }]}>
                             <Input size="large" style={{ height: "40px" }} placeholder="Enter license plate" />
@@ -123,7 +123,7 @@ const AddTruck = () => {
                         <GenericButton
                             variant="solid"
                             htmlType="submit"
-                            label="Add Truck"
+                            label="Add Vehicle"
                             disabled={isLoading}
                             loading={isLoading}
                             style={{

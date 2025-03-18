@@ -129,7 +129,7 @@ const InstituteSettings = () => {
 						</>
 					) : (
 						<EditOutlined
-							className="text-[1.3rem] text-[#8970D6] cursor-pointer"
+							className="text-[1.3rem] text-[#008000] cursor-pointer"
 							onClick={() => {
 								setEditValue({
 									id: record?.id,

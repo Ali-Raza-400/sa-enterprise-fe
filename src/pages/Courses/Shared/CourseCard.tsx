@@ -113,7 +113,7 @@ const ResponsiveCourseCard = ({
 						}}
 						className="flex items-center"
 					>
-						<FaUserCheck size={25} fill="#8970D6" />
+						<FaUserCheck size={25} fill="#008000" />
 						<Typography
 							variant="bodyMediumRegular"
 							className="text-[#4D4D4D] ml-1"
@@ -256,7 +256,7 @@ const ResponsiveCourseCard = ({
 								? "headingThreeLight"
 								: "headingFourLight"
 						}
-						className="!text-[#8970D6]"
+						className="!text-[#008000]"
 					>
 						{price ? price : "Free"}
 					</Typography>
@@ -274,7 +274,7 @@ const ResponsiveCourseCard = ({
 		// <Col className="flex justify-center">
 		<Card
 			hoverable
-			className="hover:border-[1px] hover:border-[#8970D6]"
+			className="hover:border-[1px] hover:border-[#008000]"
 			onClick={onCardClick}
 		>
 			<Row>
@@ -346,7 +346,7 @@ const ResponsiveCourseCard = ({
 							</Typography>
 						</div>
 
-						<Typography variant="bodyLargeRegular" className="!text-[#8970D6]">
+						<Typography variant="bodyLargeRegular" className="!text-[#008000]">
 							{price ? price : "Free"}
 						</Typography>
 					</div>

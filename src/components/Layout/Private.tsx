@@ -149,7 +149,7 @@ function PrivateLayout({ children }: LayoutProps) {
   };
   const modules = [
     { label: "Dashboard", value: "/admin-dashboard" },
-    { label: "Manage Trucks", value: "/truck/list" },
+    { label: "Manage Vehicle", value: "/truck/list" },
     { label: "Manage Users", value: "/user/list" },
     { label: "Add User", value: "/create-user" },
     { label: "Manage Oprations", value: "/operation/list" },
@@ -195,7 +195,7 @@ function PrivateLayout({ children }: LayoutProps) {
           bottom: 0,
           scrollbarWidth: "thin",
           scrollbarColor: "unset",
-          backgroundColor: theme === THEME.DARK ? "#212529" : "#8970D6", // Replace this with your custom color
+          backgroundColor: theme === THEME.DARK ? "#212529" : "#008000", // Replace this with your custom color
         }}
         theme={theme.toLowerCase()}
       >
@@ -224,7 +224,7 @@ function PrivateLayout({ children }: LayoutProps) {
               selectedKeys={[pathname]}
               items={getMenuItems(user?.role)}
               style={{
-                backgroundColor: theme === THEME.DARK ? "#212529" : "#8970D6", // Replace with your custom color
+                backgroundColor: theme === THEME.DARK ? "#212529" : "#008000", // Replace with your custom color
               }}
             />
           </div>
@@ -338,7 +338,7 @@ function PrivateLayout({ children }: LayoutProps) {
 
           <div className="flex justify-center items-center gap-2 xs:gap-4">
             <div className="p-2 rounded-full">
-              <LuBell size={25} color="#8970D6" />
+              <LuBell size={25} color="#008000" />
             </div>
             <div>
               <Dropdown
@@ -376,7 +376,7 @@ function PrivateLayout({ children }: LayoutProps) {
             {children}
           </div>
         </Content>
-        <footer className="bg-gray-800 text-white py-3 text-center">
+        <footer className=" text-white py-3 text-center" style={{background:"#2E3383"}}>
           <p className="text-sm">
             Copyright © {new Date().getFullYear()} S.A Enterprises, Powered by
             S.A Enterprises. All Rights Reserved.

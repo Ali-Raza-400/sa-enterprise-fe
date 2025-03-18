@@ -29,7 +29,7 @@ const useGenericAlert = () => {
 					? "#BA2A2A"
 					: config.confirmButtonText === "Suspend"
 						? "#FCAB60"
-						: "#8970D6",
+						: "#008000",
 			...config.props,
 		}).then((result) => {
 			if (result.isConfirmed) {

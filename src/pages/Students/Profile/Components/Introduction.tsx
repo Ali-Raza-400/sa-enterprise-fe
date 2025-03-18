@@ -228,7 +228,7 @@ const Introduction: React.FC = () => {
 						My Profile
 					</Typography>
 					<EditOutlined
-						className="text-[1.5rem] text-[#8970D6] cursor-pointer"
+						className="text-[1.5rem] text-[#008000] cursor-pointer"
 						onClick={showModal}
 					/>
 				</div>

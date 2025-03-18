@@ -103,7 +103,7 @@ const Qualifications: React.FC<QualificationProps> = ({
                         {hasEditAccess && (
                           <CiEdit
                             size={25}
-                            color="#8970D6"
+                            color="#008000"
                             cursor={"pointer"}
                             onClick={() => onEdit(qualification)}
                           />

@@ -11,7 +11,7 @@ const Payment = () => {
           <Typography variant="headingFour" className="">
             Payment
           </Typography>
-          {/* <EditOutlined className="text-[1.5rem] text-[#8970D6] cursor-pointer" /> */}
+          {/* <EditOutlined className="text-[1.5rem] text-[#008000] cursor-pointer" /> */}
         </div>
         <Row gutter={[20, 0]} >
           <Col span={12} xs={24} md={10} lg={12} xl={6} className="">

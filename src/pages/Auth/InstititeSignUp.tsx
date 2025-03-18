@@ -60,7 +60,7 @@ const InstituteSignUp = () => {
 					backgroundImage: `url(${IMAGES.LMS_IMAGE})`,
 				}}
 			>
-				<div className="absolute inset-0 bg-[#8970d6] opacity-95" />
+				<div className="absolute inset-0 bg-[#008000] opacity-95" />
 				<Row gutter={24} className="flex justify-center w-full  ">
 					<Col sm={24} lg={12} xl={12} md={24} span={24}>
 						<div className="w-full relative bg-contain bg-center ">

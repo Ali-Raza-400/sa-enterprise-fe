@@ -29,7 +29,7 @@ const PurchaseHistory = () => {
         {
             title: "Price",
             dataIndex: "price", 
-            className: "text-[#8970D6]",    
+            className: "text-[#008000]",    
             key: "price",
             width: 100,
         },
