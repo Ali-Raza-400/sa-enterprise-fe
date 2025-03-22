@@ -10,6 +10,7 @@ const userApi = rtkQApi.injectEndpoints({
             query: (tableOptions) => {
                 const params = {
                     ...tableOptions.filters,
+                    zone_id:tableOptions.zone_id,
                     skip: `${tableOptions.pagination.page - 1}0`,
                     limit: tableOptions.pagination.pageSize,
                 };

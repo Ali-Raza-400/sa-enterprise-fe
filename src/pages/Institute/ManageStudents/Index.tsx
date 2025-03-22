@@ -57,10 +57,9 @@ const Index = (): ReactElement => {
   const [selectedUser, _setSelectedUser] = useState<any>();
   const navigate = useNavigate();
   const selectedZoneId = useSelector((state: any) => state.auth.selectedZoneId);
-    console.log("user list",selectedZoneId);
-  console.log("selectedUser", selectedUser);
   const [tableOptions, setTableOptions] = useState({
     filters: {},
+    zone_id: selectedZoneId ?? null,
     pagination: {
       page: 1,
       pageSize: 10,
@@ -69,6 +68,7 @@ const Index = (): ReactElement => {
   useEffect(() => {
     document.title = "Manage Users | SA Enterprise";
   }, []);
+
   const [form] = Form.useForm();
   const {
     data,
@@ -76,6 +76,12 @@ const Index = (): ReactElement => {
     isFetching,
     refetch,
   } = useGetUsersQuery(tableOptions);
+  useEffect(() => {
+    setTableOptions((prev) => ({
+      ...prev,
+      zone_id: selectedZoneId ?? null,
+    }));
+  }, [selectedZoneId]);
   const [deleteUser, { isLoading: deleteUserLoading }] =
     useDeleteUserMutation();
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -124,7 +130,7 @@ const Index = (): ReactElement => {
         confirmButtonText: "OK",
         onConfirm: () => refetch(),
       });
-    } catch (error: unknown) {}
+    } catch (error: unknown) { }
   };
 
   // const navigate = useNavigate();
@@ -285,7 +291,7 @@ const Index = (): ReactElement => {
         columns={columns}
         data={data}
         enablePagination={true}
-        updatePaginationFunc={(data: { page: number; pageSize: number }) => {
+        updatePaginationFunc={(data: { page: number; pageSize: number; }) => {
           console.log("data::::", data);
 
           setTableOptions({ ...tableOptions, pagination: data });

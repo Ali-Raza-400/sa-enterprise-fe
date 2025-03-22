@@ -105,6 +105,34 @@ export const items = [
 		],
 	},
 	{
+		key: STRINGS.TRUCK,
+		icon: <FaTruck />,
+		label: STRINGS.TRUCK,
+		show: true,
+		children: [
+			{
+				key: PATH.TRUCK,
+				icon: <MdLocalShipping />,
+				label: <Link to={PATH.TRUCK}>{STRINGS.TRUCKS}</Link>,
+			},
+			{
+				key: PATH.VIEW_TRUCK,
+				icon: <MdLocalShipping size={18} />,
+				label: <Link to={PATH.VIEW_TRUCK}>{STRINGS.VIEW_TRUCK}</Link>,
+			},
+			{
+				key: PATH.UPDATE_TRUCK,
+				icon: <FaBookOpen size={18} />,
+				label: <Link to={PATH.UPDATE_TRUCK}>{STRINGS.UPDATE_TRUCK}</Link>,
+			},
+			{
+				key: PATH.ADD_TRUCK,
+				icon: <FaPlusSquare size={18} />,
+				label: <Link to={PATH.ADD_TRUCK}>{STRINGS.ADD_TRUCK}</Link>,
+			},
+		],
+	},
+	{
 		key: STRINGS.OPRATIONNAME,
 		icon: <PiUsersFill />,
 		label: STRINGS.MANAGE_OPRATION,
@@ -147,34 +175,7 @@ export const items = [
 	// 	label: <Link to={PATH.TRUCK}>{STRINGS.TRUCK}</Link>,
 	// 	show: true,
 	// },
-	{
-		key: STRINGS.TRUCK,
-		icon: <FaTruck />,
-		label: STRINGS.TRUCK,
-		show: true,
-		children: [
-			{
-				key: PATH.TRUCK,
-				icon: <MdLocalShipping />,
-				label: <Link to={PATH.TRUCK}>{STRINGS.TRUCKS}</Link>,
-			},
-			{
-				key: PATH.VIEW_TRUCK,
-				icon: <MdLocalShipping size={18} />,
-				label: <Link to={PATH.VIEW_TRUCK}>{STRINGS.VIEW_TRUCK}</Link>,
-			},
-			{
-				key: PATH.UPDATE_TRUCK,
-				icon: <FaBookOpen size={18} />,
-				label: <Link to={PATH.UPDATE_TRUCK}>{STRINGS.UPDATE_TRUCK}</Link>,
-			},
-			{
-				key: PATH.ADD_TRUCK,
-				icon: <FaPlusSquare size={18} />,
-				label: <Link to={PATH.ADD_TRUCK}>{STRINGS.ADD_TRUCK}</Link>,
-			},
-		],
-	},
+	
 	{
 		key: PATH.INSTITUTE_SETTINGS,
 		icon: <CiSettings size={18} />,

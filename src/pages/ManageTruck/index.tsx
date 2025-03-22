@@ -43,10 +43,12 @@ const Index = (): ReactElement => {
 	const [form] = Form.useForm();
 	const [selectedTruck, _setSelectedTruck] = useState<any>()
 	const [isUpdateModalVisible, setIsUpdateModalVisible] = useState(false);
+	const selectedZoneId = useSelector((state: any) => state.auth.selectedZoneId);
 	const { user } = useSelector((state: any) => state.auth);
     const navigate=useNavigate()
 	const [tableOptions, setTableOptions] = useState({
 		filters: {},
+		zone_id: selectedZoneId ?? null,
 		pagination: {
 			page: 1,
 			pageSize: 10,
@@ -56,6 +58,12 @@ const Index = (): ReactElement => {
 	useEffect(() => {
 		document.title = "Manage Vehicle | SA Enterprise"
 	}, [])
+	 useEffect(() => {
+		setTableOptions((prev) => ({
+		  ...prev,
+		  zone_id: selectedZoneId ?? null,
+		}));
+	  }, [selectedZoneId]);
 	const [deleteTruck, { isLoading: DeleteTruckLoading }] = useDeleteTruckMutation();
 	const [isModalVisible, setIsModalVisible] = useState(false);
 	const [registerFunc, { isLoading }] = useAddTruckMutation();

@@ -47,6 +47,7 @@ const { Header, Content, Sider } = Layout;
 function PrivateLayout({ children }: LayoutProps) {
   const [collapsed, setCollapsed] = useState(false);
   const { theme, user } = useSelector((state: any) => state.auth);
+  console.log("user",user);
   const match = useMatch<"id", string>(PATH.COURSE_VIEW_STUDENT);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -322,7 +323,7 @@ const { data:zoneData} = useGetZonesQuery(tableOptions);
             </Typography>
 
             {/* Search Bar Moved to the Left Side */}
-            {pathname === "/admin-dashboard" && (
+            {user?.role != "supervisor" && (
               <div className="w-[150px] ml-4">
                 <AutoComplete
                   options={modules}
@@ -345,7 +346,7 @@ const { data:zoneData} = useGetZonesQuery(tableOptions);
                 </AutoComplete>
               </div>
             )}
-            {/* {pathname === "/admin-dashboard" && ( */}
+            {user?.role != "supervisor" && (
             <div className="w-[150px] ml-4">
               <AutoComplete
                 options={zoneOptions}
@@ -365,8 +366,8 @@ const { data:zoneData} = useGetZonesQuery(tableOptions);
                   size="middle"
                 />
               </AutoComplete>
-            </div>
-            {/* )} */}
+            </div>)}
+         
           </div>
 
           <div className="flex justify-center gap-2 items-center xs:gap-4">

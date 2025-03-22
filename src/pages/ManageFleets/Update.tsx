@@ -36,7 +36,7 @@ const FleetUpdatePage: React.FC = () => {
             message.error("Failed to update fleet");
         }
     };
-   
+
     return (
         <div style={{ maxWidth: "600px", margin: "0 auto", padding: "20px", boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)" }}>
             <h2 className="text-2xl font-bold mb-6">Update Fleet</h2>
@@ -47,9 +47,16 @@ const FleetUpdatePage: React.FC = () => {
                 initialValues={selectedFleet}
             >
                 <Form.Item
-                    name="fleet_type"
+                    name="name"
                     label="Fleet Title"
                     rules={[{ required: true, message: "Fleet Title is required" }]}
+                >
+                    <Input placeholder="Enter fleet title" size="large" />
+                </Form.Item>
+                <Form.Item
+                    name="fleet_type"
+                    label="Fleet Type"
+                    rules={[{ required: true, message: "Fleet Type is required" }]}
                 >
                     <Input placeholder="Enter fleet title" size="large" />
                 </Form.Item>
