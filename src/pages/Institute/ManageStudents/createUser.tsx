@@ -7,7 +7,8 @@ import useNotification from "../../../components/UI/Notification";
 import { getErrorMessage } from "../../../utils/helper";
 import { useNavigate } from "react-router-dom";
 import PATH from "../../../navigation/Path";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useGetZonesQuery } from "../../../redux/slices/zone";
 
 const { Title, Paragraph } = Typography;
 
@@ -18,6 +19,14 @@ const CreateUser = () => {
   const [registerFunc, { isLoading }] = useRegisterMutation();
   const { showAlert } = useGenericAlert();
   const { openNotification, contextHolder } = useNotification();
+  const [tableOptions] = useState({
+    filters: {},
+    pagination: {
+      page: 1,
+      pageSize: 10,
+    },
+  });
+  const { data: zoneData } = useGetZonesQuery(tableOptions);
   useEffect(() => {
     document.title = "Add User | SA Enterprise";
   }, []);
@@ -101,11 +110,24 @@ const CreateUser = () => {
             <Input size="large" style={{ height: "40px" }} />
           </Form.Item>
           <Form.Item<UserFormValues>
-            name="zone"
+            name="zone_id"
             label="Zone"
             rules={[{ required: true, message: "Zone is required" }]}
           >
-            <Input size="large" style={{ height: "40px" }} />
+            <Select
+
+              placeholder={"Select Zone"}
+              size="large"
+              style={{ width: "100%" }}
+            // dropdownStyle={{ maxHeight: "200px" }}
+            // loading={!supervisor}
+            >
+              {(zoneData?.list || [])?.map((zone: any) => (
+                <Option key={zone.id} value={zone.id}>
+                  {zone.name}
+                </Option>
+              ))}
+            </Select>
           </Form.Item>
 
           <Form.Item<UserFormValues> name="address" label="Address">

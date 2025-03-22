@@ -7,6 +7,10 @@ export default {
 			screens: {
 				xs: "480px", // Example: for screens smaller than `sm`
 			},
+			colors:{
+				customGreen: "#008000",
+
+			}
 		},
 	},
 	plugins: [],

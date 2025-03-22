@@ -40,6 +40,10 @@ const MANAGE_FLEETS = React.lazy(() => import("./ManageFleets/Index"));
 const MANAGE_FLEET_UPDATE= React.lazy(() => import("./ManageFleets/Update"));
 const MANAGE_FLEET_VIEW = React.lazy(() => import("./ManageFleets/View"));
 const MANAGE_FLEET_CREATE = React.lazy(() => import("./ManageFleets/createFleet"));
+const MANAGE_ZONE= React.lazy(() => import("./ManageZone/Index"));
+const MANAGE_ZONE_UPDATE= React.lazy(() => import("./ManageZone/Update"));
+const MANAGE_ZONE_VIEW = React.lazy(() => import("./ManageZone/View"));
+const MANAGE_ZONE_CREATE = React.lazy(() => import("./ManageZone/createZone"));
 const MANAGE_TEACHER_CREATE = React.lazy(
 	() => import("./ManageTeachers/Create")
 );
@@ -128,7 +132,11 @@ const WEB_PAGES = {
 
 	// No access page
 	NO_ACCESS,
-
+//  Manage Zone F
+MANAGE_ZONE,
+MANAGE_ZONE_CREATE,
+MANAGE_ZONE_VIEW,
+MANAGE_ZONE_UPDATE,
 	//Manage-opration
 	MANAGE_OPRATION,
 	MANAGE_FLEETS,

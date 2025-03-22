@@ -15,7 +15,7 @@ const userApi = rtkQApi.injectEndpoints({
 					limit: tableOptions.pagination.pageSize,
 				};
 				return {
-					url: 'users',
+					url: API_PATHS.USER,
 					method: "GET",
 					params: params,
 				};

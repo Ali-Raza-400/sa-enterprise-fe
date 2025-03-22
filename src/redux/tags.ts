@@ -1,6 +1,7 @@
 export const RTK_TAGS = {
 	TRUCK:"TRUCKS",
 	FLEET:"FLEETS",
+	ZONE:"ZONES",
 	USER:'USER',
 	LIST: "LIST",
 	ITEMS: "ITEMS",

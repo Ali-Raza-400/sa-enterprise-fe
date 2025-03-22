@@ -15,7 +15,7 @@ import USA from "./Usa.pdf";
 import Institute from "./Institute.jpg";
 import OTP from "./otp.svg";
 import ALMS_LOGO from "./ALMSystem.svg";
-import ALMS_LOGO_NEW2 from "./sa_enterprises_logo.jpg";
+import ALMS_LOGO_NEW2 from "./sa_enterprises_logo.png";
 import COMING_SOON from "./comingsoon.png";
 import COMING_SOON2 from "./comingSoon2.png";
 import CLOSED from "./closed.svg";

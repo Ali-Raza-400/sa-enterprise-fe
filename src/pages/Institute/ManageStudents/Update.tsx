@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Input, Select, message } from "antd";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useUpdateUserMutation } from "../../../redux/slices/user";
 import GenericButton from "../../../components/UI/GenericButton";
+import { useGetZonesQuery } from "../../../redux/slices/zone";
 
 const { Option } = Select;
 
@@ -23,7 +24,14 @@ const UserUpdatePage: React.FC = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const selectedUser = location.state;
-
+const [tableOptions] = useState({
+    filters: {},
+    pagination: {
+      page: 1,
+      pageSize: 10,
+    },
+  });
+  const { data: zoneData } = useGetZonesQuery(tableOptions);
     const [updateUser, { isLoading }] = useUpdateUserMutation();
 
     useEffect(() => {
@@ -64,8 +72,25 @@ const UserUpdatePage: React.FC = () => {
                 <Form.Item name="email" label="Email" rules={[{ required: true, type: "email", message: "Valid email is required" }]}>
                     <Input />
                 </Form.Item>
-                <Form.Item name="zone" label="Zone" rules={[{ required: true, message: "Zone is required" }]}>
-                    <Input />
+                <Form.Item
+                    name="zone_id"
+                    label="Zone"
+                    rules={[{ required: true, message: "Zone is required" }]}
+                >
+                    <Select
+
+                        placeholder={"Select Zone"}
+                        size="large"
+                        style={{ width: "100%" }}
+                    // dropdownStyle={{ maxHeight: "200px" }}
+                    // loading={!supervisor}
+                    >
+                        {(zoneData?.list || [])?.map((zone: any) => (
+                            <Option key={zone.id} value={zone.id}>
+                                {zone.name}
+                            </Option>
+                        ))}
+                    </Select>
                 </Form.Item>
                 <Form.Item name="address" label="Address">
                     <Input />

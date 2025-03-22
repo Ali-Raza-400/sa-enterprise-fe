@@ -17,6 +17,7 @@ import {
 import PageLoader from "../../../components/Loader/PageLoader";
 import PATH from "../../../navigation/Path";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const { Option } = Select;
 interface UserFormValues {
@@ -55,6 +56,8 @@ interface StudentType {
 const Index = (): ReactElement => {
   const [selectedUser, _setSelectedUser] = useState<any>();
   const navigate = useNavigate();
+  const selectedZoneId = useSelector((state: any) => state.auth.selectedZoneId);
+    console.log("user list",selectedZoneId);
   console.log("selectedUser", selectedUser);
   const [tableOptions, setTableOptions] = useState({
     filters: {},

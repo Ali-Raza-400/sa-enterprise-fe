@@ -47,7 +47,7 @@ const ViewUser: React.FC = () => {
             <div className="max-w-3xl mx-auto">
                 <div className="bg-white rounded-xl shadow-sm overflow-hidden">
                     {/* Header Section */}
-                    <div className="bg-gradient-to-r from-purple-600 to-purple-800 px-6 py-8">
+                    <div className="bg-gradient-to-r from-customGreen to-customGreen px-6 py-8">
                         <div className="flex items-center">
                             <div className="bg-white/10 rounded-full p-4">
                                 <BiUserCircle className="w-16 h-16 text-white" />
@@ -71,32 +71,32 @@ const ViewUser: React.FC = () => {
                     <div className="p-6">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <InfoItem
-                                icon={<PiUsersFill className="w-5 h-5 text-purple-600" />}
+                                icon={<PiUsersFill className="w-5 h-5 text-customGreen" />}
                                 label="Full Name"
                                 value={`${selectedUser.first_name} ${selectedUser.last_name}`}
                             />
                             <InfoItem
-                                icon={<PiMailboxDuotone className="w-5 h-5 text-purple-600" />}
+                                icon={<PiMailboxDuotone className="w-5 h-5 text-customGreen" />}
                                 label="Email"
                                 value={selectedUser.email}
                             />
                             <InfoItem
-                                icon={<FaMapPin className="w-5 h-5 text-purple-600" />}
+                                icon={<FaMapPin className="w-5 h-5 text-customGreen" />}
                                 label="Address"
                                 value={selectedUser.address || "N/A"}
                             />
                             <InfoItem
-                                icon={<FaPhoneFlip className="w-5 h-5 text-purple-600" />}
+                                icon={<FaPhoneFlip className="w-5 h-5 text-customGreen" />}
                                 label="Phone Number"
                                 value={selectedUser.phone_number}
                             />
                             <InfoItem
-                                icon={<FaCreditCard className="w-5 h-5 text-purple-600" />}
+                                icon={<FaCreditCard className="w-5 h-5 text-customGreen" />}
                                 label="CNIC Number"
                                 value={selectedUser.cnic_number}
                             />
                             <InfoItem
-                                icon={<FaRegCircleUser className="w-5 h-5 text-purple-600" />}
+                                icon={<FaRegCircleUser className="w-5 h-5 text-customGreen" />}
                                 label="Role"
                                 value={selectedUser.role}
                             />

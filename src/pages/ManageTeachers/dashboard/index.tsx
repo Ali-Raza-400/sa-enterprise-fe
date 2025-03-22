@@ -8,7 +8,7 @@ const TeacherDashboard = () => {
   return (
     <div>
       <DataOverviewCards />
-      <Row justify="center" gutter={[16, 16]} className="py-4">
+      <Row justify="center" gutter={[16, 16]} className="pt-4">
         <TruckOperationsChart />
         <TopDrivers />
       </Row>

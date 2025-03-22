@@ -2,7 +2,7 @@ import PATH from "../../../navigation/Path";
 // import { RiCoupon3Fill, RiMoneyDollarCircleFill } from "react-icons/ri";
 import STRINGS from "../../../utils/strings";
 import { Link } from "react-router-dom";
-import { RiTruckFill } from "react-icons/ri";
+import { RiTimeZoneFill, RiTruckFill } from "react-icons/ri";
 import { MdDashboard, MdLocalShipping, MdPerson } from "react-icons/md";
 import { FaBookOpen } from "react-icons/fa6";
 // import { FaBookOpen, FaHandHoldingDollar } from "react-icons/fa6";
@@ -27,7 +27,24 @@ export const items = [
 		label: <Link to={PATH.TEACHER_DASHBOARD}>{STRINGS.TEACHER_DASHBOARD}</Link>,
 		show: true,
 	},
-
+	{
+		key: STRINGS.ZONENAME,
+		icon: <RiTimeZoneFill />,
+		label: STRINGS.MANAGE_ZONE,
+		show: true,
+		children: [
+			{
+				key: PATH.MANAGE_ZONE,
+				icon: <RiTimeZoneFill />,
+				label: <Link to={PATH.MANAGE_ZONE}>{STRINGS.ZONE}</Link>,
+			},
+			{
+				key: PATH.MANAGE_ZONE_CREATE,
+				icon: <FaFolderPlus />,
+				label: <Link to={PATH.MANAGE_ZONE_CREATE}>{STRINGS.MANAGE_ZONE_CREATE}</Link>,
+			},
+		],
+	},
 	{
 		key: PATH.STUDENT_ASSIGNMENTS,
 		icon: <IoDocumentText />,
@@ -105,6 +122,7 @@ export const items = [
 			},
 		],
 	},
+	
 	{
 		key: STRINGS.MANAGE_FLEETS,
 		icon: <RiTruckFill />,
@@ -193,17 +211,13 @@ export const roleBasedItems = {
 		PATH.TEACHER_DASHBOARD,
 		PATH.MANAGE_OPRATION,
 		PATH.MANAGE_OPRATION_CREATE,
-		// PATH.COUPONS,
 		PATH.EARNINGS,
-		// PATH.REGISTRATION_REQUEST,
-		// PATH.COURSE_REQUEST,
 		PATH.TRUCK,
-		// PATH.VIEW_TRUCK,
 		PATH.ADD_TRUCK,
 		PATH.MANAGE_FLEETS,
-		PATH.MANAGE_FLEET_CREATE
-
-		// PATH.INSTITUTE_SETTINGS,
+		PATH.MANAGE_FLEET_CREATE,
+		PATH.MANAGE_ZONE,
+		PATH.MANAGE_ZONE_CREATE,
 	],
 	[LOOKUP_TYPES.Role.TEACHER]: [
 		PATH.MANAGE_STUDENTS,

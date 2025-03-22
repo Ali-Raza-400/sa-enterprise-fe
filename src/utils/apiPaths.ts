@@ -15,6 +15,7 @@ export const API_PATHS: { [key: string]: string } = {
 	DELETE_FILE: "s3/files",
 	COURSE: "courses",
 	FLEET: "fleets",
+	ZONE: "zones",
 	INSTITUTE_COURSES: "courses/institute-courses",
 	STUDENT_ANALYTICS: "student/analytics",
 	STUDENT_COMPLETED_COURSES_ANALYTICS: "student/completed-courses-analytics",
