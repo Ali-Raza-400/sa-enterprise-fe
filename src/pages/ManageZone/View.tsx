@@ -43,7 +43,7 @@ const ViewZone: React.FC = () => {
             <div className="max-w-3xl mx-auto">
                 <div className="bg-white rounded-xl shadow-sm overflow-hidden">
                     {/* Header Section */}
-                    <div className="bg-gradient-to-r from-purple-600 px-6 py-8 to-purple-800">
+                    <div className="bg-gradient-to-r from-customGreen px-6 py-8 to-customGreen">
                         <div className="flex items-center">
                             <div className="bg-white/10 p-4 rounded-full">
                                 <RiTimeZoneFill className="h-16 text-white w-16" />
@@ -72,7 +72,7 @@ const ViewZone: React.FC = () => {
                         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                            
                             <InfoItem
-                                icon={<RiTimeZoneFill className="h-5 text-purple-600 w-5" />}
+                                icon={<RiTimeZoneFill className="h-5 text-customGreen w-5" />}
                                 label="Zone Name"
                                 value={` ${selectedFleet.name}`}
                             />
