@@ -5,11 +5,13 @@ import useGenericAlert from "../../components/Hooks/GenericAlert";
 import GenericTable from "../../components/UI/GenericTable";
 import GenericButton from "../../components/UI/GenericButton";
 import { FaPlus } from "react-icons/fa6";
-import { useGetFleetsQuery, useDeleteFleetMutation, useAddFleetMutation } from "../../redux/slices/fleet";
+import { useAddFleetMutation } from "../../redux/slices/fleet";
 import { Modal, Form, Input, Select } from "antd";
 import PageLoader from "../../components/Loader/PageLoader";
 import { useNavigate } from "react-router-dom";
 import PATH from "../../navigation/Path";
+import { useDeleteZoneMutation, useGetZonesQuery } from "../../redux/slices/zone";
+import { useSelector } from "react-redux";
 
 const { Option } = Select;
 
@@ -61,24 +63,24 @@ const Index = (): ReactElement => {
   });
 
   useEffect(() => {
-    document.title = "Manage Fleets | SA Enterprise";
+    document.title = "Manage Zone | SA Enterprise";
   }, []);
 
   const [form] = Form.useForm();
-  const { data, isLoading: fleetLoading, refetch } = useGetFleetsQuery(tableOptions);
-  const [deleteFleet, { isLoading: deleteFleetLoading }] = useDeleteFleetMutation();
+  const { data, isLoading: fleetLoading, refetch } = useGetZonesQuery(tableOptions);
+  const [deleteZone, { isLoading: deleteZoneLoading }] = useDeleteZoneMutation();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [createFleet] = useAddFleetMutation();
-
   const { showAlert } = useGenericAlert();
-
+  const selectedZoneId = useSelector((state: any) => state.auth.selectedZoneId);
+  console.log("selectedZoneId",selectedZoneId);
   const handleAddFleet = async (fleetData: FleetFormValues) => {
     try {
       await createFleet(fleetData).unwrap();
       showAlert({
         type: "success",
-        title: "Fleet Added!",
-        message: "Fleet has been added successfully to the system",
+        title: "Zone Added!",
+        message: "Zone has been added successfully to the system",
         confirmButtonText: "OK",
         onConfirm: () => refetch(),
       });
@@ -87,7 +89,7 @@ const Index = (): ReactElement => {
       showAlert({
         type: "error",
         title: "Error",
-        message: "Failed to add fleet. Please try again.",
+        message: "Failed to add zone. Please try again.",
       });
     }
   };
@@ -97,23 +99,23 @@ const Index = (): ReactElement => {
   const onDelete = async (id: string) => {
     showAlert({
       type: "question",
-      title: "Delete Fleet Confirmation",
-      message: "Are you sure you want to delete this fleet? This action cannot be undone.",
+      title: "Delete Zone Confirmation",
+      message: "Are you sure you want to delete this zone? This action cannot be undone.",
       confirmButtonText: "Delete",
       cancelButtonText: "Cancel",
       onConfirm: async () => {
         try {
-          await deleteFleet(id).unwrap();
+          await deleteZone(id).unwrap();
           showAlert({
             type: "success",
-            title: "Fleet Deleted Successfully",
-            message: "The fleet has been deleted from the system.",
+            title: "Zone Deleted Successfully",
+            message: "The zone has been deleted from the system.",
           });
         } catch (error) {
           showAlert({
             type: "error",
             title: "Deletion Failed",
-            message: "An error occurred while deleting the fleet. Please try again.",
+            message: "An error occurred while deleting the zone. Please try again.",
           });
         }
       },
@@ -128,15 +130,9 @@ const Index = (): ReactElement => {
       render: (_text: any, _record: FleetType, index: number) => index + 1,
     },
     {
-      title: "Title",
+      title: "Zone",
       dataIndex: "name",
       key: "name",
-      width: 120,
-    },
-    {
-      title: "Flet Type",
-      dataIndex: "fleet_type",
-      key: "fleet_type",
       width: 120,
     },
     {
@@ -149,7 +145,7 @@ const Index = (): ReactElement => {
           <Tooltip title="View">
             <EyeOutlined
               onClick={() =>
-                navigate(PATH.MANAGE_FLEET_VIEW, {
+                navigate(PATH.MANAGE_ZONE_VIEW, {
                   state: obj,
                 })
               }
@@ -159,7 +155,7 @@ const Index = (): ReactElement => {
           <Tooltip title="Edit">
             <EditOutlined
               onClick={() =>
-                navigate(PATH.MANAGE_FLEET_UPDATE, {
+                navigate(PATH.MANAGE_ZONE_UPDATE, {
                   state: obj,
                 })
               }
@@ -178,7 +174,7 @@ const Index = (): ReactElement => {
   ];
   
 
-  if (fleetLoading  || deleteFleetLoading) {
+  if (fleetLoading  || deleteZoneLoading) {
     return <PageLoader />;
   }
 
@@ -187,8 +183,8 @@ const Index = (): ReactElement => {
       <Flex className="justify-end mb-4">
         <GenericButton
           icon={<FaPlus size={20} />}
-          label="Add New Fleet"
-          onClick={() => navigate(PATH.MANAGE_FLEET_CREATE)}
+          label="Add New Zone"
+          onClick={() => navigate(PATH.MANAGE_ZONE_CREATE)}
         />
 
         <AddFleetModal
@@ -201,7 +197,7 @@ const Index = (): ReactElement => {
        
       </Flex>
       <GenericTable
-        loading={fleetLoading  || deleteFleetLoading}
+        loading={fleetLoading  || deleteZoneLoading}
         columns={columns}
         data={data}
         enablePagination={true}

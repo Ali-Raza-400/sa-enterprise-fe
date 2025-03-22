@@ -7,33 +7,33 @@ import { getErrorMessage } from "../../utils/helper";
 import { useNavigate } from "react-router-dom";
 import PATH from "../../navigation/Path";
 import { useEffect } from "react";
-import { useAddFleetMutation } from "../../redux/slices/fleet";
+import { useAddZoneMutation } from "../../redux/slices/zone";
 
 const { Title, Paragraph } = Typography;
 
-const CreateFleet = () => {
+const CreateZone = () => {
   const [form] = Form.useForm<UserFormValues>();
   const navigate = useNavigate();
-  const [addFleet, { isLoading }] = useAddFleetMutation();
+  const [addZone, { isLoading }] = useAddZoneMutation();
   const { showAlert } = useGenericAlert();
   const { openNotification, contextHolder } = useNotification();
   useEffect(() => {
-    document.title = "Add Fleet | SA Enterprise";
+    document.title = "Add Zone | SA Enterprise";
   }, []);
   const handleAddUser = async (userData: any) => {
     const payload = {
       ...userData,
     };
     try {
-      await addFleet(payload).unwrap();
+      await addZone(payload).unwrap();
       showAlert({
         type: "success",
-        title: `Fleet Added!`,
-        message: `Fleet Added Successfully to the S.A Enterprises System`,
+        title: `Zone Added!`,
+        message: `Zone Added Successfully to the S.A Enterprises System`,
         confirmButtonText: "OK",
       });
       form.resetFields();
-      navigate(PATH.MANAGE_FLEETS);
+      navigate(PATH.MANAGE_ZONE);
     } catch (error: unknown) {
       openNotification({
         type: "error",
@@ -53,10 +53,10 @@ const CreateFleet = () => {
       <div>
         <div className="mb-6">
           <Title level={3} style={{ margin: 0, marginBottom: "8px" }}>
-            Create New Fleet
+            Create New Zone
           </Title>
           <Paragraph type="secondary">
-            Add a new fleet to the system
+            Add a new zone to the system
           </Paragraph>
         </div>
 
@@ -71,24 +71,18 @@ const CreateFleet = () => {
 
 
           <Form.Item
-            name="fleet_type"
-            label="Fleet Type"
-            rules={[{ required: true, message: "Fleet Type is required" }]}
-          >
-            <Input placeholder="Enter fleet type" size="large" />
-          </Form.Item>
-          <Form.Item
             name="name"
-            label="Fleet Title"
-            rules={[{ required: true, message: "Fleet Title is required" }]}
+            label="Zone name"
+            
+            rules={[{ required: true, message: "Zone name is required" }]}
           >
-            <Input placeholder="Enter fleet title" size="large" />
+            <Input placeholder="Enter zone" size="large" />
           </Form.Item>
           <div className="flex justify-center pt-4">
             <GenericButton
               variant="solid"
               htmlType="submit"
-              label="Add Fleet"
+              label="Add Zone"
               disabled={isLoading}
               loading={isLoading}
               style={{
@@ -107,4 +101,4 @@ const CreateFleet = () => {
   );
 };
 
-export default CreateFleet;
+export default CreateZone;

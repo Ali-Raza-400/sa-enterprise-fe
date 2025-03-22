@@ -2,7 +2,7 @@ import PATH from "../../../navigation/Path";
 // import { RiCoupon3Fill, RiMoneyDollarCircleFill } from "react-icons/ri";
 import STRINGS from "../../../utils/strings";
 import { Link } from "react-router-dom";
-import { RiTruckFill } from "react-icons/ri";
+import { RiTimeZoneFill, RiTruckFill } from "react-icons/ri";
 import { MdDashboard, MdLocalShipping, MdPerson } from "react-icons/md";
 import { FaBookOpen } from "react-icons/fa6";
 // import { FaBookOpen, FaHandHoldingDollar } from "react-icons/fa6";
@@ -27,7 +27,24 @@ export const items = [
 		label: <Link to={PATH.TEACHER_DASHBOARD}>{STRINGS.TEACHER_DASHBOARD}</Link>,
 		show: true,
 	},
-
+	{
+		key: STRINGS.ZONENAME,
+		icon: <RiTimeZoneFill />,
+		label: STRINGS.MANAGE_ZONE,
+		show: true,
+		children: [
+			{
+				key: PATH.MANAGE_ZONE,
+				icon: <RiTimeZoneFill />,
+				label: <Link to={PATH.MANAGE_ZONE}>{STRINGS.ZONE}</Link>,
+			},
+			{
+				key: PATH.MANAGE_ZONE_CREATE,
+				icon: <FaFolderPlus />,
+				label: <Link to={PATH.MANAGE_ZONE_CREATE}>{STRINGS.MANAGE_ZONE_CREATE}</Link>,
+			},
+		],
+	},
 	{
 		key: PATH.STUDENT_ASSIGNMENTS,
 		icon: <IoDocumentText />,
@@ -88,48 +105,6 @@ export const items = [
 		],
 	},
 	{
-		key: STRINGS.OPRATIONNAME,
-		icon: <PiUsersFill />,
-		label: STRINGS.MANAGE_OPRATION,
-		show: true,
-		children: [
-			{
-				key: PATH.MANAGE_OPRATION,
-				icon: <PiUsersFill />,
-				label: <Link to={PATH.MANAGE_OPRATION}>{STRINGS.OPRATION}</Link>,
-			},
-			{
-				key: PATH.MANAGE_OPRATION_CREATE,
-				icon: <FaFolderPlus />,
-				label: <Link to={PATH.MANAGE_OPRATION_CREATE}>{STRINGS.MANAGE_OPRATION_CREATE}</Link>,
-			},
-		],
-	},
-	{
-		key: STRINGS.MANAGE_FLEETS,
-		icon: <RiTruckFill />,
-		label: STRINGS.MANAGE_FLEETS,
-		show: true,
-		children: [
-			{
-				key: PATH.MANAGE_FLEETS,
-				icon: <RiTruckFill />,
-				label: <Link to={PATH.MANAGE_FLEETS}>{STRINGS.FLEETNAME}</Link>,
-			},
-			{
-				key: PATH.MANAGE_FLEET_CREATE,
-				icon: <FaFolderPlus />,
-				label: <Link to={PATH.MANAGE_FLEET_CREATE}>{STRINGS.MANAGE_FLEET_CREATE}</Link>,
-			},
-		],
-	},
-	// {
-	// 	key: PATH.TRUCK,
-	// 	icon: <IoBookSharp />,
-	// 	label: <Link to={PATH.TRUCK}>{STRINGS.TRUCK}</Link>,
-	// 	show: true,
-	// },
-	{
 		key: STRINGS.TRUCK,
 		icon: <FaTruck />,
 		label: STRINGS.TRUCK,
@@ -157,6 +132,50 @@ export const items = [
 			},
 		],
 	},
+	{
+		key: STRINGS.OPRATIONNAME,
+		icon: <PiUsersFill />,
+		label: STRINGS.MANAGE_OPRATION,
+		show: true,
+		children: [
+			{
+				key: PATH.MANAGE_OPRATION,
+				icon: <PiUsersFill />,
+				label: <Link to={PATH.MANAGE_OPRATION}>{STRINGS.OPRATION}</Link>,
+			},
+			{
+				key: PATH.MANAGE_OPRATION_CREATE,
+				icon: <FaFolderPlus />,
+				label: <Link to={PATH.MANAGE_OPRATION_CREATE}>{STRINGS.MANAGE_OPRATION_CREATE}</Link>,
+			},
+		],
+	},
+	
+	{
+		key: STRINGS.MANAGE_FLEETS,
+		icon: <RiTruckFill />,
+		label: STRINGS.MANAGE_FLEETS,
+		show: true,
+		children: [
+			{
+				key: PATH.MANAGE_FLEETS,
+				icon: <RiTruckFill />,
+				label: <Link to={PATH.MANAGE_FLEETS}>{STRINGS.FLEETNAME}</Link>,
+			},
+			{
+				key: PATH.MANAGE_FLEET_CREATE,
+				icon: <FaFolderPlus />,
+				label: <Link to={PATH.MANAGE_FLEET_CREATE}>{STRINGS.MANAGE_FLEET_CREATE}</Link>,
+			},
+		],
+	},
+	// {
+	// 	key: PATH.TRUCK,
+	// 	icon: <IoBookSharp />,
+	// 	label: <Link to={PATH.TRUCK}>{STRINGS.TRUCK}</Link>,
+	// 	show: true,
+	// },
+	
 	{
 		key: PATH.INSTITUTE_SETTINGS,
 		icon: <CiSettings size={18} />,
@@ -193,17 +212,13 @@ export const roleBasedItems = {
 		PATH.TEACHER_DASHBOARD,
 		PATH.MANAGE_OPRATION,
 		PATH.MANAGE_OPRATION_CREATE,
-		// PATH.COUPONS,
 		PATH.EARNINGS,
-		// PATH.REGISTRATION_REQUEST,
-		// PATH.COURSE_REQUEST,
 		PATH.TRUCK,
-		// PATH.VIEW_TRUCK,
 		PATH.ADD_TRUCK,
 		PATH.MANAGE_FLEETS,
-		PATH.MANAGE_FLEET_CREATE
-
-		// PATH.INSTITUTE_SETTINGS,
+		PATH.MANAGE_FLEET_CREATE,
+		PATH.MANAGE_ZONE,
+		PATH.MANAGE_ZONE_CREATE,
 	],
 	[LOOKUP_TYPES.Role.TEACHER]: [
 		PATH.MANAGE_STUDENTS,

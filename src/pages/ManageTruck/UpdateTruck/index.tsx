@@ -10,6 +10,7 @@ import { getErrorMessage } from "../../../utils/helper";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useGetFleetsQuery } from "../../../redux/slices/fleet";
+import { useGetZonesQuery } from "../../../redux/slices/zone";
 
 const { Title, Paragraph } = Typography;
 const { Option } = Select;
@@ -21,17 +22,19 @@ const UpdateTruck = () => {
     const { data: driver } = useGetUserByRoleQuery({ role: "driver" });
     const { user } = useSelector((state: any) => state.auth);
     const [updateTruck, { isLoading }] = useUpdateTruckMutation();
+     const [tableOptions] = useState({
+            filters: {},
+            pagination: {
+                page: 1,
+                pageSize: 10,
+            },
+        });
+        const { data: zoneData } = useGetZonesQuery(tableOptions);
     const { openNotification, contextHolder } = useNotification();
     const { showAlert } = useGenericAlert();
     const [form] = Form.useForm();
     const navigate = useNavigate();
-  const [tableOptions] = useState({
-        filters: {},
-        pagination: {
-            page: 1,
-            pageSize: 10,
-        },
-    });
+  
     const { data: fleetList } = useGetFleetsQuery(tableOptions);
     useEffect(() => {
         if (truckData) {
@@ -80,16 +83,36 @@ const UpdateTruck = () => {
                         <Form.Item name="license_plate" label="License Plate" rules={[{ required: true, message: "License Plate is required" }]}>
                             <Input size="large" style={{ height: "40px" }} placeholder="Enter license plate" />
                         </Form.Item>
-                  
 
-                    <Form.Item name="supervisor_id" label="Supervisor" rules={[{ required: true, message: "Supervisor is required" }]}>
-                        <Select placeholder="Select Supervisor" size="large" style={{ width: "100%" }}>
-                            {(supervisor?.list || []).map((role:any) => (
-                                <Option key={role.id} value={role.id}>{role.first_name} {role.last_name}</Option>
-                            ))}
-                        </Select>
-                    </Form.Item>
-                    {user?.role !== "supervisor" && (
+
+                        <Form.Item name="supervisor_id" label="Supervisor" rules={[{ required: true, message: "Supervisor is required" }]}>
+                            <Select placeholder="Select Supervisor" size="large" style={{ width: "100%" }}>
+                                {(supervisor?.list || []).map((role: any) => (
+                                    <Option key={role.id} value={role.id}>{role.first_name} {role.last_name}</Option>
+                                ))}
+                            </Select>
+                        </Form.Item>
+                        <Form.Item
+                            name="zone_id"
+                            label="Zone"
+                            rules={[{ required: true, message: "Zone is required" }]}
+                        >
+                            <Select
+
+                                placeholder={"Select Zone"}
+                                size="large"
+                                style={{ width: "100%" }}
+                            // dropdownStyle={{ maxHeight: "200px" }}
+                            // loading={!supervisor}
+                            >
+                                {(zoneData?.list || [])?.map((zone: any) => (
+                                    <Option key={zone.id} value={zone.id}>
+                                        {zone.name}
+                                    </Option>
+                                ))}
+                            </Select>
+                        </Form.Item>
+                        {user?.role !== "supervisor" && (
                             <Form.Item name="fleet_type" label="Fleet type" rules={[{ required: false }]}>
                                 <Select placeholder="Select Fleet type" size="large" style={{ width: "100%" }}>
                                     {(fleetList?.list || []).map((fleet: any) => (
@@ -97,13 +120,13 @@ const UpdateTruck = () => {
                                     ))}
                                 </Select>
                             </Form.Item>)}
-                    <Form.Item name="driver_id" label="Driver" rules={[{ required: true, message: "Driver is required" }]}>
-                        <Select placeholder="Select Driver" size="large" style={{ width: "100%" }}>
-                            {(driver?.list || []).map((role:any) => (
-                                <Option key={role.id} value={role.id}>{role.first_name} {role.last_name}</Option>
-                            ))}
-                        </Select>
-                    </Form.Item>
+                        <Form.Item name="driver_id" label="Driver" rules={[{ required: true, message: "Driver is required" }]}>
+                            <Select placeholder="Select Driver" size="large" style={{ width: "100%" }}>
+                                {(driver?.list || []).map((role: any) => (
+                                    <Option key={role.id} value={role.id}>{role.first_name} {role.last_name}</Option>
+                                ))}
+                            </Select>
+                        </Form.Item>
                     </div>
                     <div className="flex justify-end pt-4">
                         <GenericButton

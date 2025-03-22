@@ -28,7 +28,7 @@ import { GoChevronDown } from "react-icons/go";
 import { FiLogOut } from "react-icons/fi";
 import { CgProfile } from "react-icons/cg";
 import { useDispatch, useSelector } from "react-redux";
-import { setCredentials } from "../../redux/features/authSlice";
+import { setCredentials, setZoneId } from "../../redux/features/authSlice";
 import { removeUser } from "../../utils/helper";
 import IMAGES from "../../assets/images";
 import { THEME } from "../../utils/constants";
@@ -39,6 +39,7 @@ import { items, roleBasedItems } from "./constants/SidebarItems";
 import NavigateBackButton from "../UI/NavigateBackButton";
 import PATH from "../../navigation/Path";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
+import { useGetZonesQuery } from "../../redux/slices/zone";
 // import packageJson from "../../../package.json";
 
 const { Header, Content, Sider } = Layout;
@@ -46,22 +47,29 @@ const { Header, Content, Sider } = Layout;
 function PrivateLayout({ children }: LayoutProps) {
   const [collapsed, setCollapsed] = useState(false);
   const { theme, user } = useSelector((state: any) => state.auth);
+  console.log("user",user);
   const match = useMatch<"id", string>(PATH.COURSE_VIEW_STUDENT);
-  console.log("user====>", user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const clearUser = () => {
     dispatch(setCredentials(null));
     removeUser();
   };
-  const { pathname } = useLocation();
 
+  const { pathname } = useLocation();
+  const [tableOptions] = useState({
+    filters: {},
+    pagination: {
+      page: 1,
+      pageSize: 10,
+    },
+  });
+const { data:zoneData} = useGetZonesQuery(tableOptions);
   const getPageName = () => {
     const route = ROUTES.find((route) => matchPath(route.path, pathname));
     return route ? route.name : "Page Not Found";
   };
 
-  // Filter items based on the current role
   const getMenuItems = (currentRole: string | number) =>
     items
       .map((item) => {
@@ -73,7 +81,6 @@ function PrivateLayout({ children }: LayoutProps) {
             ? { ...item, children: filteredChildren }
             : null;
         }
-        // Include item if it’s permitted for the role
         return roleBasedItems[currentRole]?.includes(item.key) ? item : null;
       })
       .filter(Boolean);
@@ -85,15 +92,15 @@ function PrivateLayout({ children }: LayoutProps) {
         <div
           className="flex items-center"
           onClick={() => navigate(PATH.INSTITUTE_PROFILE)}
-          // onClick={() => {
-          // 	if (user?.role == "Institute") {
-          // 		navigate(PATH.INSTITUTE_PROFILE);
-          // 	} else if (user?.role == "Teacher") {
-          // 		navigate(PATH.TEACHER_PROFILE.replace(":id", user.id));
-          // 	} else if (user?.role == "Student") {
-          // 		navigate(PATH.STUDENT_PROFILE.replace(":tab", "profile"));
-          // 	}
-          // }}
+        // onClick={() => {
+        // 	if (user?.role == "Institute") {
+        // 		navigate(PATH.INSTITUTE_PROFILE);
+        // 	} else if (user?.role == "Teacher") {
+        // 		navigate(PATH.TEACHER_PROFILE.replace(":id", user.id));
+        // 	} else if (user?.role == "Student") {
+        // 		navigate(PATH.STUDENT_PROFILE.replace(":tab", "profile"));
+        // 	}
+        // }}
         >
           <CgProfile size={20} className="mr-2" />
           My Profile
@@ -142,7 +149,7 @@ function PrivateLayout({ children }: LayoutProps) {
   // 	checkVersion();
   // }, []);
   const [searchValue, setSearchValue] = useState<string>("");
-
+  const [searchZone, setSearchZone] = useState<string>("");
   const onSelect = (value: string, option: any) => {
     setSearchValue(option.label); // Display label instead of value (URL)
     navigate(value); // Navigate to the selected module
@@ -156,21 +163,26 @@ function PrivateLayout({ children }: LayoutProps) {
     { label: "Add Oprations", value: "/manage-operation/create" },
   ];
 
-  // const styles = {
-  // 	footer: {
-  // 		backgroundColor: "#006400", // Dark green color
-  // 		color: "#ffffff", // White text
-  // 		textAlign: "center",
-  // 		padding: "10px 0",
-  // 		position: "fixed",
-  // 		bottom: 0,
-  // 		width: "100%",
-  // 		fontSize: "14px",
-  // 	},
-  // 	text: {
-  // 		margin: 0,
-  // 	},
-  // };
+  
+
+ 
+
+
+  const zoneOptions = (zoneData?.list||[])?.map((zone:any) => ({
+    value: String(zone.id),
+    label: zone.name
+  }));
+
+  // Handle selection
+
+  const onSelectZone = (value: string) => {
+    dispatch(setZoneId(Number(value))); 
+    setSearchZone(zoneOptions.find((zone:any) => zone.value === value)?.label || "");
+  };
+  const onClearZone = () => {
+    dispatch(setZoneId(null)); // Reset zoneId to 90
+    setSearchZone(""); // Clear the search input
+  };
   return (
     <Layout className={`min-h-screen ${theme.toLowerCase()} mobile-responsive`}>
       <Sider
@@ -201,9 +213,9 @@ function PrivateLayout({ children }: LayoutProps) {
       >
         <div
           onClick={() => setCollapsed(!collapsed)}
-          className="cursor-pointer hidden lg:hidden bg-[#BEB0E8] py-2 w-full justify-center items-center max-lg:flex"
+          className="bg-[#BEB0E8] justify-center w-full cursor-pointer hidden items-center lg:hidden max-lg:flex py-2"
         >
-          <span className="!min-w-0 ">
+          <span className="!min-w-0">
             {collapsed ? (
               <FaChevronRight className="!text-white" />
             ) : (
@@ -211,11 +223,11 @@ function PrivateLayout({ children }: LayoutProps) {
             )}
           </span>
         </div>
-        <div className="flex flex-col h-full justify-between py-5 px-1">
+        <div className="flex flex-col h-full justify-between px-1 py-5">
           <div>
             <img
               src={IMAGES.ALMS_LOGO_NEW2}
-              className="mb-5 w-[70%] h-[150px] mx-auto cursor-pointer rounded-[2px]"
+              className="h-[150px] rounded-[2px] w-[70%] cursor-pointer mx-auto"
               onClick={() => navigate("/admin-dashboard")}
             />
             <Menu
@@ -228,7 +240,7 @@ function PrivateLayout({ children }: LayoutProps) {
               }}
             />
           </div>
-          {/* <div className="w-full flex justify-center">
+          {/* <div className="flex justify-center w-full">
 						<Switch
 							className={`theme-switch ${theme === THEME.LIGHT ? "light-switch" : "dark-switch"}`}
 							unCheckedChildren={<MdDarkMode size={18} fill="black" />}
@@ -238,7 +250,7 @@ function PrivateLayout({ children }: LayoutProps) {
 						/>
 					</div> */}
 
-          {/* <div className="flex justify-center ">
+          {/* <div className="flex justify-center">
 						<div className="bg-[#FCAB60] p-2 rounded-[10px] w-[11.5rem]">
 							<Space className="profile-dropdown-space">
 								<Avatar
@@ -249,7 +261,7 @@ function PrivateLayout({ children }: LayoutProps) {
 								/>
 								<div className=" ">
 									<p
-										className="font-semibold text-white "
+										className="text-white font-semibold"
 										style={{ fontSize: "clamp(0.75rem, 2.5vw, 1.25rem)" }}
 									>
 										{user?.fullName || "USER"}
@@ -259,7 +271,7 @@ function PrivateLayout({ children }: LayoutProps) {
 											items: profileDropdownItems,
 										}}
 										trigger={["click"]}
-										className="profile-dropdown text-white"
+										className="text-white profile-dropdown"
 										placement="bottomCenter"
 										overlayClassName="position-fixed"
 									>
@@ -277,7 +289,7 @@ function PrivateLayout({ children }: LayoutProps) {
 							<Divider className="bg-white my-3" />
 							<div
 								onClick={clearUser}
-								className="flex items-center text-white cursor-pointer"
+								className="flex text-white cursor-pointer items-center"
 							>
 								<FiLogOut size={18} className="mr-2" />
 								Logout
@@ -286,9 +298,9 @@ function PrivateLayout({ children }: LayoutProps) {
 					</div> */}
         </div>
       </Sider>
-      <Layout className="ms-[4rem] sm:ms-[4.5rem] md:ms-[4.5rem] lg:ms-[13.6rem] xl:ms-[13.6rem]">
+      <Layout className="lg:ms-[13.6rem] md:ms-[4.5rem] ms-[4rem] sm:ms-[4.5rem] xl:ms-[13.6rem]">
         <Header
-          className="bg-white dark:bg-[#212529] px-8 flex justify-between items-center"
+          className="flex bg-white justify-between dark:bg-[#212529] items-center px-8"
           style={{
             position: "sticky",
             top: 0,
@@ -298,7 +310,7 @@ function PrivateLayout({ children }: LayoutProps) {
             alignItems: "center",
           }}
         >
-          <div className="flex items-center gap-4">
+          <div className="flex gap-4 items-center">
             <Button
               type="text"
               icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
@@ -311,8 +323,8 @@ function PrivateLayout({ children }: LayoutProps) {
             </Typography>
 
             {/* Search Bar Moved to the Left Side */}
-            {pathname === "/admin-dashboard" && (
-              <div className="ml-4 w-[350px]">
+            {user?.role != "supervisor" && (
+              <div className="w-[150px] ml-4">
                 <AutoComplete
                   options={modules}
                   onSelect={onSelect}
@@ -334,9 +346,31 @@ function PrivateLayout({ children }: LayoutProps) {
                 </AutoComplete>
               </div>
             )}
+            {user?.role != "supervisor" && (
+            <div className="w-[150px] ml-4">
+              <AutoComplete
+                options={zoneOptions}
+                onSelect={onSelectZone}
+                value={searchZone}
+                allowClear
+                onClear={onClearZone}
+                onChange={(value) => setSearchZone(value)} // Update state when typing
+                filterOption={(inputValue, option:any) =>
+                  option!.label.toLowerCase().includes(inputValue.toLowerCase())
+                }
+                style={{ width: "100%" }}
+              >
+                <Input
+                  placeholder="Search Zones..."
+                  prefix={<SearchOutlined style={{ fontSize: "14px" }} />} // Smaller search icon
+                  size="middle"
+                />
+              </AutoComplete>
+            </div>)}
+         
           </div>
 
-          <div className="flex justify-center items-center gap-2 xs:gap-4">
+          <div className="flex justify-center gap-2 items-center xs:gap-4">
             <div className="p-2 rounded-full">
               <LuBell size={25} color="#008000" />
             </div>
@@ -355,10 +389,10 @@ function PrivateLayout({ children }: LayoutProps) {
                     className="cursor-pointer"
                     icon={<UserOutlined />}
                   />
-                  <p className="mb-0 cursor-pointer user-name text-black dark:text-white font-bold hidden xs:block">
+                  <p className="text-black cursor-pointer dark:text-white font-bold hidden mb-0 user-name xs:block">
                     {user?.fullName}
                   </p>
-                  <GoChevronDown className="cursor-pointer d-flex align-items-center" />
+                  <GoChevronDown className="d-flex align-items-center cursor-pointer" />
                 </Space>
               </Dropdown>
             </div>
@@ -376,7 +410,7 @@ function PrivateLayout({ children }: LayoutProps) {
             {children}
           </div>
         </Content>
-        <footer className=" text-white py-3 text-center" style={{background:"#2E3383"}}>
+        <footer className="text-center text-white py-3" style={{ background: "#2E3383" }}>
           <p className="text-sm">
             Copyright © {new Date().getFullYear()} S.A Enterprises, Powered by
             S.A Enterprises. All Rights Reserved.

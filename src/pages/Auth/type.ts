@@ -93,7 +93,7 @@ export interface UserFormValues {
 	address?: string;
 	phone_number: string;
 	cnic_number: string;
-	zone: string;
+	zone_id: string;
 	role: "admin" | "superadmin" | "worker";
 	password: string;
   }

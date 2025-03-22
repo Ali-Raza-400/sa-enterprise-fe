@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { FaCar } from "react-icons/fa";
-import { RiCarLine } from "react-icons/ri";
+import {  RiTimeZoneFill } from "react-icons/ri";
 import GenericButton from "../../components/UI/GenericButton";
 
 interface InfoItemProps {
@@ -10,74 +9,75 @@ interface InfoItemProps {
     value: string | number;
 }
 
-const ViewFleet: React.FC = () => {
+const ViewZone: React.FC = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const selectedFleet = location.state;
 
     useEffect(() => {
         if (!selectedFleet) {
-            navigate("/fleet/list");
+            navigate("/zone/list");
         }
     }, [selectedFleet, navigate]);
 
     const handleBack = () => {
-        navigate("/fleet/list");
+        navigate("/zone/list");
     };
 
     if (!selectedFleet) return null;
 
     function InfoItem({ icon, label, value }: InfoItemProps) {
         return (
-            <div className="flex items-start space-x-4 p-4 rounded-lg bg-gray-50">
+            <div className="flex bg-gray-50 p-4 rounded-lg items-start space-x-4">
                 <div className="flex-shrink-0">{icon}</div>
                 <div>
-                    <p className="text-sm font-medium text-gray-500">{label}</p>
-                    <p className="mt-1 text-sm text-gray-900">{value}</p>
+                    <p className="text-gray-500 text-sm font-medium">{label}</p>
+                    <p className="text-gray-900 text-sm mt-1">{value}</p>
                 </div>
             </div>
         );
     }
 
     return (
-        <div className="min-h-screen bg-gray-50 p-6">
+        <div className="bg-gray-50 p-6 min-h-screen">
             <div className="max-w-3xl mx-auto">
                 <div className="bg-white rounded-xl shadow-sm overflow-hidden">
                     {/* Header Section */}
-                    <div className="bg-gradient-to-r from-purple-600 to-purple-800 px-6 py-8">
+                    <div className="bg-gradient-to-r from-purple-600 px-6 py-8 to-purple-800">
                         <div className="flex items-center">
-                            <div className="bg-white/10 rounded-full p-4">
-                                <RiCarLine className="w-16 h-16 text-white" />
+                            <div className="bg-white/10 p-4 rounded-full">
+                                <RiTimeZoneFill className="h-16 text-white w-16" />
                             </div>
                             <div className="ml-6">
-                                <h1 className="text-2xl font-bold text-white">
+                                <h1 className="text-2xl text-white font-bold">
                                     {selectedFleet.make} {selectedFleet.model}
                                 </h1>
                                 <div className="flex items-center mt-2">
-                                  
-                                    <span className="ml-3 text-white/80">{selectedFleet.name}</span>
+                                    {/* <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${
+                                        selectedFleet.status === 'Active' ? 'bg-green-100 text-green-800' :
+                                        selectedFleet.status === 'Maintenance' ? 'bg-yellow-100 text-yellow-800' :
+                                        'bg-red-100 text-red-800'
+                                    }`}>
+                                        
+                                        <BiCheckCircle className="h-4 w-4 mr-1" />
+                                        {selectedFleet.status}
+                                    </span> */}
+                                    <span className="text-white/80 ml-3">{selectedFleet.name}</span>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    {/* Details Section */}
-                    <div className="p-6">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <InfoItem
-                                icon={<FaCar className="w-5 h-5 text-purple-600" />}
-                                label="Vehicle"
-                                value={`${selectedFleet.name}`}
-                            />
+                     <div className="p-6">
+                        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                            
                             <InfoItem
-                                icon={<RiCarLine className="w-5 h-5 text-purple-600" />}
-                                label="Fleet Type"
-                                value={selectedFleet.fleet_type}
+                                icon={<RiTimeZoneFill className="h-5 text-purple-600 w-5" />}
+                                label="Zone Name"
+                                value={` ${selectedFleet.name}`}
                             />
-                          
                         </div>
-                        <div className="mt-6 flex justify-end">
+                        <div className="flex justify-end mt-6">
                             <GenericButton
                                 variant="solid"
                                 onClick={handleBack}
@@ -99,4 +99,4 @@ const ViewFleet: React.FC = () => {
     );
 };
 
-export default ViewFleet;
+export default ViewZone;

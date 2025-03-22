@@ -10,6 +10,7 @@ import { getErrorMessage } from "../../../utils/helper";
 import { useEffect, useState } from "react";
 import { useGetFleetsQuery } from "../../../redux/slices/fleet";
 import { useSelector } from "react-redux";
+import { useGetZonesQuery } from "../../../redux/slices/zone";
 
 const { Title, Paragraph } = Typography;
 const { Option } = Select;
@@ -24,6 +25,7 @@ const AddTruck = () => {
             pageSize: 10,
         },
     });
+    const { data: zoneData } = useGetZonesQuery(tableOptions);
     const { data: fleetList } = useGetFleetsQuery(tableOptions);
     const { user } = useSelector((state: any) => state.auth);
     const [registerFunc, { isLoading }] = useAddTruckMutation();
@@ -104,13 +106,26 @@ const AddTruck = () => {
                                 ))}
                             </Select>
                         </Form.Item>
-                        {/* <Form.Item name="supervisor_id" label="Supervisor" rules={[{ required: true, message: "Supervisor is required" }]}>
-                            <Select placeholder="Select Supervisor" size="large" style={{ width: "100%" }}>
-                                {(supervisor?.list || []).map((role: any) => (
-                                    <Option key={role.id} value={role.id}>{role.first_name} {role.last_name}</Option>
+                        <Form.Item
+                            name="zone_id"
+                            label="Zone"
+                            rules={[{ required: true, message: "Zone is required" }]}
+                        >
+                            <Select
+
+                                placeholder={"Select Zone"}
+                                size="large"
+                                style={{ width: "100%" }}
+                            // dropdownStyle={{ maxHeight: "200px" }}
+                            // loading={!supervisor}
+                            >
+                                {(zoneData?.list || [])?.map((zone: any) => (
+                                    <Option key={zone.id} value={zone.id}>
+                                        {zone.name}
+                                    </Option>
                                 ))}
                             </Select>
-                        </Form.Item> */}
+                        </Form.Item>
                         <Form.Item name="driver_id" label="Driver" rules={[{ required: true, message: "Driver is required" }]}>
                             <Select placeholder="Select Driver" size="large" style={{ width: "100%" }}>
                                 {(driver?.list || []).map((role: any) => (

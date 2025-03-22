@@ -39,7 +39,7 @@ const DataOverviewCards = () => {
   ];
 
   return (
-    <Row gutter={[32, 32]} justify="start" className="mt-5">
+    <Row gutter={[32, 32]} justify="start" className="mt-0">
       {cardData.map((card, index) => (
         <Col key={index} span={24} sm={12} md={12} lg={12} xl={6}>
           <GenericCard
