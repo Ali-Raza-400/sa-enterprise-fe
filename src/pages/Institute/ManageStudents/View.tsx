@@ -9,7 +9,7 @@ import GenericButton from "../../../components/UI/GenericButton";
 
 
 const ViewUser: React.FC = () => {   
-    const location = useLocation();
+    const location = useLocation(); 
     const navigate = useNavigate();
     const selectedUser = location.state;
     const [_updateUser, { isLoading }] = useUpdateUserMutation();
