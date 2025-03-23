@@ -6,6 +6,7 @@ import { PiMailboxDuotone, PiUsersFill } from "react-icons/pi";
 import {  FaCreditCard, FaMapPin } from "react-icons/fa";
 import { FaPhoneFlip, FaRegCircleUser } from "react-icons/fa6";
 import GenericButton from "../../../components/UI/GenericButton";
+import { RiTimeZoneFill } from "react-icons/ri";
 
 
 const ViewUser: React.FC = () => {   
@@ -99,6 +100,11 @@ const ViewUser: React.FC = () => {
                                 icon={<FaRegCircleUser className="w-5 h-5 text-customGreen" />}
                                 label="Role"
                                 value={selectedUser.role}
+                            />
+                            <InfoItem
+                                icon={<RiTimeZoneFill className="w-5 h-5 text-customGreen" />}
+                                label="Zone Name"
+                                value={selectedUser.zone_name}
                             />
                         </div>
                         <div className="mb-0">

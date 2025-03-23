@@ -187,9 +187,9 @@ const Index = (): ReactElement => {
       width: 200,
     },
     {
-      title: "Cnic Number",
-      dataIndex: "cnic_number",
-      key: "cnic_number",
+      title: "Zone Name",
+      dataIndex: "zone_name",
+      key: "zone_name",
       width: 200,
     },
     {

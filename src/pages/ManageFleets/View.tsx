@@ -44,7 +44,7 @@ const ViewFleet: React.FC = () => {
             <div className="max-w-3xl mx-auto">
                 <div className="bg-white rounded-xl shadow-sm overflow-hidden">
                     {/* Header Section */}
-                    <div className="bg-gradient-to-r from-purple-600 to-purple-800 px-6 py-8">
+                    <div className="bg-gradient-to-r from-customGreen to-customGreen px-6 py-8">
                         <div className="flex items-center">
                             <div className="bg-white/10 rounded-full p-4">
                                 <RiCarLine className="w-16 h-16 text-white" />
@@ -65,13 +65,13 @@ const ViewFleet: React.FC = () => {
                     <div className="p-6">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <InfoItem
-                                icon={<FaCar className="w-5 h-5 text-purple-600" />}
+                                icon={<FaCar className="w-5 h-5 text-customGreen" />}
                                 label="Vehicle"
                                 value={`${selectedFleet.name}`}
                             />
                            
                             <InfoItem
-                                icon={<RiCarLine className="w-5 h-5 text-purple-600" />}
+                                icon={<RiCarLine className="w-5 h-5 text-customGreen" />}
                                 label="Fleet Type"
                                 value={selectedFleet.fleet_type}
                             />
