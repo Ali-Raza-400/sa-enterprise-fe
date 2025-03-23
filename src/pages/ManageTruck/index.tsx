@@ -161,7 +161,13 @@ const Index = (): ReactElement => {
 			title: "Driver",
 			dataIndex: "driver_name",
 			key: "driver_name",
-			width: 200,
+			width: 120,
+		},
+		{
+			title: "Zone Name",
+			dataIndex: "zone_name",
+			key: "zone_name",
+			width: 120,
 		},
 		{
 			title: "Actions", // Updated title for actions

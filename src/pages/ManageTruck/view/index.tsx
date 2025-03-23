@@ -25,6 +25,7 @@ const TruckDetails = () => {
         <Descriptions.Item label="License Plate">{truck.license_plate}</Descriptions.Item>
         <Descriptions.Item label="Supervisor">{truck.supervisor_name}</Descriptions.Item>
         <Descriptions.Item label="Driver">{truck.driver_name}</Descriptions.Item>
+        <Descriptions.Item label="Zone Name">{truck.zone_name?? "N/A"}</Descriptions.Item>
         <Descriptions.Item label="Created At">{dayjs(truck.created_at).format("YYYY-MM-DD HH:mm")}</Descriptions.Item>
         <Descriptions.Item label="Updated At">{dayjs(truck.updated_at).format("YYYY-MM-DD HH:mm")}</Descriptions.Item>
         <Descriptions.Item label="Status">
