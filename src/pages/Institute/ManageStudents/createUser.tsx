@@ -31,8 +31,11 @@ const CreateUser = () => {
     document.title = "Add User | SA Enterprise";
   }, []);
   const handleAddUser = async (userData: any) => {
+
+    const email = userData.email || (selectedRole === "driver" ? generateRandomEmail() : "");
     const payload = {
       ...userData,
+      email
     };
     try {
       await registerFunc(payload).unwrap();
@@ -53,8 +56,24 @@ const CreateUser = () => {
   };
   const handleSubmit = (values: UserFormValues) => {
     // onAddUser(values);
-    handleAddUser(values);
+    // handleAddUser(values);
     // form.resetFields()
+
+
+    if (selectedRole === "driver" && !values.email) {
+      form.setFieldsValue({ email: generateRandomEmail() });
+    }
+    handleAddUser({ ...values, email: form.getFieldValue("email") });
+  };
+
+  const [selectedRole, setSelectedRole] = useState<string | null>(null);
+  const generateRandomEmail = () => `driver_${Math.random().toString(36).substring(7)}@saenterprises.services`;
+
+  const handleRoleChange = (value: string) => {
+    setSelectedRole(value);
+    if (value === "driver") {
+      form.setFieldsValue({ email: generateRandomEmail() });
+    }
   };
   return (
     <Card
@@ -95,7 +114,25 @@ const CreateUser = () => {
               <Input size="large" style={{ height: "40px" }} />
             </Form.Item>
           </div>
-
+          <Form.Item<UserFormValues>
+            name="role"
+            label="Role"
+            rules={[{ required: true, message: "Role is required" }]}
+          >
+            <Select
+              placeholder="Select Role"
+              size="large"
+              style={{ width: "100%" }}
+              dropdownStyle={{ maxHeight: "200px" }}
+              onChange={handleRoleChange} 
+            >
+              <Option value="super_admin">Superadmin</Option>
+              <Option value="operations_manager">Operations Manager</Option>
+              <Option value="supervisor">Supervisor</Option>
+              <Option value="driver">Driver</Option>
+            </Select>
+          </Form.Item>
+          {selectedRole !== "driver" && (
           <Form.Item<UserFormValues>
             name="email"
             label="Email"
@@ -109,6 +146,7 @@ const CreateUser = () => {
           >
             <Input size="large" style={{ height: "40px" }} />
           </Form.Item>
+          )}
           <Form.Item<UserFormValues>
             name="zone_id"
             label="Zone"
@@ -151,23 +189,7 @@ const CreateUser = () => {
             </Form.Item>
           </div>
 
-          <Form.Item<UserFormValues>
-            name="role"
-            label="Role"
-            rules={[{ required: true, message: "Role is required" }]}
-          >
-            <Select
-              placeholder="Select Role"
-              size="large"
-              style={{ width: "100%" }}
-              dropdownStyle={{ maxHeight: "200px" }}
-            >
-              <Option value="super_admin">Superadmin</Option>
-              <Option value="operations_manager">Operations Manager</Option>
-              <Option value="supervisor">Supervisor</Option>
-              <Option value="driver">Driver</Option>
-            </Select>
-          </Form.Item>
+         
           <Form.Item<UserFormValues>
             name="password"
             label="Password"

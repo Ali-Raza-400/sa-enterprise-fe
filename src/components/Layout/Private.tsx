@@ -15,6 +15,7 @@ import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   SearchOutlined,
+  EnvironmentOutlined
 } from "@ant-design/icons";
 import { LayoutProps } from "./type";
 import { useEffect, useState } from "react";
@@ -324,7 +325,7 @@ const { data:zoneData} = useGetZonesQuery(tableOptions);
 
             {/* Search Bar Moved to the Left Side */}
             {user?.role != "supervisor" && (
-              <div className="w-[150px] ml-4">
+              <div className="w-[200px] ml-4">
                 <AutoComplete
                   options={modules}
                   onSelect={onSelect}
@@ -346,8 +347,14 @@ const { data:zoneData} = useGetZonesQuery(tableOptions);
                 </AutoComplete>
               </div>
             )}
-            {user?.role != "supervisor" && (
-            <div className="w-[150px] ml-4">
+        
+         
+          </div>
+
+          <div className="flex justify-center gap-2 items-center xs:gap-4">
+          {user?.role != "supervisor" && (
+            <div className="w-[250px] ml-4 flex items-center space-x-2 text-[#000]">
+              <EnvironmentOutlined style={{ fontSize: "21px", color: "#008000" }} /> 
               <AutoComplete
                 options={zoneOptions}
                 onSelect={onSelectZone}
@@ -361,16 +368,12 @@ const { data:zoneData} = useGetZonesQuery(tableOptions);
                 style={{ width: "100%" }}
               >
                 <Input
-                  placeholder="Search Zones..."
-                  prefix={<SearchOutlined style={{ fontSize: "14px" }} />} // Smaller search icon
+                  placeholder="Select Zone"
                   size="middle"
+                  className="rounded-none py-2 bg-white placeholder:text-black cursor-pointer"
                 />
               </AutoComplete>
             </div>)}
-         
-          </div>
-
-          <div className="flex justify-center gap-2 items-center xs:gap-4">
             <div className="p-2 rounded-full">
               <LuBell size={25} color="#008000" />
             </div>

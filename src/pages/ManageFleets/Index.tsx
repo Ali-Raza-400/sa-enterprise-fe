@@ -153,7 +153,7 @@ const Index = (): ReactElement => {
                   state: obj,
                 })
               }
-              style={{ color: "#007bff", cursor: "pointer" }}
+              style={{ color: "#007bff", cursor: "pointer",fontSize:'18px' }}
             />
           </Tooltip>
           <Tooltip title="Edit">
@@ -163,13 +163,13 @@ const Index = (): ReactElement => {
                   state: obj,
                 })
               }
-              style={{ color: "#ffa500", cursor: "pointer" }}
+              style={{ color: "#ffa500", cursor: "pointer",fontSize:'18px' }}
             />
           </Tooltip>
           <Tooltip title="Delete">
             <DeleteOutlined
               onClick={() => onDelete(obj.id)}
-              style={{ color: "#dc3545", cursor: "pointer" }}
+              style={{ color: "#dc3545", cursor: "pointer",fontSize:'18px' }}
             />
           </Tooltip>
         </div>

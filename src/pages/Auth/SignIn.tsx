@@ -206,7 +206,7 @@ function Index() {
                       ]}
                       autoComplete="off"
                       inputPrefix={<UserOutlined className="text-white/60" />}
-                      placeholder={STRINGS.EMAIL}
+                      placeholder={`${STRINGS.PHONE} or ${STRINGS.EMAIL}`}
                       inputType="input"
                       itemClassName="!bg-white/10 !border-white/20 !text-white placeholder:text-white/60 h-12"
                     />
