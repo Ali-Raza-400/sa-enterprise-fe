@@ -14,79 +14,44 @@ import IMAGES from "../../assets/images"
 import axios from "axios"
 import { FaRecycle } from "react-icons/fa"
 import { MdCleaningServices } from "react-icons/md"
+import { API_PATHS } from "../../utils/apiPaths"
 
 function Index() {
   const { openNotification, contextHolder } = useNotification()
   const dispatch = useDispatch()
   const [_login, { isLoading: isLoginLoading }] = useLoginMutation()
   const navigate = useNavigate()
-
-  // const onFinish = async (values: LoginRequestDTO) => {
-  //   dispatch(setTheme("LIGHT"))
-  //   setThemeInLS("LIGHT")
-  //   try {
-  //     axios
-  //       .post("https://sa.wholesalerspk.com/login", values)
-  //       .then((response) => {
-  //         const obj = {
-  //           isActive: true,
-  //           email: values?.email,
-  //           fullName: "shafiq",
-  //           role: "super_admin",
-  //           access_token:
-  //             "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJzaGFmaXFzaWRkaXFAZ21haWwuY29tIiwiZXhwIjoxNzQxMTk1ODE5fQ.E6V2RmZiia0fSrIUqyN5YPtFrOqcNKDyKaBa6hLOYH8",
-  //         }
-  //         const newObj = { ...obj, access_token: response?.data?.access_token }
-  //         setUser(newObj as AuthResponseDTO)
-  //         dispatch(setCredentials(newObj))
-  //         navigate("/")
-  //         openNotification({
-  //           type: "success",
-  //           title: "Login Success",
-  //         })
-  //       })
-  //       .catch((err) => {
-  //         openNotification({
-  //           type: "error",
-  //           title: err?.response?.data?.detail,
-  //         })
-  //       })
-  //   } catch (error: unknown) {
-  //     console.log(error, "ERROR")
-  //   }
-  // }
+  const BASE_URL = import.meta.env.VITE_BASE_URL
+  const LoginURL = BASE_URL + API_PATHS.LOGIN
+  const currentUser = BASE_URL + API_PATHS.CURRENT_USER
   const onFinish = async (values: LoginRequestDTO) => {
     dispatch(setTheme("LIGHT"));
     setThemeInLS("LIGHT");
-  
+
     try {
-      const loginResponse = await axios.post("https://sa.wholesalerspk.com/login", values);
+      const loginResponse = await axios.post(LoginURL, values);
       const accessToken = loginResponse?.data?.access_token;
-  
       if (accessToken) {
-        const userResponse = await axios.get("https://sa.wholesalerspk.com/users/current-user", {
+        const userResponse = await axios.get(currentUser, {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
         });
-  
         const userData = userResponse?.data?.data;
-        console.log("userData",userData);
-        // Construct new object with user data
         const newObj = {
           isActive: true,
           email: values?.email,
-           fullName: userData?.first_name+" "+userData?.last_name ,
-           role: userData?.role ,
-           id: userData?.id ,
+          fullName: userData?.first_name + " " + userData?.last_name,
+          role: userData?.role,
+          id: userData?.id,
           access_token: accessToken,
         } as AuthResponseDTO;
-  
+
         setUser(newObj);
         dispatch(setCredentials(newObj));
-        if(userData?.role==="")
-        navigate("/");
-  
+        if (userData?.role === "")
+          navigate("/");
+
         openNotification({
           type: "success",
           title: "Login Success",
