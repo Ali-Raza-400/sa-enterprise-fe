@@ -3,9 +3,9 @@ export const API_PATHS: { [key: string]: string } = {
 	ITEMS: "items",
 	USER: "users",
 	PHOT_LOGS: "photo-logs/",
-	CURRENT_USER: "current-user",
+	CURRENT_USER: "users/current-user",
 	DASHBOARD_COUNTS: "dashboard/counts",
-	OPRATION:"photo-logs",
+	OPRATION: "photo-logs",
 	USER_BY_ROLE: "users/by-role",
 	TRUCK: "trucks",
 	INSTITUTE: "institute",
@@ -30,7 +30,7 @@ export const API_PATHS: { [key: string]: string } = {
 	STUDENT_INTERESTED_COURSES: "student/studentInterestedCourses",
 	OTP: "verify-otp",
 	RESEND_OTP: "resend-otp",
-	COUNTRIES:"world/countries",
+	COUNTRIES: "world/countries",
 	//teachers endpoints
 
 	TEACHER_PUBLICATION: "teacher-publications",
