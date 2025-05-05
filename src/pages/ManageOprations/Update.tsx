@@ -9,20 +9,23 @@ import useNotification from '../../components/UI/Notification';
 import GenericButton from '../../components/UI/GenericButton';
 import { useSelector } from 'react-redux';
 import PATH from '../../navigation/Path';
+import { API_PATHS } from '../../utils/apiPaths';
 
 const { Title, Paragraph } = Typography;
 
 const UpdateOperation: React.FC = () => {
     const { Option } = Select;
-   
+
     const [tableOptions, _setTableOptions] = useState({
-		filters: {},
-		pagination: {
-		  page: 1,
-		  pageSize: 10,
-		},
-	  });
-	const { data: truck, isLoading: truckLoading } = useGetTrucksQuery(tableOptions);
+        filters: {},
+        pagination: {
+            page: 1,
+            pageSize: 10,
+        },
+    });
+    const BASE_URL = import.meta.env.VITE_BASE_URL
+    const photoLogs = BASE_URL + API_PATHS.PHOT_LOGS
+    const { data: truck, isLoading: truckLoading } = useGetTrucksQuery(tableOptions);
     const navigate = useNavigate()
     const location = useLocation();
     const editData = location?.state;
@@ -65,7 +68,7 @@ const UpdateOperation: React.FC = () => {
             }
 
             // Make the API call
-            const response = await fetch(`https://sa.wholesalerspk.com/photo-logs/${editData?.id}`, {
+            const response = await fetch(`${photoLogs}${editData?.id}`, {
                 method: "PUT",
                 headers: {
                     Authorization: `Bearer ${user?.access_token}`, // Replace with actual token
@@ -91,7 +94,7 @@ const UpdateOperation: React.FC = () => {
                     description: result.message || "Something went wrong.",
                 });
             }
-        } catch (error:any) {
+        } catch (error: any) {
             console.error("Upload Error:", error);
             openNotification({
                 type: "error",

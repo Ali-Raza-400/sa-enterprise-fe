@@ -9,6 +9,7 @@ import GenericButton from '../../components/UI/GenericButton';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import PATH from '../../navigation/Path';
+import { API_PATHS } from '../../utils/apiPaths';
 
 const { Title, Paragraph } = Typography;
 
@@ -21,6 +22,8 @@ const CreateOperation: React.FC = () => {
       pageSize: 10,
     },
   });
+   const BASE_URL = import.meta.env.VITE_BASE_URL
+    const photoLogs = BASE_URL + API_PATHS.PHOT_LOGS
   const { data: truck, isLoading: truckLoading } = useGetTrucksQuery(tableOptions);
   useEffect(() => {
     document.title = "Add Opration | SA Enterprise"
@@ -69,7 +72,7 @@ const CreateOperation: React.FC = () => {
       }
 
       // Make the API call
-      const response = await fetch("https://sa.wholesalerspk.com/photo-logs/", {
+      const response = await fetch(photoLogs, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${user?.access_token}`, // Replace with actual token
