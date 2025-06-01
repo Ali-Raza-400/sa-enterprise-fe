@@ -75,7 +75,7 @@ const [tableOptions] = useState({
                 <Form.Item
                     name="zone_id"
                     label="Zone"
-                    rules={[{ required: true, message: "Zone is required" }]}
+                    rules={[{ required: false, message: "Zone is required" }]}
                 >
                     <Select
 

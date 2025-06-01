@@ -49,7 +49,7 @@ const axiosBaseQuery: BaseQueryFn<AxiosBaseQueryArgs> = async (
 		const resp = await axios({
 			url: customBaseUrl
 				? customBaseUrl + url
-				: ' https://sa.saenterprises.services/' + url,
+				: 'https://sa.saenterprises.services/' + url,
 			method,
 			data,
 			params,

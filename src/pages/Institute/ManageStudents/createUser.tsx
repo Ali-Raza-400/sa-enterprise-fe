@@ -44,10 +44,11 @@ const CreateUser = () => {
       });
       form.resetFields();
       navigate(PATH.MANAGE_STUDENTS);
-    } catch (error: unknown) {
+    } catch (error: any) {
+      debugger
       openNotification({
         type: "error",
-        title: getErrorMessage(error),
+        title: getErrorMessage(error.response.data.detail),
       });
     }
   };

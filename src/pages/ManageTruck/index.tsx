@@ -144,6 +144,12 @@ const Index = (): ReactElement => {
 			key: "name",
 			width: 150,
 		},
+		{
+			title: "Fleet Type",
+			dataIndex: "fleet_type",
+			key: "fleet_type",
+			width: 150,
+		},
 
 		{
 			title: "License Plate",

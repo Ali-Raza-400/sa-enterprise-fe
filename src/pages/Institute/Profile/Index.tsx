@@ -70,7 +70,7 @@ const Index = () => {
     }
     closeModal();
   };
-
+console.log("user",user);
   const profileData = [
     { label: "Name", value: user?.fullName },
     { label: "Phone Number", value: user?.phoneNumber },
