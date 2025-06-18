@@ -323,7 +323,6 @@ function PrivateLayout({ children }: LayoutProps) {
               {getPageName()}
             </Typography>
 
-            {/* Search Bar Moved to the Left Side */}
             {(user?.role === "super_admin" || user?.role === "operations_manager") && (
               <div className="w-[150px] ml-4">
                 <AutoComplete
@@ -331,7 +330,7 @@ function PrivateLayout({ children }: LayoutProps) {
                   onSelect={onSelect}
                   value={searchValue}
                   allowClear
-                  onChange={(value) => setSearchValue(value)} // Update state when typing
+                  onChange={(value) => setSearchValue(value)} 
                   filterOption={(inputValue, option) =>
                     option!.label
                       .toLowerCase()
