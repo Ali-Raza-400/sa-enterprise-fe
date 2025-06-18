@@ -17,7 +17,7 @@ import {
 import PageLoader from "../../../components/Loader/PageLoader";
 import PATH from "../../../navigation/Path";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 
 const { Option } = Select;
 interface UserFormValues {
@@ -56,10 +56,10 @@ interface StudentType {
 const Index = (): ReactElement => {
   const [selectedUser, _setSelectedUser] = useState<any>();
   const navigate = useNavigate();
-  const selectedZoneId = useSelector((state: any) => state.auth.selectedZoneId);
+  // const selectedZoneId = useSelector((state: any) => state.auth.selectedZoneId);
   const [tableOptions, setTableOptions] = useState({
     filters: {},
-    zone_id: selectedZoneId ?? null,
+    zone_id: null,
     pagination: {
       page: 1,
       pageSize: 10,
@@ -76,12 +76,12 @@ const Index = (): ReactElement => {
     isFetching,
     refetch,
   } = useGetUsersQuery(tableOptions);
-  useEffect(() => {
-    setTableOptions((prev) => ({
-      ...prev,
-      zone_id: selectedZoneId ?? null,
-    }));
-  }, [selectedZoneId]);
+  // useEffect(() => {
+  //   setTableOptions((prev) => ({
+  //     ...prev,
+  //     zone_id: selectedZoneId ?? null,
+  //   }));
+  // }, [selectedZoneId]);
   const [deleteUser, { isLoading: deleteUserLoading }] =
     useDeleteUserMutation();
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -130,7 +130,7 @@ const Index = (): ReactElement => {
         confirmButtonText: "OK",
         onConfirm: () => refetch(),
       });
-    } catch (error: unknown) { }
+    } catch (error: unknown) {}
   };
 
   // const navigate = useNavigate();
@@ -218,7 +218,7 @@ const Index = (): ReactElement => {
                   state: obj,
                 })
               }
-              style={{ color: "#007bff", cursor: "pointer",fontSize:'18px' }}
+              style={{ color: "#007bff", cursor: "pointer", fontSize: "18px" }}
             />
           </Tooltip>
 
@@ -229,14 +229,14 @@ const Index = (): ReactElement => {
                   state: obj,
                 })
               }
-              style={{ color: "#ffa500", cursor: "pointer",fontSize:'18px' }}
+              style={{ color: "#ffa500", cursor: "pointer", fontSize: "18px" }}
             />
           </Tooltip>
 
           <Tooltip title="Delete">
             <DeleteOutlined
               onClick={() => onDelete(obj.id)}
-              style={{ color: "#dc3545", cursor: "pointer",fontSize:'18px' }}
+              style={{ color: "#dc3545", cursor: "pointer", fontSize: "18px" }}
             />
           </Tooltip>
         </div>
@@ -291,7 +291,7 @@ const Index = (): ReactElement => {
         columns={columns}
         data={data}
         enablePagination={true}
-        updatePaginationFunc={(data: { page: number; pageSize: number; }) => {
+        updatePaginationFunc={(data: { page: number; pageSize: number }) => {
           console.log("data::::", data);
 
           setTableOptions({ ...tableOptions, pagination: data });

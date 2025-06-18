@@ -15,7 +15,6 @@ import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   SearchOutlined,
-  EnvironmentOutlined
 } from "@ant-design/icons";
 import { LayoutProps } from "./type";
 import { useEffect, useState } from "react";
@@ -29,7 +28,7 @@ import { GoChevronDown } from "react-icons/go";
 import { FiLogOut } from "react-icons/fi";
 import { CgProfile } from "react-icons/cg";
 import { useDispatch, useSelector } from "react-redux";
-import { setCredentials, setZoneId } from "../../redux/features/authSlice";
+import { setCredentials } from "../../redux/features/authSlice"; //setZoneId
 import { removeUser } from "../../utils/helper";
 import IMAGES from "../../assets/images";
 import { THEME } from "../../utils/constants";
@@ -40,8 +39,8 @@ import { items, roleBasedItems } from "./constants/SidebarItems";
 import NavigateBackButton from "../UI/NavigateBackButton";
 import PATH from "../../navigation/Path";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
-import { useGetZonesQuery } from "../../redux/slices/zone";
-import { RiTimeZoneFill } from "react-icons/ri";
+// import { useGetZonesQuery } from "../../redux/slices/zone";
+// import { RiTimeZoneFill } from "react-icons/ri";
 // import packageJson from "../../../package.json";
 
 const { Header, Content, Sider } = Layout;
@@ -59,14 +58,14 @@ function PrivateLayout({ children }: LayoutProps) {
   };
 
   const { pathname } = useLocation();
-  const [tableOptions] = useState({
-    filters: {},
-    pagination: {
-      page: 1,
-      pageSize: 10,
-    },
-  });
-  const { data: zoneData } = useGetZonesQuery(tableOptions);
+  // const [tableOptions] = useState({
+  //   filters: {},
+  //   pagination: {
+  //     page: 1,
+  //     pageSize: 10,
+  //   },
+  // });
+  // const { data: zoneData } = useGetZonesQuery(tableOptions);
   const getPageName = () => {
     const route = ROUTES.find((route) => matchPath(route.path, pathname));
     return route ? route.name : "Page Not Found";
@@ -94,15 +93,15 @@ function PrivateLayout({ children }: LayoutProps) {
         <div
           className="flex items-center"
           onClick={() => navigate(PATH.INSTITUTE_PROFILE)}
-        // onClick={() => {
-        // 	if (user?.role == "Institute") {
-        // 		navigate(PATH.INSTITUTE_PROFILE);
-        // 	} else if (user?.role == "Teacher") {
-        // 		navigate(PATH.TEACHER_PROFILE.replace(":id", user.id));
-        // 	} else if (user?.role == "Student") {
-        // 		navigate(PATH.STUDENT_PROFILE.replace(":tab", "profile"));
-        // 	}
-        // }}
+          // onClick={() => {
+          // 	if (user?.role == "Institute") {
+          // 		navigate(PATH.INSTITUTE_PROFILE);
+          // 	} else if (user?.role == "Teacher") {
+          // 		navigate(PATH.TEACHER_PROFILE.replace(":id", user.id));
+          // 	} else if (user?.role == "Student") {
+          // 		navigate(PATH.STUDENT_PROFILE.replace(":tab", "profile"));
+          // 	}
+          // }}
         >
           <CgProfile size={20} className="mr-2" />
           My Profile
@@ -151,7 +150,7 @@ function PrivateLayout({ children }: LayoutProps) {
   // 	checkVersion();
   // }, []);
   const [searchValue, setSearchValue] = useState<string>("");
-  const [searchZone, setSearchZone] = useState<string>("");
+  // const [searchZone, setSearchZone] = useState<string>("");
   const onSelect = (value: string, option: any) => {
     setSearchValue(option.label); // Display label instead of value (URL)
     navigate(value); // Navigate to the selected module
@@ -165,26 +164,23 @@ function PrivateLayout({ children }: LayoutProps) {
     { label: "Add Oprations", value: "/manage-operation/create" },
   ];
 
-
-
-
-
-
-  const zoneOptions = (zoneData?.list || [])?.map((zone: any) => ({
-    value: String(zone.id),
-    label: zone.name
-  }));
+  // const zoneOptions = (zoneData?.list || [])?.map((zone: any) => ({
+  //   value: String(zone.id),
+  //   label: zone.name,
+  // }));
 
   // Handle selection
 
-  const onSelectZone = (value: string) => {
-    dispatch(setZoneId(Number(value)));
-    setSearchZone(zoneOptions.find((zone: any) => zone.value === value)?.label || "");
-  };
-  const onClearZone = () => {
-    dispatch(setZoneId(null)); // Reset zoneId to 90
-    setSearchZone(""); // Clear the search input
-  };
+  // const onSelectZone = (value: string) => {
+  //   dispatch(setZoneId(Number(value)));
+  //   setSearchZone(
+  //     zoneOptions.find((zone: any) => zone.value === value)?.label || ""
+  //   );
+  // };
+  // const onClearZone = () => {
+  //   dispatch(setZoneId(null)); // Reset zoneId to 90
+  //   setSearchZone(""); // Clear the search input
+  // };
   return (
     <Layout className={`min-h-screen ${theme.toLowerCase()} mobile-responsive`}>
       <Sider
@@ -324,15 +320,15 @@ function PrivateLayout({ children }: LayoutProps) {
               {getPageName()}
             </Typography>
 
-
-            {(user?.role === "super_admin" || user?.role === "operations_manager") && (
+            {(user?.role === "super_admin" ||
+              user?.role === "operations_manager") && (
               <div className="w-[150px] ml-4">
                 <AutoComplete
                   options={modules}
                   onSelect={onSelect}
                   value={searchValue}
                   allowClear
-                  onChange={(value) => setSearchValue(value)} 
+                  onChange={(value) => setSearchValue(value)}
                   filterOption={(inputValue, option) =>
                     option!.label
                       .toLowerCase()
@@ -342,13 +338,19 @@ function PrivateLayout({ children }: LayoutProps) {
                 >
                   <Input
                     placeholder="Search Modules..."
-                    prefix={<SearchOutlined className="h-5 text-customGreen " style={{ fontSize: "14px" }} />} // Smaller search icon
+                    prefix={
+                      <SearchOutlined
+                        className="h-5 text-customGreen "
+                        style={{ fontSize: "14px" }}
+                      />
+                    } // Smaller search icon
                     size="middle"
                   />
                 </AutoComplete>
               </div>
             )}
-            {(user?.role === "super_admin" || user?.role === "operations_manager") && (
+            {/* {(user?.role === "super_admin" ||
+              user?.role === "operations_manager") && (
               <div className="w-[150px] ml-4">
                 <AutoComplete
                   options={zoneOptions}
@@ -358,22 +360,28 @@ function PrivateLayout({ children }: LayoutProps) {
                   onClear={onClearZone}
                   onChange={(value) => setSearchZone(value)} // Update state when typing
                   filterOption={(inputValue, option: any) =>
-                    option!.label.toLowerCase().includes(inputValue.toLowerCase())
+                    option!.label
+                      .toLowerCase()
+                      .includes(inputValue.toLowerCase())
                   }
                   style={{ width: "100%" }}
                 >
                   <Input
                     placeholder="Search Zones..."
-                    prefix={<RiTimeZoneFill className="h-5 text-customGreen " style={{fontSize:"16px"}} />} // Smaller search icon
+                    prefix={
+                      <RiTimeZoneFill
+                        className="h-5 text-customGreen "
+                        style={{ fontSize: "16px" }}
+                      />
+                    } // Smaller search icon
                     size="middle"
                   />
                 </AutoComplete>
-              </div>)}
-
+              </div>
+            )} */}
           </div>
 
           <div className="flex justify-center gap-2 items-center xs:gap-4">
-
             <div className="p-2 rounded-full">
               <LuBell size={25} color="#008000" />
             </div>
@@ -413,7 +421,10 @@ function PrivateLayout({ children }: LayoutProps) {
             {children}
           </div>
         </Content>
-        <footer className="text-center text-white py-3" style={{ background: "#2E3383" }}>
+        <footer
+          className="text-center text-white py-3"
+          style={{ background: "#2E3383" }}
+        >
           <p className="text-sm">
             Copyright © {new Date().getFullYear()} S.A Enterprises, Powered by
             S.A Enterprises. All Rights Reserved.
