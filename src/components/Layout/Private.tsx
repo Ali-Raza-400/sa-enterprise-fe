@@ -15,6 +15,7 @@ import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   SearchOutlined,
+  EnvironmentOutlined
 } from "@ant-design/icons";
 import { LayoutProps } from "./type";
 import { useEffect, useState } from "react";
@@ -323,6 +324,7 @@ function PrivateLayout({ children }: LayoutProps) {
               {getPageName()}
             </Typography>
 
+
             {(user?.role === "super_admin" || user?.role === "operations_manager") && (
               <div className="w-[150px] ml-4">
                 <AutoComplete
@@ -371,6 +373,7 @@ function PrivateLayout({ children }: LayoutProps) {
           </div>
 
           <div className="flex justify-center gap-2 items-center xs:gap-4">
+
             <div className="p-2 rounded-full">
               <LuBell size={25} color="#008000" />
             </div>

@@ -187,7 +187,7 @@ const Index = (): ReactElement => {
 						<EyeOutlined
                         // PATH.TEACHER_PROFILE.replace(":id", user.id)
 							onClick={() => navigate(PATH.VIEW_TRUCK.replace(":id",obj.id))}
-							style={{ color: "#007bff", cursor: "pointer" }}
+							style={{ color: "#007bff", cursor: "pointer",fontSize:'18px' }}
 						/>
 					</Tooltip>
 
@@ -197,7 +197,7 @@ const Index = (): ReactElement => {
 							<Tooltip title="Edit">
 								<EditOutlined
 									onClick={() => navigate(PATH.UPDATE_TRUCK.replace(":id",obj.id))}
-									style={{ color: "#ffa500", cursor: "pointer" }}
+									style={{ color: "#ffa500", cursor: "pointer",fontSize:'18px' }}
 								/>
 							</Tooltip>
 
@@ -205,7 +205,7 @@ const Index = (): ReactElement => {
 							<Tooltip title="Delete">
 								<DeleteOutlined
 									onClick={() => onDelete(obj.id)}
-									style={{ color: "#dc3545", cursor: "pointer" }}
+									style={{ color: "#dc3545", cursor: "pointer" , fontSize:'18px'}}
 								/>
 							</Tooltip>
 						</>

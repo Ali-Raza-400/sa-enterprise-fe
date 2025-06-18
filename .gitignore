@@ -72,6 +72,3 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-
-# ignore env file
-.env

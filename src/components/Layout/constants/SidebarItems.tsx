@@ -28,24 +28,6 @@ export const items = [
 		show: true,
 	},
 	{
-		key: STRINGS.ZONENAME,
-		icon: <RiTimeZoneFill />,
-		label: STRINGS.MANAGE_ZONE,
-		show: true,
-		children: [
-			{
-				key: PATH.MANAGE_ZONE,
-				icon: <RiTimeZoneFill />,
-				label: <Link to={PATH.MANAGE_ZONE}>{STRINGS.ZONE}</Link>,
-			},
-			{
-				key: PATH.MANAGE_ZONE_CREATE,
-				icon: <FaFolderPlus />,
-				label: <Link to={PATH.MANAGE_ZONE_CREATE}>{STRINGS.MANAGE_ZONE_CREATE}</Link>,
-			},
-		],
-	},
-	{
 		key: PATH.STUDENT_ASSIGNMENTS,
 		icon: <IoDocumentText />,
 		label: (
@@ -53,32 +35,37 @@ export const items = [
 		),
 		show: true,
 	},
-	// {
-	// 	key: PATH.STUDENT_QUIZZES,
-	// 	icon: <MdQuiz />,
-	// 	label: <Link to={PATH.STUDENT_QUIZZES}>{STRINGS.STUDENT_QUIZZES}</Link>,
-	// 	show: true,
-	// },
 	{
 		key: PATH.STUDENT_COURSES_LIST,
 		icon: <IoBookSharp />,
 		label: <Link to={PATH.STUDENT_COURSES_LIST}>{STRINGS.COURSES}</Link>,
 		show: true,
 	},
-
-
+	
 	{
 		key: PATH.STUDENTS,
 		icon: <PiUsersFill />,
 		label: <Link to={PATH.STUDENTS}>{STRINGS.STUDENTS}</Link>,
 		show: true,
 	},
+	
+	
+	// {
+	// 	key: PATH.STUDENT_QUIZZES,
+	// 	icon: <MdQuiz />,
+	// 	label: <Link to={PATH.STUDENT_QUIZZES}>{STRINGS.STUDENT_QUIZZES}</Link>,
+	// 	show: true,
+	// },
+	
+
+
 	{
 		key: PATH.MANAGE_TEACHER,
 		icon: <MdPerson />,
 		label: <Link to={PATH.MANAGE_TEACHER}>{STRINGS.MANAGE_TEACHER}</Link>,
 		show: true,
 	},
+	
 	// {
 	// 	key: PATH.MANAGE_STUDENTS,
 	// 	icon: <PiUsersFill />,
@@ -101,6 +88,42 @@ export const items = [
 				key: PATH.CREATE_USER,
 				icon: <FaFolderPlus />,
 				label: <Link to={PATH.CREATE_USER}>{STRINGS.ADD_USER}</Link>,
+			},
+		],
+	},
+	{
+		key: STRINGS.ZONENAME,
+		icon: <RiTimeZoneFill />,
+		label: STRINGS.MANAGE_ZONE,
+		show: true,
+		children: [
+			{
+				key: PATH.MANAGE_ZONE,
+				icon: <RiTimeZoneFill />,
+				label: <Link to={PATH.MANAGE_ZONE}>{STRINGS.ZONE}</Link>,
+			},
+			{
+				key: PATH.MANAGE_ZONE_CREATE,
+				icon: <FaFolderPlus />,
+				label: <Link to={PATH.MANAGE_ZONE_CREATE}>{STRINGS.MANAGE_ZONE_CREATE}</Link>,
+			},
+		],
+	},
+	{
+		key: STRINGS.MANAGE_FLEETS,
+		icon: <RiTruckFill />,
+		label: STRINGS.MANAGE_FLEETS,
+		show: true,
+		children: [
+			{
+				key: PATH.MANAGE_FLEETS,
+				icon: <RiTruckFill />,
+				label: <Link to={PATH.MANAGE_FLEETS}>{STRINGS.FLEETNAME}</Link>,
+			},
+			{
+				key: PATH.MANAGE_FLEET_CREATE,
+				icon: <FaFolderPlus />,
+				label: <Link to={PATH.MANAGE_FLEET_CREATE}>{STRINGS.MANAGE_FLEET_CREATE}</Link>,
 			},
 		],
 	},
@@ -151,24 +174,7 @@ export const items = [
 		],
 	},
 	
-	{
-		key: STRINGS.MANAGE_FLEETS,
-		icon: <RiTruckFill />,
-		label: STRINGS.MANAGE_FLEETS,
-		show: true,
-		children: [
-			{
-				key: PATH.MANAGE_FLEETS,
-				icon: <RiTruckFill />,
-				label: <Link to={PATH.MANAGE_FLEETS}>{STRINGS.FLEETNAME}</Link>,
-			},
-			{
-				key: PATH.MANAGE_FLEET_CREATE,
-				icon: <FaFolderPlus />,
-				label: <Link to={PATH.MANAGE_FLEET_CREATE}>{STRINGS.MANAGE_FLEET_CREATE}</Link>,
-			},
-		],
-	},
+	
 	// {
 	// 	key: PATH.TRUCK,
 	// 	icon: <IoBookSharp />,

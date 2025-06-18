@@ -9,8 +9,8 @@ import GenericButton from "../../../components/UI/GenericButton";
 import { RiTimeZoneFill } from "react-icons/ri";
 
 
-const ViewUser: React.FC = () => {   
-    const location = useLocation();
+const ViewUser: React.FC = () => {    
+    const location = useLocation(); 
     const navigate = useNavigate();
     const selectedUser = location.state;
     const [_updateUser, { isLoading }] = useUpdateUserMutation();
