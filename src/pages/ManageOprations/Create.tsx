@@ -37,9 +37,6 @@ const CreateOperation: React.FC = () => {
   const { openNotification, contextHolder } = useNotification();
   const [form] = Form.useForm();
   const [fileList, setFileList] = useState<UploadFile[]>([]);
-  console.log("truck", truck);
-  console.log("supervisor", supervisor);
-
   const handleSubmit = () => {
     handleUpload();
   };
@@ -145,11 +142,11 @@ const CreateOperation: React.FC = () => {
             </Form.Item>
             <Form.Item
               name="truck_id"
-              label="Truck"
-              rules={[{ required: true, message: "Truck is required" }]}
+              label="Vehicle"
+              rules={[{ required: true, message: "Vehicle is required" }]}
             >
               <Select
-                placeholder="Select Truck"
+                placeholder="Select Vehicle"
                 size="large"
                 style={{ width: "100%" }}
                 dropdownStyle={{ maxHeight: "200px" }}

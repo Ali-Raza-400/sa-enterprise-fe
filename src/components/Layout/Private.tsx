@@ -41,6 +41,7 @@ import NavigateBackButton from "../UI/NavigateBackButton";
 import PATH from "../../navigation/Path";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 import { useGetZonesQuery } from "../../redux/slices/zone";
+import { RiTimeZoneFill } from "react-icons/ri";
 // import packageJson from "../../../package.json";
 
 const { Header, Content, Sider } = Layout;
@@ -48,7 +49,7 @@ const { Header, Content, Sider } = Layout;
 function PrivateLayout({ children }: LayoutProps) {
   const [collapsed, setCollapsed] = useState(false);
   const { theme, user } = useSelector((state: any) => state.auth);
-  console.log("user",user);
+  console.log("user", user);
   const match = useMatch<"id", string>(PATH.COURSE_VIEW_STUDENT);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -65,7 +66,7 @@ function PrivateLayout({ children }: LayoutProps) {
       pageSize: 10,
     },
   });
-const { data:zoneData} = useGetZonesQuery(tableOptions);
+  const { data: zoneData } = useGetZonesQuery(tableOptions);
   const getPageName = () => {
     const route = ROUTES.find((route) => matchPath(route.path, pathname));
     return route ? route.name : "Page Not Found";
@@ -164,12 +165,12 @@ const { data:zoneData} = useGetZonesQuery(tableOptions);
     { label: "Add Oprations", value: "/manage-operation/create" },
   ];
 
-  
-
- 
 
 
-  const zoneOptions = (zoneData?.list||[])?.map((zone:any) => ({
+
+
+
+  const zoneOptions = (zoneData?.list || [])?.map((zone: any) => ({
     value: String(zone.id),
     label: zone.name
   }));
@@ -177,8 +178,8 @@ const { data:zoneData} = useGetZonesQuery(tableOptions);
   // Handle selection
 
   const onSelectZone = (value: string) => {
-    dispatch(setZoneId(Number(value))); 
-    setSearchZone(zoneOptions.find((zone:any) => zone.value === value)?.label || "");
+    dispatch(setZoneId(Number(value)));
+    setSearchZone(zoneOptions.find((zone: any) => zone.value === value)?.label || "");
   };
   const onClearZone = () => {
     dispatch(setZoneId(null)); // Reset zoneId to 90
@@ -323,15 +324,15 @@ const { data:zoneData} = useGetZonesQuery(tableOptions);
               {getPageName()}
             </Typography>
 
-            {/* Search Bar Moved to the Left Side */}
-            {user?.role != "supervisor" && (
-              <div className="w-[200px] ml-4">
+
+            {(user?.role === "super_admin" || user?.role === "operations_manager") && (
+              <div className="w-[150px] ml-4">
                 <AutoComplete
                   options={modules}
                   onSelect={onSelect}
                   value={searchValue}
                   allowClear
-                  onChange={(value) => setSearchValue(value)} // Update state when typing
+                  onChange={(value) => setSearchValue(value)} 
                   filterOption={(inputValue, option) =>
                     option!.label
                       .toLowerCase()
@@ -341,39 +342,38 @@ const { data:zoneData} = useGetZonesQuery(tableOptions);
                 >
                   <Input
                     placeholder="Search Modules..."
-                    prefix={<SearchOutlined style={{ fontSize: "14px" }} />} // Smaller search icon
+                    prefix={<SearchOutlined className="h-5 text-customGreen " style={{ fontSize: "14px" }} />} // Smaller search icon
                     size="middle"
                   />
                 </AutoComplete>
               </div>
             )}
-        
-         
+            {(user?.role === "super_admin" || user?.role === "operations_manager") && (
+              <div className="w-[150px] ml-4">
+                <AutoComplete
+                  options={zoneOptions}
+                  onSelect={onSelectZone}
+                  value={searchZone}
+                  allowClear
+                  onClear={onClearZone}
+                  onChange={(value) => setSearchZone(value)} // Update state when typing
+                  filterOption={(inputValue, option: any) =>
+                    option!.label.toLowerCase().includes(inputValue.toLowerCase())
+                  }
+                  style={{ width: "100%" }}
+                >
+                  <Input
+                    placeholder="Search Zones..."
+                    prefix={<RiTimeZoneFill className="h-5 text-customGreen " style={{fontSize:"16px"}} />} // Smaller search icon
+                    size="middle"
+                  />
+                </AutoComplete>
+              </div>)}
+
           </div>
 
           <div className="flex justify-center gap-2 items-center xs:gap-4">
-          {user?.role != "supervisor" && (
-            <div className="w-[250px] ml-4 flex items-center space-x-2 text-[#000]">
-              <EnvironmentOutlined style={{ fontSize: "21px", color: "#008000" }} /> 
-              <AutoComplete
-                options={zoneOptions}
-                onSelect={onSelectZone}
-                value={searchZone}
-                allowClear
-                onClear={onClearZone}
-                onChange={(value) => setSearchZone(value)} // Update state when typing
-                filterOption={(inputValue, option:any) =>
-                  option!.label.toLowerCase().includes(inputValue.toLowerCase())
-                }
-                style={{ width: "100%" }}
-              >
-                <Input
-                  placeholder="Select Zone"
-                  size="middle"
-                  className="rounded-none py-2 bg-white placeholder:text-black cursor-pointer"
-                />
-              </AutoComplete>
-            </div>)}
+
             <div className="p-2 rounded-full">
               <LuBell size={25} color="#008000" />
             </div>

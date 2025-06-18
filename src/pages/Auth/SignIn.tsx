@@ -38,12 +38,15 @@ function Index() {
           },
         });
         const userData = userResponse?.data?.data;
+        console.log("userResponse?.data?.data",userResponse?.data?.data);
         const newObj = {
           isActive: true,
           email: values?.email,
           fullName: userData?.first_name + " " + userData?.last_name,
           role: userData?.role,
           id: userData?.id,
+          phoneNumber: userData?.phone_number,
+          address: userData?.address,
           access_token: accessToken,
         } as AuthResponseDTO;
 

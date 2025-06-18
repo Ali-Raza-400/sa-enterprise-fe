@@ -103,7 +103,7 @@ const ViewOperation: React.FC = () => {
                             rules={[{ required: true, message: "Truck is required" }]}
                         >
                             <Select
-                                placeholder="Select Truck"
+                                placeholder="Select Vehicle"
                                 size="large"
                                 disabled
                                 style={{ width: "100%" }}

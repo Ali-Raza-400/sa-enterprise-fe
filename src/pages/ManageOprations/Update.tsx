@@ -166,10 +166,10 @@ const UpdateOperation: React.FC = () => {
                         <Form.Item
                             name="truck_id"
                             label="Truck"
-                            rules={[{ required: true, message: "Truck is required" }]}
+                            rules={[{ required: true, message: "Vehicle is required" }]}
                         >
                             <Select
-                                placeholder="Select Truck"
+                                placeholder="Select Vehicle"
                                 size="large"
                                 style={{ width: "100%" }}
                                 dropdownStyle={{ maxHeight: "200px" }}
