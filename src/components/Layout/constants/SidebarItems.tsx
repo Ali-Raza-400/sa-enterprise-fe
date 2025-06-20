@@ -4,12 +4,11 @@ import STRINGS from "../../../utils/strings";
 import { Link } from "react-router-dom";
 import { RiTimeZoneFill, RiTruckFill } from "react-icons/ri";
 import { MdDashboard, MdLocalShipping, MdPerson } from "react-icons/md";
-import { FaBookOpen } from "react-icons/fa6";
 // import { FaBookOpen, FaHandHoldingDollar } from "react-icons/fa6";
 import { IoBookSharp, IoDocumentText } from "react-icons/io5";
 import { PiUsersFill } from "react-icons/pi";
 import { LOOKUP_TYPES } from "../../../utils/lookup";
-import { FaFolderPlus, FaPlusSquare, FaTruck } from "react-icons/fa";
+import { FaFolderPlus } from "react-icons/fa";
 import { CiSettings } from "react-icons/ci";
 // import { RiCoupon3Fill, RiMoneyDollarCircleFill } from "react-icons/ri";
 
@@ -65,95 +64,26 @@ export const items = [
 		label: <Link to={PATH.MANAGE_TEACHER}>{STRINGS.MANAGE_TEACHER}</Link>,
 		show: true,
 	},
-	
-	// {
-	// 	key: PATH.MANAGE_STUDENTS,
-	// 	icon: <PiUsersFill />,
-	// 	label: <Link to={PATH.MANAGE_STUDENTS}>{STRINGS.MANAGE_STUDENTS}</Link>,
-	// 	show: true,
-	// },
-
 	{
-		key: STRINGS.USERNAME,
-		icon: <PiUsersFill />,
-		label: STRINGS.MANAGE_STUDENTS,
-		show: true,
-		children: [
-			{
-				key: PATH.MANAGE_STUDENTS,
+			key: PATH.MANAGE_STUDENTS,
 				icon: <PiUsersFill />,
 				label: <Link to={PATH.MANAGE_STUDENTS}>{STRINGS.USER}</Link>,
-			},
-			{
-				key: PATH.CREATE_USER,
-				icon: <FaFolderPlus />,
-				label: <Link to={PATH.CREATE_USER}>{STRINGS.ADD_USER}</Link>,
-			},
-		],
 	},
 	{
-		key: STRINGS.ZONENAME,
-		icon: <RiTimeZoneFill />,
-		label: STRINGS.MANAGE_ZONE,
-		show: true,
-		children: [
-			{
-				key: PATH.MANAGE_ZONE,
+		key: PATH.MANAGE_ZONE,
 				icon: <RiTimeZoneFill />,
 				label: <Link to={PATH.MANAGE_ZONE}>{STRINGS.ZONE}</Link>,
-			},
-			{
-				key: PATH.MANAGE_ZONE_CREATE,
-				icon: <FaFolderPlus />,
-				label: <Link to={PATH.MANAGE_ZONE_CREATE}>{STRINGS.MANAGE_ZONE_CREATE}</Link>,
-			},
-		],
 	},
-	{
-		key: STRINGS.MANAGE_FLEETS,
+    {
+		key: PATH.MANAGE_FLEETS,
 		icon: <RiTruckFill />,
-		label: STRINGS.MANAGE_FLEETS,
+		label: <Link to={PATH.MANAGE_FLEETS}>{STRINGS.FLEETNAME}</Link>,
 		show: true,
-		children: [
-			{
-				key: PATH.MANAGE_FLEETS,
-				icon: <RiTruckFill />,
-				label: <Link to={PATH.MANAGE_FLEETS}>{STRINGS.FLEETNAME}</Link>,
-			},
-			{
-				key: PATH.MANAGE_FLEET_CREATE,
-				icon: <FaFolderPlus />,
-				label: <Link to={PATH.MANAGE_FLEET_CREATE}>{STRINGS.MANAGE_FLEET_CREATE}</Link>,
-			},
-		],
 	},
 	{
-		key: STRINGS.TRUCK,
-		icon: <FaTruck />,
-		label: STRINGS.TRUCK,
-		show: true,
-		children: [
-			{
-				key: PATH.TRUCK,
+	key: PATH.TRUCK,
 				icon: <MdLocalShipping />,
 				label: <Link to={PATH.TRUCK}>{STRINGS.TRUCKS}</Link>,
-			},
-			{
-				key: PATH.VIEW_TRUCK,
-				icon: <MdLocalShipping size={18} />,
-				label: <Link to={PATH.VIEW_TRUCK}>{STRINGS.VIEW_TRUCK}</Link>,
-			},
-			{
-				key: PATH.UPDATE_TRUCK,
-				icon: <FaBookOpen size={18} />,
-				label: <Link to={PATH.UPDATE_TRUCK}>{STRINGS.UPDATE_TRUCK}</Link>,
-			},
-			{
-				key: PATH.ADD_TRUCK,
-				icon: <FaPlusSquare size={18} />,
-				label: <Link to={PATH.ADD_TRUCK}>{STRINGS.ADD_TRUCK}</Link>,
-			},
-		],
 	},
 	{
 		key: STRINGS.OPRATIONNAME,
@@ -172,6 +102,11 @@ export const items = [
 				label: <Link to={PATH.MANAGE_OPRATION_CREATE}>{STRINGS.MANAGE_OPRATION_CREATE}</Link>,
 			},
 		],
+	},
+	{
+		key: PATH.MANAGE_OPRATION,
+				icon: <PiUsersFill />,
+				label: <Link to={PATH.MANAGE_OPRATION}>{STRINGS.OPRATION}</Link>,
 	},
 	
 	

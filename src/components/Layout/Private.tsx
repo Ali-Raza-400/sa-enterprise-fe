@@ -15,7 +15,7 @@ import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   SearchOutlined,
-  EnvironmentOutlined
+  // EnvironmentOutlined
 } from "@ant-design/icons";
 import { LayoutProps } from "./type";
 import { useEffect, useState } from "react";
@@ -75,14 +75,14 @@ function PrivateLayout({ children }: LayoutProps) {
   const getMenuItems = (currentRole: string | number) =>
     items
       .map((item) => {
-        if (item?.children) {
-          const filteredChildren = item?.children.filter((child) =>
-            roleBasedItems[currentRole]?.includes(child?.key)
-          );
-          return filteredChildren?.length > 0
-            ? { ...item, children: filteredChildren }
-            : null;
-        }
+        // if (item?.children) {
+        //   const filteredChildren = item?.children.filter((child) =>
+        //     roleBasedItems[currentRole]?.includes(child?.key)
+        //   );
+        //   return filteredChildren?.length > 0
+        //     ? { ...item, children: filteredChildren }
+        //     : null;
+        // }
         return roleBasedItems[currentRole]?.includes(item.key) ? item : null;
       })
       .filter(Boolean);
@@ -94,15 +94,15 @@ function PrivateLayout({ children }: LayoutProps) {
         <div
           className="flex items-center"
           onClick={() => navigate(PATH.INSTITUTE_PROFILE)}
-        // onClick={() => {
-        // 	if (user?.role == "Institute") {
-        // 		navigate(PATH.INSTITUTE_PROFILE);
-        // 	} else if (user?.role == "Teacher") {
-        // 		navigate(PATH.TEACHER_PROFILE.replace(":id", user.id));
-        // 	} else if (user?.role == "Student") {
-        // 		navigate(PATH.STUDENT_PROFILE.replace(":tab", "profile"));
-        // 	}
-        // }}
+          // onClick={() => {
+          // 	if (user?.role == "Institute") {
+          // 		navigate(PATH.INSTITUTE_PROFILE);
+          // 	} else if (user?.role == "Teacher") {
+          // 		navigate(PATH.TEACHER_PROFILE.replace(":id", user.id));
+          // 	} else if (user?.role == "Student") {
+          // 		navigate(PATH.STUDENT_PROFILE.replace(":tab", "profile"));
+          // 	}
+          // }}
         >
           <CgProfile size={20} className="mr-2" />
           My Profile
@@ -165,21 +165,18 @@ function PrivateLayout({ children }: LayoutProps) {
     { label: "Add Oprations", value: "/manage-operation/create" },
   ];
 
-
-
-
-
-
   const zoneOptions = (zoneData?.list || [])?.map((zone: any) => ({
     value: String(zone.id),
-    label: zone.name
+    label: zone.name,
   }));
 
   // Handle selection
 
   const onSelectZone = (value: string) => {
     dispatch(setZoneId(Number(value)));
-    setSearchZone(zoneOptions.find((zone: any) => zone.value === value)?.label || "");
+    setSearchZone(
+      zoneOptions.find((zone: any) => zone.value === value)?.label || ""
+    );
   };
   const onClearZone = () => {
     dispatch(setZoneId(null)); // Reset zoneId to 90
@@ -324,15 +321,15 @@ function PrivateLayout({ children }: LayoutProps) {
               {getPageName()}
             </Typography>
 
-
-            {(user?.role === "super_admin" || user?.role === "operations_manager") && (
+            {(user?.role === "super_admin" ||
+              user?.role === "operations_manager") && (
               <div className="w-[150px] ml-4">
                 <AutoComplete
                   options={modules}
                   onSelect={onSelect}
                   value={searchValue}
                   allowClear
-                  onChange={(value) => setSearchValue(value)} 
+                  onChange={(value) => setSearchValue(value)}
                   filterOption={(inputValue, option) =>
                     option!.label
                       .toLowerCase()
@@ -342,13 +339,19 @@ function PrivateLayout({ children }: LayoutProps) {
                 >
                   <Input
                     placeholder="Search Modules..."
-                    prefix={<SearchOutlined className="h-5 text-customGreen " style={{ fontSize: "14px" }} />} // Smaller search icon
+                    prefix={
+                      <SearchOutlined
+                        className="h-5 text-customGreen "
+                        style={{ fontSize: "14px" }}
+                      />
+                    } // Smaller search icon
                     size="middle"
                   />
                 </AutoComplete>
               </div>
             )}
-            {(user?.role === "super_admin" || user?.role === "operations_manager") && (
+            {(user?.role === "super_admin" ||
+              user?.role === "operations_manager") && (
               <div className="w-[150px] ml-4">
                 <AutoComplete
                   options={zoneOptions}
@@ -358,22 +361,28 @@ function PrivateLayout({ children }: LayoutProps) {
                   onClear={onClearZone}
                   onChange={(value) => setSearchZone(value)} // Update state when typing
                   filterOption={(inputValue, option: any) =>
-                    option!.label.toLowerCase().includes(inputValue.toLowerCase())
+                    option!.label
+                      .toLowerCase()
+                      .includes(inputValue.toLowerCase())
                   }
                   style={{ width: "100%" }}
                 >
                   <Input
                     placeholder="Search Zones..."
-                    prefix={<RiTimeZoneFill className="h-5 text-customGreen " style={{fontSize:"16px"}} />} // Smaller search icon
+                    prefix={
+                      <RiTimeZoneFill
+                        className="h-5 text-customGreen "
+                        style={{ fontSize: "16px" }}
+                      />
+                    } // Smaller search icon
                     size="middle"
                   />
                 </AutoComplete>
-              </div>)}
-
+              </div>
+            )}
           </div>
 
           <div className="flex justify-center gap-2 items-center xs:gap-4">
-
             <div className="p-2 rounded-full">
               <LuBell size={25} color="#008000" />
             </div>
@@ -413,7 +422,10 @@ function PrivateLayout({ children }: LayoutProps) {
             {children}
           </div>
         </Content>
-        <footer className="text-center text-white py-3" style={{ background: "#2E3383" }}>
+        <footer
+          className="text-center text-white py-3"
+          style={{ background: "#2E3383" }}
+        >
           <p className="text-sm">
             Copyright © {new Date().getFullYear()} S.A Enterprises, Powered by
             S.A Enterprises. All Rights Reserved.
