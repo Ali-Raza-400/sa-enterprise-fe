@@ -48,7 +48,6 @@ const { Header, Content, Sider } = Layout;
 function PrivateLayout({ children }: LayoutProps) {
   const [collapsed, setCollapsed] = useState(false);
   const { theme, user } = useSelector((state: any) => state.auth);
-  console.log("user", user);
   const match = useMatch<"id", string>(PATH.COURSE_VIEW_STUDENT);
   const dispatch = useDispatch();
   const navigate = useNavigate();

@@ -1,29 +1,29 @@
-import { Button, Form } from "antd"
-import { Outlet, useNavigate } from "react-router-dom"
-import Typography from "../../components/UI/Typography"
-import { useLoginMutation } from "../../redux/slices/auth"
-import { setCredentials, setTheme } from "../../redux/features/authSlice"
-import { useDispatch } from "react-redux"
-import { setThemeInLS, setUser } from "../../utils/helper"
-import InputField from "../../components/Form/InputField"
-import STRINGS from "../../utils/strings"
-import { LockOutlined, UserOutlined } from "@ant-design/icons"
-import type { AuthResponseDTO, LoginRequestDTO } from "./type"
-import useNotification from "../../components/UI/Notification"
-import IMAGES from "../../assets/images"
-import axios from "axios"
-import { FaRecycle } from "react-icons/fa"
-import { MdCleaningServices } from "react-icons/md"
-import { API_PATHS } from "../../utils/apiPaths"
+import { Button, Form } from "antd";
+import { Outlet } from "react-router-dom";
+import Typography from "../../components/UI/Typography";
+import { useLoginMutation } from "../../redux/slices/auth";
+import { setCredentials, setTheme } from "../../redux/features/authSlice";
+import { useDispatch } from "react-redux";
+import { setThemeInLS, setUser } from "../../utils/helper";
+import InputField from "../../components/Form/InputField";
+import STRINGS from "../../utils/strings";
+import { LockOutlined, UserOutlined } from "@ant-design/icons";
+import type { AuthResponseDTO, LoginRequestDTO } from "./type";
+import useNotification from "../../components/UI/Notification";
+import IMAGES from "../../assets/images";
+import axios from "axios";
+import { FaRecycle } from "react-icons/fa";
+import { MdCleaningServices } from "react-icons/md";
+import { API_PATHS } from "../../utils/apiPaths";
 
 function Index() {
-  const { openNotification, contextHolder } = useNotification()
-  const dispatch = useDispatch()
-  const [_login, { isLoading: isLoginLoading }] = useLoginMutation()
-  const navigate = useNavigate()
-  const BASE_URL = import.meta.env.VITE_BASE_URL
-  const LoginURL = BASE_URL + API_PATHS.LOGIN
-  const currentUser = BASE_URL + API_PATHS.CURRENT_USER
+  const { openNotification, contextHolder } = useNotification();
+  const dispatch = useDispatch();
+  const [_login, { isLoading: isLoginLoading }] = useLoginMutation();
+  // const navigate = useNavigate();
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
+  const LoginURL = BASE_URL + API_PATHS.LOGIN;
+  const currentUser = BASE_URL + API_PATHS.CURRENT_USER;
   const onFinish = async (values: LoginRequestDTO) => {
     dispatch(setTheme("LIGHT"));
     setThemeInLS("LIGHT");
@@ -38,7 +38,7 @@ function Index() {
           },
         });
         const userData = userResponse?.data?.data;
-        console.log("userResponse?.data?.data",userResponse?.data?.data);
+        console.log("userResponse?.data?.data", userResponse?.data?.data);
         const newObj = {
           isActive: true,
           email: values?.email,
@@ -52,8 +52,6 @@ function Index() {
 
         setUser(newObj);
         dispatch(setCredentials(newObj));
-        if (userData?.role === "")
-          navigate("/");
 
         openNotification({
           type: "success",
@@ -105,9 +103,12 @@ function Index() {
                 </div>
 
                 <div className="backdrop-blur-sm p-8 rounded-2xl border border-white/10">
-                  <h2 className="text-3xl font-bold text-white mb-4">Smart Waste Management System</h2>
+                  <h2 className="text-3xl font-bold text-white mb-4">
+                    Smart Waste Management System
+                  </h2>
                   <p className="text-xl text-white/80 mb-6">
-                    Track, manage, and optimize garbage collection routes in real-time.
+                    Track, manage, and optimize garbage collection routes in
+                    real-time.
                   </p>
 
                   <div className="grid grid-cols-2 gap-6 mt-8">
@@ -116,8 +117,12 @@ function Index() {
                         <MdCleaningServices className="text-white text-2xl" />
                       </div>
                       <div>
-                        <h3 className="text-white font-medium">Efficient Collection</h3>
-                        <p className="text-white/70 text-sm">Optimize routes and schedules</p>
+                        <h3 className="text-white font-medium">
+                          Efficient Collection
+                        </h3>
+                        <p className="text-white/70 text-sm">
+                          Optimize routes and schedules
+                        </p>
                       </div>
                     </div>
 
@@ -126,8 +131,12 @@ function Index() {
                         <FaRecycle className="text-white text-2xl" />
                       </div>
                       <div>
-                        <h3 className="text-white font-medium">Waste Analytics</h3>
-                        <p className="text-white/70 text-sm">Track collection metrics</p>
+                        <h3 className="text-white font-medium">
+                          Waste Analytics
+                        </h3>
+                        <p className="text-white/70 text-sm">
+                          Track collection metrics
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -151,9 +160,13 @@ function Index() {
                     >
                       {/* Different text for mobile and desktop */}
                       <span className="lg:hidden">Welcome Back</span>
-                      <span className="hidden lg:block">Waste Management Admin</span>
+                      <span className="hidden lg:block">
+                        Waste Management Admin
+                      </span>
                     </Typography>
-                    <p className="text-white/80 mt-2 text-sm lg:text-base">Sign in to access your dashboard</p>
+                    <p className="text-white/80 mt-2 text-sm lg:text-base">
+                      Sign in to access your dashboard
+                    </p>
                   </div>
 
                   <Form
@@ -207,7 +220,9 @@ function Index() {
                     </Button>
 
                     <div className="text-center mt-6">
-                      <p className="text-white/60 text-sm">© 2023 EcoTrack Waste Management System</p>
+                      <p className="text-white/60 text-sm">
+                        © 2023 EcoTrack Waste Management System
+                      </p>
                     </div>
                   </Form>
                 </div>
@@ -218,8 +233,7 @@ function Index() {
         <Outlet />
       </div>
     </>
-  )
+  );
 }
 
-export default Index
-
+export default Index;

@@ -8,88 +8,88 @@ import { useSelector } from "react-redux";
 
 // Router Configuration
 function RouterConfig() {
-	const [progress, setProgress] = useState(false);
-	const [prevLoc, setPrevLoc] = useState("");
-	const location = useLocation();
-	const { user } = useSelector((state: any) => state.auth);
+  const [progress, setProgress] = useState(false);
+  const [prevLoc, setPrevLoc] = useState("");
+  const location = useLocation();
+  const { user } = useSelector((state: any) => state.auth);
 
-	useEffect(() => {
-		setPrevLoc(location.pathname);
-		setProgress(true);
-		if (location.pathname === prevLoc) {
-			setPrevLoc("");
-		}
-	}, [location]);
+  useEffect(() => {
+    setPrevLoc(location.pathname);
+    setProgress(true);
+    if (location.pathname === prevLoc) {
+      setPrevLoc("");
+    }
+  }, [location]);
 
-	useEffect(() => {
-		setProgress(false);
-	}, [prevLoc]);
+  useEffect(() => {
+    setProgress(false);
+  }, [prevLoc]);
 
-	TopBarProgress.config({
-		barColors: {
-			0: "#272F95",
-			"1.0": "#272F95",
-		},
-		shadowBlur: 5,
-	});
-	return (
-		<>
-			{progress && <TopBarProgress />}
-		
-				<Routes>
-					{ROUTES.map((item) => {
-						const RouteType = item.routeType;
-						if (item?.hide) return;
-						if (!user || user?.isActive) {
-							return (
-								<Route
-									key={item.path}
-									path={item.path}
-									element={
-										<RouteType
-											element={item?.page}
-											layout={item?.layout}
-											hideSidebar={item?.hideSidebar}
-											wrapperClass={item?.wrapperClass}
-										/>
-									}
-								>
-									{item?.children?.map((child) => {
-										return (
-											<Route
-												key={child.path}
-												{...(child?.index
-													? { index: true }
-													: { path: child.path })}
-												element={child?.page}
-											/>
-										);
-									})}
-								</Route>
-							);
-						} else if (!user.isActive) {
-							return (
-								<Route
-									key={item.path}
-									path={item.path}
-									element={<WEB_PAGES.OTP_SCREEN />}
-								/>
-							);
-						} else {
-							return (
-								<Route
-									key={item.path}
-									path={item.path}
-									element={<WEB_PAGES.NO_ACCESS />}
-								/>
-							);
-						}
-					})}
-					{/* NO PAGE FOUND */}
-					<Route path={PATH.NOPAGE} element={<WEB_PAGES.NO_PAGE_FOUND />} />
-				</Routes>
-		</>
-	);
+  TopBarProgress.config({
+    barColors: {
+      0: "#272F95",
+      "1.0": "#272F95",
+    },
+    shadowBlur: 5,
+  });
+  return (
+    <>
+      {progress && <TopBarProgress />}
+
+      <Routes>
+        {ROUTES.map((item) => {
+          const RouteType = item.routeType;
+          if (item?.hide) return;
+          if (!user || user?.isActive) {
+            return (
+              <Route
+                key={item.path}
+                path={item.path}
+                element={
+                  <RouteType
+                    element={item?.page}
+                    layout={item?.layout}
+                    hideSidebar={item?.hideSidebar}
+                    wrapperClass={item?.wrapperClass}
+                  />
+                }
+              >
+                {item?.children?.map((child) => {
+                  return (
+                    <Route
+                      key={child.path}
+                      {...(child?.index
+                        ? { index: true }
+                        : { path: child.path })}
+                      element={child?.page}
+                    />
+                  );
+                })}
+              </Route>
+            );
+          } else if (!user.isActive) {
+            return (
+              <Route
+                key={item.path}
+                path={item.path}
+                element={<WEB_PAGES.OTP_SCREEN />}
+              />
+            );
+          } else {
+            return (
+              <Route
+                key={item.path}
+                path={item.path}
+                element={<WEB_PAGES.NO_ACCESS />}
+              />
+            );
+          }
+        })}
+        {/* NO PAGE FOUND */}
+        <Route path={PATH.NOPAGE} element={<WEB_PAGES.NO_PAGE_FOUND />} />
+      </Routes>
+    </>
+  );
 }
 
 export default RouterConfig;

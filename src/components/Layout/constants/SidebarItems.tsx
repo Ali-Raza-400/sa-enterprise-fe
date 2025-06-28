@@ -70,9 +70,10 @@ export const items = [
 				label: <Link to={PATH.MANAGE_STUDENTS}>{STRINGS.USER}</Link>,
 	},
 	{
-		key: PATH.MANAGE_ZONE,
+		key: PATH.MANAGE_PROJECT,
 				icon: <RiTimeZoneFill />,
-				label: <Link to={PATH.MANAGE_ZONE}>{STRINGS.ZONE}</Link>,
+				label: <Link to={PATH.MANAGE_PROJECT}>{STRINGS.PROJECTS}</Link>,
+					show: true,
 	},
     {
 		key: PATH.MANAGE_FLEETS,
@@ -160,6 +161,8 @@ export const roleBasedItems = {
 		PATH.MANAGE_FLEET_CREATE,
 		PATH.MANAGE_ZONE,
 		PATH.MANAGE_ZONE_CREATE,
+		PATH.MANAGE_PROJECT,
+		// PATH.MANAGE_ZONE_CREATE,
 	],
 	[LOOKUP_TYPES.Role.TEACHER]: [
 		PATH.MANAGE_STUDENTS,

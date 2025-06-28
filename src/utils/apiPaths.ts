@@ -18,6 +18,7 @@ export const API_PATHS: { [key: string]: string } = {
 	COURSE: "courses",
 	FLEET: "fleets",
 	ZONE: "zones",
+	PROJECTS: "projects",
 	INSTITUTE_COURSES: "courses/institute-courses",
 	STUDENT_ANALYTICS: "student/analytics",
 	STUDENT_COMPLETED_COURSES_ANALYTICS: "student/completed-courses-analytics",

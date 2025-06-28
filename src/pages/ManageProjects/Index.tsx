@@ -10,7 +10,7 @@ import { Modal, Form, Input, Select } from "antd";
 import PageLoader from "../../components/Loader/PageLoader";
 import { useNavigate } from "react-router-dom";
 import PATH from "../../navigation/Path";
-import { useDeleteZoneMutation, useGetZonesQuery } from "../../redux/slices/zone";
+import { useDeleteProjectMutation, useGetProjectsQuery } from "../../redux/slices/project";
 import { useSelector } from "react-redux";
 
 const { Option } = Select;
@@ -63,17 +63,18 @@ const Index = (): ReactElement => {
   });
 
   useEffect(() => {
-    document.title = "Manage Zone | SA Enterprise";
+    document.title = "Manage Projects | SA Enterprise";
   }, []);
 
   const [form] = Form.useForm();
-  const { data, isLoading: fleetLoading, refetch } = useGetZonesQuery(tableOptions);
-  const [deleteZone, { isLoading: deleteZoneLoading }] = useDeleteZoneMutation();
+  const { data, isLoading: fleetLoading, refetch } = useGetProjectsQuery(tableOptions);
+  const [deleteZone, { isLoading: deleteZoneLoading }] = useDeleteProjectMutation();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [createFleet] = useAddFleetMutation();
   const { showAlert } = useGenericAlert();
   const selectedZoneId = useSelector((state: any) => state.auth.selectedZoneId);
   console.log("selectedZoneId",selectedZoneId);
+  console.log("@@@@@@" ,  data)
   const handleAddFleet = async (fleetData: FleetFormValues) => {
     try {
       await createFleet(fleetData).unwrap();
@@ -149,7 +150,7 @@ const Index = (): ReactElement => {
                   state: obj,
                 })
               }
-              style={{ color: "#007bff", cursor: "pointer" }}
+              style={{ color: "#007bff", cursor: "pointer",fontSize:'18px' }}
             />
           </Tooltip>
           <Tooltip title="Edit">
@@ -159,13 +160,13 @@ const Index = (): ReactElement => {
                   state: obj,
                 })
               }
-              style={{ color: "#ffa500", cursor: "pointer" }}
+              style={{ color: "#ffa500", cursor: "pointer",fontSize:'18px' }}
             />
           </Tooltip>
           <Tooltip title="Delete">
             <DeleteOutlined
               onClick={() => onDelete(obj.id)}
-              style={{ color: "#dc3545", cursor: "pointer" }}
+              style={{ color: "#dc3545", cursor: "pointer",fontSize:'18px' }}
             />
           </Tooltip>
         </div>
@@ -183,8 +184,8 @@ const Index = (): ReactElement => {
       <Flex className="justify-end mb-4">
         <GenericButton
           icon={<FaPlus size={20} />}
-          label="Add New Zone"
-          onClick={() => navigate(PATH.MANAGE_ZONE_CREATE)}
+          label="Add New Project"
+          onClick={() => navigate(PATH.MANAGE_PROJECT_CREATE)}
         />
 
         <AddFleetModal
