@@ -10,7 +10,10 @@ import { Modal, Form, Input, Select } from "antd";
 import PageLoader from "../../components/Loader/PageLoader";
 import { useNavigate } from "react-router-dom";
 import PATH from "../../navigation/Path";
-import { useDeleteProjectMutation, useGetProjectsQuery } from "../../redux/slices/project";
+import {
+  useDeleteProjectMutation,
+  useGetProjectsQuery,
+} from "../../redux/slices/project";
 import { useSelector } from "react-redux";
 
 const { Option } = Select;
@@ -35,8 +38,6 @@ interface AddFleetModalProps {
   supervisors: Array<{ id: string; name: string }>;
   drivers: Array<{ id: string; name: string }>;
 }
-
-
 
 interface FleetType {
   id: string;
@@ -67,14 +68,19 @@ const Index = (): ReactElement => {
   }, []);
 
   const [form] = Form.useForm();
-  const { data, isLoading: fleetLoading, refetch } = useGetProjectsQuery(tableOptions);
-  const [deleteZone, { isLoading: deleteZoneLoading }] = useDeleteProjectMutation();
+  const {
+    data,
+    isLoading: fleetLoading,
+    refetch,
+  } = useGetProjectsQuery(tableOptions);
+  const [deleteZone, { isLoading: deleteZoneLoading }] =
+    useDeleteProjectMutation();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [createFleet] = useAddFleetMutation();
   const { showAlert } = useGenericAlert();
   const selectedZoneId = useSelector((state: any) => state.auth.selectedZoneId);
-  console.log("selectedZoneId",selectedZoneId);
-  console.log("@@@@@@" ,  data)
+  console.log("selectedZoneId", selectedZoneId);
+  console.log("@@@@@@", data);
   const handleAddFleet = async (fleetData: FleetFormValues) => {
     try {
       await createFleet(fleetData).unwrap();
@@ -95,13 +101,12 @@ const Index = (): ReactElement => {
     }
   };
 
-  
-
   const onDelete = async (id: string) => {
     showAlert({
       type: "question",
       title: "Delete Zone Confirmation",
-      message: "Are you sure you want to delete this zone? This action cannot be undone.",
+      message:
+        "Are you sure you want to delete this zone? This action cannot be undone.",
       confirmButtonText: "Delete",
       cancelButtonText: "Cancel",
       onConfirm: async () => {
@@ -116,7 +121,8 @@ const Index = (): ReactElement => {
           showAlert({
             type: "error",
             title: "Deletion Failed",
-            message: "An error occurred while deleting the zone. Please try again.",
+            message:
+              "An error occurred while deleting the zone. Please try again.",
           });
         }
       },
@@ -131,9 +137,28 @@ const Index = (): ReactElement => {
       render: (_text: any, _record: FleetType, index: number) => index + 1,
     },
     {
-      title: "Zone",
+      title: "Name",
       dataIndex: "name",
       key: "name",
+      width: 120,
+    },
+    {
+      title: "City",
+      dataIndex: "city",
+      key: "city",
+      width: 120,
+    },
+    {
+      title: "Type",
+      dataIndex: "type",
+      key: "type",
+      width: 120,
+    },
+
+    {
+      title: "Description",
+      dataIndex: "description",
+      key: "description",
       width: 120,
     },
     {
@@ -150,7 +175,7 @@ const Index = (): ReactElement => {
                   state: obj,
                 })
               }
-              style={{ color: "#007bff", cursor: "pointer",fontSize:'18px' }}
+              style={{ color: "#007bff", cursor: "pointer", fontSize: "18px" }}
             />
           </Tooltip>
           <Tooltip title="Edit">
@@ -160,22 +185,21 @@ const Index = (): ReactElement => {
                   state: obj,
                 })
               }
-              style={{ color: "#ffa500", cursor: "pointer",fontSize:'18px' }}
+              style={{ color: "#ffa500", cursor: "pointer", fontSize: "18px" }}
             />
           </Tooltip>
           <Tooltip title="Delete">
             <DeleteOutlined
               onClick={() => onDelete(obj.id)}
-              style={{ color: "#dc3545", cursor: "pointer",fontSize:'18px' }}
+              style={{ color: "#dc3545", cursor: "pointer", fontSize: "18px" }}
             />
           </Tooltip>
         </div>
       ),
     },
   ];
-  
 
-  if (fleetLoading  || deleteZoneLoading) {
+  if (fleetLoading || deleteZoneLoading) {
     return <PageLoader />;
   }
 
@@ -195,10 +219,9 @@ const Index = (): ReactElement => {
           supervisors={[]} // Pass actual supervisors data here
           drivers={[]} // Pass actual drivers data here
         />
-       
       </Flex>
       <GenericTable
-        loading={fleetLoading  || deleteZoneLoading}
+        loading={fleetLoading || deleteZoneLoading}
         columns={columns}
         data={data}
         enablePagination={true}
@@ -212,12 +235,12 @@ const Index = (): ReactElement => {
 
 export default Index;
 
-const AddFleetModal: React.FC<AddFleetModalProps> = ({ 
-  isVisible, 
-  onClose, 
-  onAddFleet, 
-  supervisors, 
-  drivers 
+const AddFleetModal: React.FC<AddFleetModalProps> = ({
+  isVisible,
+  onClose,
+  onAddFleet,
+  supervisors,
+  drivers,
 }) => {
   const [form] = Form.useForm<FleetFormValues>();
 
@@ -233,7 +256,10 @@ const AddFleetModal: React.FC<AddFleetModalProps> = ({
       open={isVisible}
       onCancel={onClose}
       footer={[
-        <div style={{ display: "flex", justifyContent: "flex-end" }} key="footer">
+        <div
+          style={{ display: "flex", justifyContent: "flex-end" }}
+          key="footer"
+        >
           <Button key="cancel" onClick={onClose}>
             Cancel
           </Button>
@@ -315,7 +341,7 @@ const AddFleetModal: React.FC<AddFleetModalProps> = ({
           rules={[{ required: true, message: "Supervisor is required" }]}
         >
           <Select placeholder="Select Supervisor">
-            {supervisors.map(supervisor => (
+            {supervisors.map((supervisor) => (
               <Option key={supervisor.id} value={supervisor.id}>
                 {supervisor.name}
               </Option>
@@ -328,7 +354,7 @@ const AddFleetModal: React.FC<AddFleetModalProps> = ({
           rules={[{ required: true, message: "Driver is required" }]}
         >
           <Select placeholder="Select Driver">
-            {drivers.map(driver => (
+            {drivers.map((driver) => (
               <Option key={driver.id} value={driver.id}>
                 {driver.name}
               </Option>
@@ -339,4 +365,3 @@ const AddFleetModal: React.FC<AddFleetModalProps> = ({
     </Modal>
   );
 };
-

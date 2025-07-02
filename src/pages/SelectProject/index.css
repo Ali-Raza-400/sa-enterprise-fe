@@ -1,0 +1,32 @@
+.city-button {
+  height: 70px;
+  width: 100px;
+}
+
+.city-button {
+  background-color: #008000 !important;
+  color: #fff !important;
+}
+
+.select-heading {
+  text-align: center;
+  margin-bottom: 50px;
+  color: #fff;
+  display: block;
+  position: relative;
+}
+
+.project-card-container {
+  border-radius: 12px;
+  padding: 20px;
+  color: #fff;
+}
+
+.project-card-container .project-card .ant-card-head {
+  border: none;
+  color: #fff;
+  font-size: 28px;
+}
+.project-card-container .project-card .ant-card {
+  border: none !important;
+}

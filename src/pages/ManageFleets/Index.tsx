@@ -5,7 +5,11 @@ import useGenericAlert from "../../components/Hooks/GenericAlert";
 import GenericTable from "../../components/UI/GenericTable";
 import GenericButton from "../../components/UI/GenericButton";
 import { FaPlus } from "react-icons/fa6";
-import { useGetFleetsQuery, useDeleteFleetMutation, useAddFleetMutation } from "../../redux/slices/fleet";
+import {
+  useGetFleetsQuery,
+  useDeleteFleetMutation,
+  useAddFleetMutation,
+} from "../../redux/slices/fleet";
 import { Modal, Form, Input, Select } from "antd";
 import PageLoader from "../../components/Loader/PageLoader";
 import { useNavigate } from "react-router-dom";
@@ -34,8 +38,6 @@ interface AddFleetModalProps {
   drivers: Array<{ id: string; name: string }>;
 }
 
-
-
 interface FleetType {
   id: string;
   fleet_number: string;
@@ -62,11 +64,31 @@ const Index = (): ReactElement => {
 
   useEffect(() => {
     document.title = "Manage Fleets | SA Enterprise";
+
+    const superUser = localStorage.getItem("super_user");
+    if (superUser) {
+      try {
+        const parsedUser = JSON.parse(superUser);
+        const projectId = parsedUser?.project_id;
+
+        setTableOptions((prev) => ({
+          ...prev,
+          filters: { ...prev.filters, project_id: projectId }, // 👈 Inject project_id into filters or any key you expect in the API
+        }));
+      } catch (e) {
+        console.error("Failed to parse super_user from localStorage", e);
+      }
+    }
   }, []);
 
   const [form] = Form.useForm();
-  const { data, isLoading: fleetLoading, refetch } = useGetFleetsQuery(tableOptions);
-  const [deleteFleet, { isLoading: deleteFleetLoading }] = useDeleteFleetMutation();
+  const {
+    data,
+    isLoading: fleetLoading,
+    refetch,
+  } = useGetFleetsQuery(tableOptions);
+  const [deleteFleet, { isLoading: deleteFleetLoading }] =
+    useDeleteFleetMutation();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [createFleet] = useAddFleetMutation();
 
@@ -92,13 +114,12 @@ const Index = (): ReactElement => {
     }
   };
 
-  
-
   const onDelete = async (id: string) => {
     showAlert({
       type: "question",
       title: "Delete Fleet Confirmation",
-      message: "Are you sure you want to delete this fleet? This action cannot be undone.",
+      message:
+        "Are you sure you want to delete this fleet? This action cannot be undone.",
       confirmButtonText: "Delete",
       cancelButtonText: "Cancel",
       onConfirm: async () => {
@@ -113,7 +134,8 @@ const Index = (): ReactElement => {
           showAlert({
             type: "error",
             title: "Deletion Failed",
-            message: "An error occurred while deleting the fleet. Please try again.",
+            message:
+              "An error occurred while deleting the fleet. Please try again.",
           });
         }
       },
@@ -153,7 +175,7 @@ const Index = (): ReactElement => {
                   state: obj,
                 })
               }
-              style={{ color: "#007bff", cursor: "pointer",fontSize:'18px' }}
+              style={{ color: "#007bff", cursor: "pointer", fontSize: "18px" }}
             />
           </Tooltip>
           <Tooltip title="Edit">
@@ -163,22 +185,21 @@ const Index = (): ReactElement => {
                   state: obj,
                 })
               }
-              style={{ color: "#ffa500", cursor: "pointer",fontSize:'18px' }}
+              style={{ color: "#ffa500", cursor: "pointer", fontSize: "18px" }}
             />
           </Tooltip>
           <Tooltip title="Delete">
             <DeleteOutlined
               onClick={() => onDelete(obj.id)}
-              style={{ color: "#dc3545", cursor: "pointer",fontSize:'18px' }}
+              style={{ color: "#dc3545", cursor: "pointer", fontSize: "18px" }}
             />
           </Tooltip>
         </div>
       ),
     },
   ];
-  
 
-  if (fleetLoading  || deleteFleetLoading) {
+  if (fleetLoading || deleteFleetLoading) {
     return <PageLoader />;
   }
 
@@ -198,10 +219,9 @@ const Index = (): ReactElement => {
           supervisors={[]} // Pass actual supervisors data here
           drivers={[]} // Pass actual drivers data here
         />
-       
       </Flex>
       <GenericTable
-        loading={fleetLoading  || deleteFleetLoading}
+        loading={fleetLoading || deleteFleetLoading}
         columns={columns}
         data={data}
         enablePagination={true}
@@ -215,12 +235,12 @@ const Index = (): ReactElement => {
 
 export default Index;
 
-const AddFleetModal: React.FC<AddFleetModalProps> = ({ 
-  isVisible, 
-  onClose, 
-  onAddFleet, 
-  supervisors, 
-  drivers 
+const AddFleetModal: React.FC<AddFleetModalProps> = ({
+  isVisible,
+  onClose,
+  onAddFleet,
+  supervisors,
+  drivers,
 }) => {
   const [form] = Form.useForm<FleetFormValues>();
 
@@ -236,7 +256,10 @@ const AddFleetModal: React.FC<AddFleetModalProps> = ({
       open={isVisible}
       onCancel={onClose}
       footer={[
-        <div style={{ display: "flex", justifyContent: "flex-end" }} key="footer">
+        <div
+          style={{ display: "flex", justifyContent: "flex-end" }}
+          key="footer"
+        >
           <Button key="cancel" onClick={onClose}>
             Cancel
           </Button>
@@ -318,7 +341,7 @@ const AddFleetModal: React.FC<AddFleetModalProps> = ({
           rules={[{ required: true, message: "Supervisor is required" }]}
         >
           <Select placeholder="Select Supervisor">
-            {supervisors.map(supervisor => (
+            {supervisors.map((supervisor) => (
               <Option key={supervisor.id} value={supervisor.id}>
                 {supervisor.name}
               </Option>
@@ -331,7 +354,7 @@ const AddFleetModal: React.FC<AddFleetModalProps> = ({
           rules={[{ required: true, message: "Driver is required" }]}
         >
           <Select placeholder="Select Driver">
-            {drivers.map(driver => (
+            {drivers.map((driver) => (
               <Option key={driver.id} value={driver.id}>
                 {driver.name}
               </Option>
@@ -342,4 +365,3 @@ const AddFleetModal: React.FC<AddFleetModalProps> = ({
     </Modal>
   );
 };
-

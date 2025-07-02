@@ -11,7 +11,7 @@ const PRIVATE_ROUTES: RouteType[] = [
     path: PATH.SELECT_PROJECT,
     page: <WEB_PAGES.SELECT_PROJECT />,
     routeType: ProtectedRoute,
-    layout: "private",
+    layout: "public",
   },
   {
     name: STRINGS.ITEM_DASHBOARD,

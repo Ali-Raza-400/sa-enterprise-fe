@@ -67,6 +67,21 @@ const Index = (): ReactElement => {
   });
   useEffect(() => {
     document.title = "Manage Users | SA Enterprise";
+
+    const superUser = localStorage.getItem("super_user");
+    if (superUser) {
+      try {
+        const parsedUser = JSON.parse(superUser);
+        const projectId = parsedUser?.project_id;
+
+        setTableOptions((prev) => ({
+          ...prev,
+          filters: { ...prev.filters, project_id: projectId },
+        }));
+      } catch (e) {
+        console.error("Failed to parse super_user from localStorage", e);
+      }
+    }
   }, []);
 
   const [form] = Form.useForm();

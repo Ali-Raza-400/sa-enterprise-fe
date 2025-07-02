@@ -17,9 +17,30 @@ function ProtectedRoute({
   const navigate = useNavigate();
   const { user } = useSelector((state: any) => state.auth);
 
+  // useEffect(() => {
+  //   if (user === null) {
+  //     navigate(PATH.LOGIN);
+  //   }
+  // }, [user, navigate]);
   useEffect(() => {
     if (user === null) {
       navigate(PATH.LOGIN);
+      return;
+    }
+
+    const superUserRaw = localStorage.getItem("super_user");
+    if (superUserRaw) {
+      const superUser = JSON.parse(superUserRaw);
+
+      const isSuperAdmin = superUser?.role === "super_admin";
+      const hasProjectId = !!superUser?.project_id;
+
+      const isOnSelectProjectPage =
+        window.location.pathname === "/select-project";
+
+      if (isSuperAdmin && !hasProjectId && !isOnSelectProjectPage) {
+        navigate("/select-project");
+      }
     }
   }, [user, navigate]);
 

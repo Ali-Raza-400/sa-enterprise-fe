@@ -21,8 +21,19 @@ const CreateFleet = () => {
     document.title = "Add Fleet | SA Enterprise";
   }, []);
   const handleAddUser = async (userData: any) => {
+    const superUser = localStorage.getItem("super_user");
+    if (superUser) {
+      try {
+        const parsedUser = JSON.parse(superUser);
+        var projectId = parsedUser?.project_id;
+      } catch (e) {
+        console.error("Failed to parse super_user from localStorage", e);
+      }
+    }
+
     const payload = {
       ...userData,
+      project_id: projectId,
     };
     try {
       await addFleet(payload).unwrap();
@@ -55,9 +66,7 @@ const CreateFleet = () => {
           <Title level={3} style={{ margin: 0, marginBottom: "8px" }}>
             Create New Fleet
           </Title>
-          <Paragraph type="secondary">
-            Add a new fleet to the system
-          </Paragraph>
+          <Paragraph type="secondary">Add a new fleet to the system</Paragraph>
         </div>
 
         <Form
@@ -67,9 +76,6 @@ const CreateFleet = () => {
           requiredMark="optional"
           className="space-y-4"
         >
-
-
-
           <Form.Item
             name="fleet_type"
             label="Fleet Type"

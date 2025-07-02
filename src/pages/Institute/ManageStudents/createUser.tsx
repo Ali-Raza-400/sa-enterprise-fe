@@ -8,7 +8,6 @@ import { getErrorMessage } from "../../../utils/helper";
 import { useNavigate } from "react-router-dom";
 import PATH from "../../../navigation/Path";
 import { useEffect, useState } from "react";
-import { useGetZonesQuery } from "../../../redux/slices/zone";
 
 const { Title, Paragraph } = Typography;
 
@@ -19,23 +18,29 @@ const CreateUser = () => {
   const [registerFunc, { isLoading }] = useRegisterMutation();
   const { showAlert } = useGenericAlert();
   const { openNotification, contextHolder } = useNotification();
-  const [tableOptions] = useState({
-    filters: {},
-    pagination: {
-      page: 1,
-      pageSize: 10,
-    },
-  });
-  const { data: zoneData } = useGetZonesQuery(tableOptions);
+
   useEffect(() => {
     document.title = "Add User | SA Enterprise";
   }, []);
   const handleAddUser = async (userData: any) => {
+    const email =
+      userData.email ||
+      (selectedRole === "driver" ? generateRandomEmail() : "");
 
-    const email = userData.email || (selectedRole === "driver" ? generateRandomEmail() : "");
+    const superUser = localStorage.getItem("super_user");
+    if (superUser) {
+      try {
+        const parsedUser = JSON.parse(superUser);
+        var projectId = parsedUser?.project_id;
+      } catch (e) {
+        console.error("Failed to parse super_user from localStorage", e);
+      }
+    }
+
     const payload = {
       ...userData,
-      email
+      email,
+      project_id: projectId,
     };
     try {
       await registerFunc(payload).unwrap();
@@ -48,7 +53,7 @@ const CreateUser = () => {
       form.resetFields();
       navigate(PATH.MANAGE_STUDENTS);
     } catch (error: any) {
-      debugger
+      debugger;
       openNotification({
         type: "error",
         title: getErrorMessage(error.response.data.detail),
@@ -60,7 +65,6 @@ const CreateUser = () => {
     // handleAddUser(values);
     // form.resetFields()
 
-
     if (selectedRole === "driver" && !values.email) {
       form.setFieldsValue({ email: generateRandomEmail() });
     }
@@ -68,7 +72,8 @@ const CreateUser = () => {
   };
 
   const [selectedRole, setSelectedRole] = useState<string | null>(null);
-  const generateRandomEmail = () => `driver_${Math.random().toString(36).substring(7)}@saenterprises.services`;
+  const generateRandomEmail = () =>
+    `driver_${Math.random().toString(36).substring(7)}@saenterprises.services`;
 
   const handleRoleChange = (value: string) => {
     setSelectedRole(value);
@@ -125,7 +130,7 @@ const CreateUser = () => {
               size="large"
               style={{ width: "100%" }}
               dropdownStyle={{ maxHeight: "200px" }}
-              onChange={handleRoleChange} 
+              onChange={handleRoleChange}
             >
               <Option value="super_admin">Superadmin</Option>
               <Option value="operations_manager">Operations Manager</Option>
@@ -134,40 +139,20 @@ const CreateUser = () => {
             </Select>
           </Form.Item>
           {selectedRole !== "driver" && (
-          <Form.Item<UserFormValues>
-            name="email"
-            label="Email"
-            rules={[
-              {
-                required: true,
-                type: "email",
-                message: "Valid email is required",
-              },
-            ]}
-          >
-            <Input size="large" style={{ height: "40px" }} />
-          </Form.Item>
-          )}
-          <Form.Item<UserFormValues>
-            name="zone_id"
-            label="Zone"
-            rules={[{ required: true, message: "Zone is required" }]}
-          >
-            <Select
-
-              placeholder={"Select Zone"}
-              size="large"
-              style={{ width: "100%" }}
-            // dropdownStyle={{ maxHeight: "200px" }}
-            // loading={!supervisor}
+            <Form.Item<UserFormValues>
+              name="email"
+              label="Email"
+              rules={[
+                {
+                  required: true,
+                  type: "email",
+                  message: "Valid email is required",
+                },
+              ]}
             >
-              {(zoneData?.list || [])?.map((zone: any) => (
-                <Option key={zone.id} value={zone.id}>
-                  {zone.name}
-                </Option>
-              ))}
-            </Select>
-          </Form.Item>
+              <Input size="large" style={{ height: "40px" }} />
+            </Form.Item>
+          )}
 
           <Form.Item<UserFormValues> name="address" label="Address">
             <Input.TextArea rows={3} style={{ resize: "none" }} />
@@ -190,7 +175,6 @@ const CreateUser = () => {
             </Form.Item>
           </div>
 
-         
           <Form.Item<UserFormValues>
             name="password"
             label="Password"

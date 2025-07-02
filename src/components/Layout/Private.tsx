@@ -43,6 +43,8 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 // import { RiTimeZoneFill } from "react-icons/ri";
 // import packageJson from "../../../package.json";
 
+import useIsAllowedPath from "../../utils/allowedpath";
+
 const { Header, Content, Sider } = Layout;
 
 function PrivateLayout({ children }: LayoutProps) {
@@ -51,6 +53,8 @@ function PrivateLayout({ children }: LayoutProps) {
   const match = useMatch<"id", string>(PATH.COURSE_VIEW_STUDENT);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const isAllowed = useIsAllowedPath();
   const clearUser = () => {
     dispatch(setCredentials(null));
     removeUser();
@@ -182,62 +186,63 @@ function PrivateLayout({ children }: LayoutProps) {
   // };
   return (
     <Layout className={`min-h-screen ${theme.toLowerCase()} mobile-responsive`}>
-      <Sider
-        trigger={null}
-        collapsible
-        collapsed={collapsed}
-        breakpoint="lg"
-        collapsedWidth="75"
-        onBreakpoint={(broken) => {
-          setCollapsed(broken);
-        }}
-        style={{
-          overflow: "hidden",
-          height: "100vh",
-          position: "fixed",
-          insetInlineStart: 0,
-          top: 0,
-          maxWidth: "220px",
-          minWidth: "220px",
-          width: "220px",
-          zIndex: 2,
-          bottom: 0,
-          scrollbarWidth: "thin",
-          scrollbarColor: "unset",
-          backgroundColor: theme === THEME.DARK ? "#212529" : "#008000", // Replace this with your custom color
-        }}
-        theme={theme.toLowerCase()}
-      >
-        <div
-          onClick={() => setCollapsed(!collapsed)}
-          className="bg-[#BEB0E8] justify-center w-full cursor-pointer hidden items-center lg:hidden max-lg:flex py-2"
+      {!isAllowed ? (
+        <Sider
+          trigger={null}
+          collapsible
+          collapsed={collapsed}
+          breakpoint="lg"
+          collapsedWidth="75"
+          onBreakpoint={(broken) => {
+            setCollapsed(broken);
+          }}
+          style={{
+            overflow: "hidden",
+            height: "100vh",
+            position: "fixed",
+            insetInlineStart: 0,
+            top: 0,
+            maxWidth: "220px",
+            minWidth: "220px",
+            width: "220px",
+            zIndex: 2,
+            bottom: 0,
+            scrollbarWidth: "thin",
+            scrollbarColor: "unset",
+            backgroundColor: theme === THEME.DARK ? "#212529" : "#008000", // Replace this with your custom color
+          }}
+          theme={theme.toLowerCase()}
         >
-          <span className="!min-w-0">
-            {collapsed ? (
-              <FaChevronRight className="!text-white" />
-            ) : (
-              <FaChevronLeft className="!text-white" />
-            )}
-          </span>
-        </div>
-        <div className="flex flex-col h-full justify-between px-1 py-5">
-          <div>
-            <img
-              src={IMAGES.ALMS_LOGO_NEW2}
-              className="h-[150px] rounded-[2px] w-[70%] cursor-pointer mx-auto"
-              onClick={() => navigate("/admin-dashboard")}
-            />
-            <Menu
-              theme={theme.toLowerCase()}
-              mode="inline"
-              selectedKeys={[pathname]}
-              items={getMenuItems(user?.role)}
-              style={{
-                backgroundColor: theme === THEME.DARK ? "#212529" : "#008000", // Replace with your custom color
-              }}
-            />
+          <div
+            onClick={() => setCollapsed(!collapsed)}
+            className="bg-[#BEB0E8] justify-center w-full cursor-pointer hidden items-center lg:hidden max-lg:flex py-2"
+          >
+            <span className="!min-w-0">
+              {collapsed ? (
+                <FaChevronRight className="!text-white" />
+              ) : (
+                <FaChevronLeft className="!text-white" />
+              )}
+            </span>
           </div>
-          {/* <div className="flex justify-center w-full">
+          <div className="flex flex-col h-full justify-between px-1 py-5">
+            <div>
+              <img
+                src={IMAGES.ALMS_LOGO_NEW2}
+                className="h-[auto] rounded-[2px] w-[70%] cursor-pointer mx-auto"
+                onClick={() => navigate("/admin-dashboard")}
+              />
+              <Menu
+                theme={theme.toLowerCase()}
+                mode="inline"
+                selectedKeys={[pathname]}
+                items={getMenuItems(user?.role)}
+                style={{
+                  backgroundColor: theme === THEME.DARK ? "#212529" : "#008000", // Replace with your custom color
+                }}
+              />
+            </div>
+            {/* <div className="flex justify-center w-full">
 						<Switch
 							className={`theme-switch ${theme === THEME.LIGHT ? "light-switch" : "dark-switch"}`}
 							unCheckedChildren={<MdDarkMode size={18} fill="black" />}
@@ -247,7 +252,7 @@ function PrivateLayout({ children }: LayoutProps) {
 						/>
 					</div> */}
 
-          {/* <div className="flex justify-center">
+            {/* <div className="flex justify-center">
 						<div className="bg-[#FCAB60] p-2 rounded-[10px] w-[11.5rem]">
 							<Space className="profile-dropdown-space">
 								<Avatar
@@ -293,62 +298,66 @@ function PrivateLayout({ children }: LayoutProps) {
 							</div>
 						</div>
 					</div> */}
-        </div>
-      </Sider>
+          </div>
+        </Sider>
+      ) : (
+        <></>
+      )}
       <Layout className="lg:ms-[13.6rem] md:ms-[4.5rem] ms-[4rem] sm:ms-[4.5rem] xl:ms-[13.6rem]">
-        <Header
-          className="flex bg-white justify-between dark:bg-[#212529] items-center px-8"
-          style={{
-            position: "sticky",
-            top: 0,
-            zIndex: 1,
-            width: "100%",
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
-          <div className="flex gap-4 items-center">
-            <Button
-              type="text"
-              icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-              onClick={() => setCollapsed(!collapsed)}
-              className="!hidden !min-w-0"
-            />
-            <NavigateBackButton />
-            <Typography variant="headingFour" className="hide-on-mobile">
-              {getPageName()}
-            </Typography>
+        {!isAllowed ? (
+          <Header
+            className="flex bg-white justify-between dark:bg-[#212529] items-center px-8"
+            style={{
+              position: "sticky",
+              top: 0,
+              zIndex: 1,
+              width: "100%",
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <div className="flex gap-4 items-center">
+              <Button
+                type="text"
+                icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+                onClick={() => setCollapsed(!collapsed)}
+                className="!hidden !min-w-0"
+              />
+              <NavigateBackButton />
+              <Typography variant="headingFour" className="hide-on-mobile">
+                {getPageName()}
+              </Typography>
 
-            {(user?.role === "super_admin" ||
-              user?.role === "operations_manager") && (
-              <div className="w-[150px] ml-4">
-                <AutoComplete
-                  options={modules}
-                  onSelect={onSelect}
-                  value={searchValue}
-                  allowClear
-                  onChange={(value) => setSearchValue(value)}
-                  filterOption={(inputValue, option) =>
-                    option!.label
-                      .toLowerCase()
-                      .includes(inputValue.toLowerCase())
-                  }
-                  style={{ width: "100%" }}
-                >
-                  <Input
-                    placeholder="Search Modules..."
-                    prefix={
-                      <SearchOutlined
-                        className="h-5 text-customGreen "
-                        style={{ fontSize: "14px" }}
-                      />
-                    } // Smaller search icon
-                    size="middle"
-                  />
-                </AutoComplete>
-              </div>
-            )}
-            {/* {(user?.role === "super_admin" ||
+              {(user?.role === "super_admin" ||
+                user?.role === "operations_manager") && (
+                <div className="w-[150px] ml-4">
+                  <AutoComplete
+                    options={modules}
+                    onSelect={onSelect}
+                    value={searchValue}
+                    allowClear
+                    onChange={(value) => setSearchValue(value)}
+                    filterOption={(inputValue, option) =>
+                      option!.label
+                        .toLowerCase()
+                        .includes(inputValue.toLowerCase())
+                    }
+                    style={{ width: "100%" }}
+                  >
+                    <Input
+                      placeholder="Search Modules..."
+                      prefix={
+                        <SearchOutlined
+                          className="h-5 text-customGreen "
+                          style={{ fontSize: "14px" }}
+                        />
+                      } // Smaller search icon
+                      size="middle"
+                    />
+                  </AutoComplete>
+                </div>
+              )}
+              {/* {(user?.role === "super_admin" ||
               user?.role === "operations_manager") && (
               <div className="w-[150px] ml-4">
                 <AutoComplete
@@ -378,36 +387,39 @@ function PrivateLayout({ children }: LayoutProps) {
                 </AutoComplete>
               </div>
             )} */}
-          </div>
+            </div>
 
-          <div className="flex justify-center gap-2 items-center xs:gap-4">
-            <div className="p-2 rounded-full">
-              <LuBell size={25} color="#008000" />
+            <div className="flex justify-center gap-2 items-center xs:gap-4">
+              <div className="p-2 rounded-full">
+                <LuBell size={25} color="#008000" />
+              </div>
+              <div>
+                <Dropdown
+                  menu={{ items: profileDropdownItems }}
+                  trigger={["click"]}
+                  className="profile-dropdown"
+                  placement="bottomRight"
+                  overlayClassName="position-fixed"
+                >
+                  <Space className="profile-dropdown-space">
+                    <Avatar
+                      src={IMAGES.PERSON_IMG}
+                      size={40}
+                      className="cursor-pointer"
+                      icon={<UserOutlined />}
+                    />
+                    <p className="text-black cursor-pointer dark:text-white font-bold hidden mb-0 user-name xs:block">
+                      {user?.fullName}
+                    </p>
+                    <GoChevronDown className="d-flex align-items-center cursor-pointer" />
+                  </Space>
+                </Dropdown>
+              </div>
             </div>
-            <div>
-              <Dropdown
-                menu={{ items: profileDropdownItems }}
-                trigger={["click"]}
-                className="profile-dropdown"
-                placement="bottomRight"
-                overlayClassName="position-fixed"
-              >
-                <Space className="profile-dropdown-space">
-                  <Avatar
-                    src={IMAGES.PERSON_IMG}
-                    size={40}
-                    className="cursor-pointer"
-                    icon={<UserOutlined />}
-                  />
-                  <p className="text-black cursor-pointer dark:text-white font-bold hidden mb-0 user-name xs:block">
-                    {user?.fullName}
-                  </p>
-                  <GoChevronDown className="d-flex align-items-center cursor-pointer" />
-                </Space>
-              </Dropdown>
-            </div>
-          </div>
-        </Header>
+          </Header>
+        ) : (
+          <></>
+        )}
 
         <Content className={`p-8 bg-[#F5F5F5] dark:bg-[#212529]`}>
           <div className={` h-full`}>
@@ -420,15 +432,19 @@ function PrivateLayout({ children }: LayoutProps) {
             {children}
           </div>
         </Content>
-        <footer
-          className="text-center text-white py-3"
-          style={{ background: "#2E3383" }}
-        >
-          <p className="text-sm">
-            Copyright © {new Date().getFullYear()} S.A Enterprises, Powered by
-            S.A Enterprises. All Rights Reserved.
-          </p>
-        </footer>
+        {!isAllowed ? (
+          <footer
+            className="text-center text-white py-3"
+            style={{ background: "#2E3383" }}
+          >
+            <p className="text-sm">
+              Copyright © {new Date().getFullYear()} S.A Enterprises, Powered
+              by S.A Enterprises. All Rights Reserved.
+            </p>
+          </footer>
+        ) : (
+          <></>
+        )}
       </Layout>
     </Layout>
   );

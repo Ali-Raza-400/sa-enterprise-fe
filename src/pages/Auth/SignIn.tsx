@@ -48,6 +48,7 @@ function Index() {
           phoneNumber: userData?.phone_number,
           address: userData?.address,
           access_token: accessToken,
+          issuperadmin: userData?.role === "super_admin" ? true : false,
         } as AuthResponseDTO;
 
         setUser(newObj);
