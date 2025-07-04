@@ -551,11 +551,9 @@ const Index = () => {
     const id = addmodal?.selectedData?.id;
 
     try {
-      let response;
-
       if (addmodal.type === ItemType.CERTIFICATION) {
         try {
-          response = await updateCertification({ payload, id });
+          await updateCertification({ payload, id });
           openNotification({
             type: "success",
             description: "Certification Updated Successfully",
@@ -569,7 +567,7 @@ const Index = () => {
         }
       } else if (addmodal.type === ItemType.PUBLICATION) {
         try {
-          response = await updatePublication({ payload, id });
+          await updatePublication({ payload, id });
           openNotification({
             type: "success",
             description: "Publication Updated Successfully",
@@ -583,7 +581,7 @@ const Index = () => {
         }
       } else if (addmodal.type === ItemType.QUALIFICATION) {
         try {
-          response = await updateQualification({ payload, id });
+          await updateQualification({ payload, id });
           openNotification({
             type: "success",
             description: "Qualification Updated Successfully",

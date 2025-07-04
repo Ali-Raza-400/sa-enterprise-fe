@@ -5,7 +5,6 @@ import type { UploadFile } from "antd/es/upload/interface";
 import { useGetTrucksQuery } from "../../redux/slices/truck";
 import { useGetUserByRoleQuery } from "../../redux/slices/user";
 import GenericButton from "../../components/UI/GenericButton";
-import { useSelector } from "react-redux";
 import PATH from "../../navigation/Path";
 
 const { Title } = Typography;
@@ -24,7 +23,6 @@ const ViewOperation: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const editData = location?.state;
-  const { user } = useSelector((state: any) => state.auth);
   const { data: supervisor } = useGetUserByRoleQuery({
     role: "supervisor",
   });

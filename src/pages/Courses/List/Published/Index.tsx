@@ -163,7 +163,7 @@ const PublishedContent = (deleteCourse?: any): PublishedContentReturn => {
       ),
     },
   ];
-  async function handleFormFinish(values: any) {
+  async function handleFormFinish() {
     try {
       showAlert({
         type: "question",

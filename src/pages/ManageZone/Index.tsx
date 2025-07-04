@@ -14,7 +14,6 @@ import {
   useDeleteZoneMutation,
   useGetZonesQuery,
 } from "../../redux/slices/zone";
-import { useSelector } from "react-redux";
 
 const { Option } = Select;
 
@@ -78,7 +77,6 @@ const Index = (): ReactElement => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [createFleet] = useAddFleetMutation();
   const { showAlert } = useGenericAlert();
-  const selectedZoneId = useSelector((state: any) => state.auth.selectedZoneId);
   const handleAddFleet = async (fleetData: FleetFormValues) => {
     try {
       await createFleet(fleetData).unwrap();

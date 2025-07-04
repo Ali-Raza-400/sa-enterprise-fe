@@ -3,10 +3,7 @@ import { TableProps } from "antd";
 import { CheckOutlined, CloseOutlined, EditOutlined } from "@ant-design/icons";
 import GenericTable from "../../../components/UI/GenericTable";
 import InputField from "../../../components/Form/InputField";
-import {
-  useGetCourseLimitQuery,
-  useUpdateCourseLimitMutation,
-} from "../../../redux/slices/course";
+import { useGetCourseLimitQuery } from "../../../redux/slices/course";
 import Typography from "../../../components/UI/Typography";
 import useNotification from "../../../components/UI/Notification";
 
@@ -27,25 +24,10 @@ const InstituteSettings = () => {
     isFetching,
   } = useGetCourseLimitQuery({ tableOptions });
 
-  const [updateCourseLimit] = useUpdateCourseLimitMutation();
-
   const [editValue, setEditValue] = useState({ id: "", totalSeats: "" });
 
-  const handleSave = async (recordId: number) => {
+  const handleSave = async () => {
     try {
-      const indexToUpdate = courseLimit.list.findIndex(
-        (item: any) => item.id === recordId
-      );
-
-      if (indexToUpdate !== -1) {
-        const payload = { limit: editValue.totalSeats.toString() };
-
-        const response = await updateCourseLimit({
-          courseId: recordId,
-          payload,
-        });
-      }
-
       setEditValue({ id: "", totalSeats: editValue.totalSeats });
     } catch (error) {
       console.error("Error updating course limit:", error);
@@ -100,12 +82,12 @@ const InstituteSettings = () => {
             <>
               <CheckOutlined
                 className="text-[#51E186] cursor-pointer text-[1.3rem]"
-                onClick={() => handleSave(record.id)}
+                onClick={() => handleSave()}
               />
               <Typography
                 variant="bodyLargeSemibold"
                 className="!text-[#51E186] cursor-pointer mr-5"
-                onClick={() => handleSave(record.id)}
+                onClick={() => handleSave()}
               >
                 Save
               </Typography>

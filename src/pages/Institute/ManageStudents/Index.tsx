@@ -88,7 +88,6 @@ const Index = (): ReactElement => {
   const {
     data,
     isLoading: userLoading,
-    isFetching,
     refetch,
   } = useGetUsersQuery(tableOptions);
   // useEffect(() => {
@@ -101,7 +100,7 @@ const Index = (): ReactElement => {
     useDeleteUserMutation();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isUpdateModalVisible, setIsUpdateModalVisible] = useState(false);
-  const [registerFunc, { isLoading }] = useRegisterMutation();
+  const [registerFunc] = useRegisterMutation();
   const [updateUser, { isLoading: update }] = useUpdateUserMutation();
 
   const handleAddUser = async (userData: any) => {
