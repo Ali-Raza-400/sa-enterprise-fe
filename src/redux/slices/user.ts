@@ -39,7 +39,6 @@ const userApi = rtkQApi.injectEndpoints({
     }),
     updateUser: builder.mutation<UserFormValues, any>({
       query: ({ payload, userId }) => {
-        console.log("userId::>", userId);
         return {
           url: `${API_PATHS.USER}/${userId}`,
           method: "PUT",
@@ -50,7 +49,6 @@ const userApi = rtkQApi.injectEndpoints({
     }),
     updateUserProfile: builder.mutation<AuthResponseDTO, any>({
       query: ({ payload, userId }) => {
-        console.log(payload, "UPDATE USER PAYLOAD");
         return {
           url: `${API_PATHS.UPDATE_STUDENT_PROFILE}/${userId}`,
           method: "PATCH",

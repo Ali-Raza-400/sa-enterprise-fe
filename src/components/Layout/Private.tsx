@@ -33,21 +33,20 @@ import { removeUser } from "../../utils/helper";
 import IMAGES from "../../assets/images";
 import { THEME } from "../../utils/constants";
 import Typography from "../UI/Typography";
-import { LuBell } from "react-icons/lu";
 import ROUTES from "../../navigation/Routes";
 import { items, roleBasedItems } from "./constants/SidebarItems";
 import NavigateBackButton from "../UI/NavigateBackButton";
 import PATH from "../../navigation/Path";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
-// import { useGetZonesQuery } from "../../redux/slices/zone";
-// import { RiTimeZoneFill } from "react-icons/ri";
-// import packageJson from "../../../package.json";
 
 import useIsAllowedPath from "../../utils/allowedpath";
+import axios from "axios";
 
 const { Header, Content, Sider } = Layout;
 
 function PrivateLayout({ children }: LayoutProps) {
+  const [projectName, setProjectName] = useState("");
+
   const [collapsed, setCollapsed] = useState(false);
   const { theme, user } = useSelector((state: any) => state.auth);
   const match = useMatch<"id", string>(PATH.COURSE_VIEW_STUDENT);
@@ -59,6 +58,21 @@ function PrivateLayout({ children }: LayoutProps) {
     dispatch(setCredentials(null));
     removeUser();
   };
+
+  useEffect(() => {
+    axios
+      .get(`https://sa.saenterprises.services/projects/${user.project_id}`, {
+        headers: {
+          Authorization: `Bearer ${user?.access_token}`,
+        },
+      })
+      .then((res: any) => {
+        setProjectName(res.data.data.name);
+      })
+      .catch((err: any) => {
+        console.error("Error fetching cities:", err);
+      });
+  }, [user.project_id]);
 
   const { pathname } = useLocation();
   // const [tableOptions] = useState({
@@ -357,42 +371,11 @@ function PrivateLayout({ children }: LayoutProps) {
                   </AutoComplete>
                 </div>
               )}
-              {/* {(user?.role === "super_admin" ||
-              user?.role === "operations_manager") && (
-              <div className="w-[150px] ml-4">
-                <AutoComplete
-                  options={zoneOptions}
-                  onSelect={onSelectZone}
-                  value={searchZone}
-                  allowClear
-                  onClear={onClearZone}
-                  onChange={(value) => setSearchZone(value)} // Update state when typing
-                  filterOption={(inputValue, option: any) =>
-                    option!.label
-                      .toLowerCase()
-                      .includes(inputValue.toLowerCase())
-                  }
-                  style={{ width: "100%" }}
-                >
-                  <Input
-                    placeholder="Search Zones..."
-                    prefix={
-                      <RiTimeZoneFill
-                        className="h-5 text-customGreen "
-                        style={{ fontSize: "16px" }}
-                      />
-                    } // Smaller search icon
-                    size="middle"
-                  />
-                </AutoComplete>
-              </div>
-            )} */}
             </div>
-
+            <h3 style={{ color: "#008000", textTransform: "uppercase" }}>
+              {projectName}
+            </h3>
             <div className="flex justify-center gap-2 items-center xs:gap-4">
-              <div className="p-2 rounded-full">
-                <LuBell size={25} color="#008000" />
-              </div>
               <div>
                 <Dropdown
                   menu={{ items: profileDropdownItems }}

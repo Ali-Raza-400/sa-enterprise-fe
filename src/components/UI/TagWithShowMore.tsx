@@ -10,19 +10,17 @@ interface TagWithShowMoreProps {
   keyName?: string; // Key name for generating links (optional)
 }
 
-const TagWithShowMore = ({ maxCount, list, isLinkAble = false, keyName }: TagWithShowMoreProps) => {
-    console.log("keyName",keyName);
+const TagWithShowMore = ({
+  maxCount,
+  list,
+  isLinkAble = false,
+}: TagWithShowMoreProps) => {
   // Render linkable tags if `isLinkAble` is true
   if (isLinkAble) {
     return (
       <Avatar.Group maxCount={maxCount} shape="square" className="show-more">
         {list?.map((tag, index) => (
-          <Link
-            key={index}
-            to={
-              "#"
-            }
-          >
+          <Link key={index} to={"#"}>
             <Tag bordered={false} className="!m-0 underline text-[#2e3790] ">
               {tag?.sinNumber || tag?.mirNumber}
             </Tag>
@@ -34,14 +32,17 @@ const TagWithShowMore = ({ maxCount, list, isLinkAble = false, keyName }: TagWit
 
   // Render plain tags if `isLinkAble` is false
   return (
-<Avatar.Group maxCount={maxCount} shape="square" className="show-more ">
-  {list?.map((tag, index) => (
-    <Tag key={index} bordered={false} className="!m-0 pr-6  flex items-center justify-center counter-css">
-      {tag}
-    </Tag>
-  ))}
-</Avatar.Group>
-
+    <Avatar.Group maxCount={maxCount} shape="square" className="show-more ">
+      {list?.map((tag, index) => (
+        <Tag
+          key={index}
+          bordered={false}
+          className="!m-0 pr-6  flex items-center justify-center counter-css"
+        >
+          {tag}
+        </Tag>
+      ))}
+    </Avatar.Group>
   );
 };
 

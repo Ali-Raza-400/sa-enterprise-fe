@@ -14,7 +14,6 @@ import { useSelector } from "react-redux";
 
 const OprationsList = () => {
   const { user } = useSelector((state: any) => state.auth);
-  console.log("userData", user);
   const [tableOptions, setTableOptions] = useState({
     filters: {},
     pagination: {
@@ -214,7 +213,6 @@ const OprationsList = () => {
               page: number;
               pageSize: number;
             }) => {
-              console.log("data::::", data);
               setTableOptions({ ...tableOptions, pagination: data });
             }}
           />

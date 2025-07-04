@@ -14,7 +14,6 @@ const ChangePassword = () => {
   const { openNotification, contextHolder } = useNotification();
 
   const { user } = useSelector((state: any) => state.auth);
-  console.log(user?.email, "Change Password");
 
   const [updatePassword, { isLoading: isUpdateLoading }] =
     useUpdatePasswordMutation();
@@ -36,7 +35,8 @@ const ChangePassword = () => {
     } catch (error: unknown) {
       openNotification({
         type: "error",
-        description: "Password must contains one upper letter,number and a special character",
+        description:
+          "Password must contains one upper letter,number and a special character",
       });
       console.error("Error updating password:", error);
     }

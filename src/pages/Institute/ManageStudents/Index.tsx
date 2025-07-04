@@ -103,13 +103,11 @@ const Index = (): ReactElement => {
   const [isUpdateModalVisible, setIsUpdateModalVisible] = useState(false);
   const [registerFunc, { isLoading }] = useRegisterMutation();
   const [updateUser, { isLoading: update }] = useUpdateUserMutation();
-  console.log(update);
-  console.log("isLoading", isLoading, isFetching);
+
   const handleAddUser = async (userData: any) => {
     const payload = {
       ...userData,
     };
-    console.log("payload::::", payload);
     try {
       await registerFunc(payload).unwrap();
       showAlert({
@@ -307,8 +305,6 @@ const Index = (): ReactElement => {
         data={data}
         enablePagination={true}
         updatePaginationFunc={(data: { page: number; pageSize: number }) => {
-          console.log("data::::", data);
-
           setTableOptions({ ...tableOptions, pagination: data });
         }}
       />

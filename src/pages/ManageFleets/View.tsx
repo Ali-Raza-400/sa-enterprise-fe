@@ -14,8 +14,6 @@ const ViewFleet: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const selectedFleet = location.state;
-  console.log("fleet location: ", location);
-
   useEffect(() => {
     if (!selectedFleet) {
       navigate("/fleet/list");

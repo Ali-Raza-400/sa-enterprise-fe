@@ -18,7 +18,7 @@
 
 .project-card-container {
   border-radius: 12px;
-  padding: 20px;
+  padding: 20px !important;
   color: #fff;
 }
 
@@ -29,4 +29,14 @@
 }
 .project-card-container .project-card .ant-card {
   border: none !important;
+}
+
+:where(.css-dev-only-do-not-override-14qglws).ant-card-bordered {
+  border: none;
+  box-shadow: none;
+}
+
+:where(.css-dev-only-do-not-override-14qglws).ant-card-hoverable:hover {
+  border: none;
+  box-shadow: none;
 }

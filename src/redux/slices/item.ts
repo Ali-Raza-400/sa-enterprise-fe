@@ -1,4 +1,8 @@
-import { ItemRequestDTO, ItemType, ItemUpdateDTO } from "../../pages/ItemDashboard/type";
+import {
+  ItemRequestDTO,
+  ItemType,
+  ItemUpdateDTO,
+} from "../../pages/ItemDashboard/type";
 import { API_PATHS } from "../../utils/apiPaths";
 import { providesList } from "../../utils/helper";
 import { rtkQApi } from "../rtkQApi";
@@ -8,21 +12,27 @@ const itemApi = rtkQApi.injectEndpoints({
   endpoints: (builder) => ({
     getItems: builder.query<any, ItemRequestDTO>({
       query: (params) => {
-        return ({
+        return {
           url: API_PATHS.ITEMS,
           method: "GET",
           params: params,
-        })
+        };
       },
       providesTags: (result) => providesList(result?.data, RTK_TAGS.ITEMS),
     }),
-    updateItem: builder.mutation<any, { updatePayload: ItemUpdateDTO, listPayload?: ItemRequestDTO }>({
+    updateItem: builder.mutation<
+      any,
+      { updatePayload: ItemUpdateDTO; listPayload?: ItemRequestDTO }
+    >({
       query: ({ updatePayload }) => ({
         url: API_PATHS.ITEMS,
         method: "PUT",
         data: updatePayload,
       }),
-      async onQueryStarted({ updatePayload, listPayload }, { dispatch, queryFulfilled }) {
+      async onQueryStarted(
+        { updatePayload, listPayload },
+        { dispatch, queryFulfilled }
+      ) {
         try {
           await queryFulfilled;
           if (listPayload) {
@@ -38,7 +48,7 @@ const itemApi = rtkQApi.injectEndpoints({
             );
           }
         } catch (error) {
-          console.log("error", error);
+          console.error("error", error);
         }
       },
     }),
@@ -48,12 +58,11 @@ const itemApi = rtkQApi.injectEndpoints({
         method: "GET",
       }),
     }),
-  })
-
+  }),
 });
 
 export const {
   useLazyGetItemsQuery,
   useUpdateItemMutation,
-  useLazyGetItemQuery
+  useLazyGetItemQuery,
 } = itemApi;

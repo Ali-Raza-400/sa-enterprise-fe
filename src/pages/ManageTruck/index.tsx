@@ -108,7 +108,6 @@ const Index = (): ReactElement => {
       });
     } catch (error: unknown) {}
   };
-  console.log("isLoading", isLoading);
   const handleAddTruck = async (values: any) => {
     const payload = {
       ...values,
@@ -280,8 +279,6 @@ const Index = (): ReactElement => {
         data={data}
         enablePagination={true}
         updatePaginationFunc={(data: { page: number; pageSize: number }) => {
-          console.log("data::::", data);
-
           setTableOptions({ ...tableOptions, pagination: data });
         }}
       />
@@ -304,7 +301,6 @@ const AddUserModal: React.FC<AddUserModalProps> = ({
   });
   const [form] = Form.useForm<truckFormValues>();
   const handleSubmit = (values: truckFormValues) => {
-    console.log("User Data:", values);
     onAddUser(values);
     form.resetFields();
     onClose();
@@ -397,7 +393,6 @@ const UpdateUserModal: React.FC<UpdateUserModalProps> = ({
     }
   }, [selectedTruck, form]);
   const handleSubmit = (values: truckFormValues) => {
-    console.log("User Data:", values);
     onUpdateTruck(values);
     form.resetFields();
     onClose();
