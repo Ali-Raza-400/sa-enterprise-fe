@@ -9,15 +9,12 @@
 /* /////////////////////////////// */
 
 .pricing-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  display: flex;
   gap: 24px;
-  max-width: 1000px;
-  width: 100%;
+  flex-wrap: wrap;
 }
 
 .pricing-card {
-  background: #1f1f1f;
   border: 1px solid #333;
   border-radius: 10px;
   padding: 30px;
@@ -28,6 +25,10 @@
   opacity: 1;
   z-index: 111111111111111111111111 !important;
   cursor: pointer;
+  background: #000;
+}
+.pricing-card.city_button {
+  padding: 8px;
 }
 
 .pricing-card:hover {
@@ -38,11 +39,18 @@
   margin-top: 0;
   font-size: 1.4rem;
   margin-bottom: 10px;
+  color: #fff;
 }
 
+.visit-button {
+  width: 100%;
+  border-radius: 20px;
+  color: #fff;
+  background-color: #008000;
+}
 .price {
   font-size: 1.8rem;
-  color: #00ffd5;
+  color: #008000;
   margin-bottom: 20px;
 }
 
@@ -59,7 +67,7 @@
 }
 
 button {
-  background: #00ffd5;
+  background: #008000;
   color: #111;
   border: none;
   padding: 10px 16px;
@@ -70,6 +78,11 @@ button {
 }
 
 .highlighted {
-  border: 2px solid #00ffd5;
+  border: 2px solid #008000;
   background: #282828;
+}
+
+.city-button {
+  color: #fff;
+  width: 150px;
 }

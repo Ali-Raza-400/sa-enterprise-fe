@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Button, Spin } from "antd";
+import { Spin } from "antd";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setProject } from "../../redux/features/projectSlice"; // ✅ import your action
@@ -97,7 +97,7 @@ const Index: React.FC = () => {
           <h1 className="select-heading">Select City</h1>
           <div className="pricing-container">
             {cities.map((city) => (
-              <div key={city} className="pricing-card">
+              <div key={city} className="pricing-card city_button">
                 <button
                   className="city-button"
                   onClick={() => handleCityClick(city)}
@@ -110,13 +110,24 @@ const Index: React.FC = () => {
         </div>
       ) : (
         <div>
-          <div className="flex justify-center items-center mb-4">
+          <div className="flex justify-center items-center mb-4 relative bg-dark">
             <h1 className="select-heading">Select Project in {selectedCity}</h1>
           </div>
           <div className="mb-4">
-            <Button onClick={handleBack} type="primary">
+            <button
+              onClick={() => handleBack()}
+              style={{
+                background: "#008000 !important",
+                backgroundColor: "#008000 !important",
+                opacity: 1,
+                zIndex: "111111111111111111111",
+                position: "absolute",
+                top: 100,
+                color: "#fff",
+              }}
+            >
               ← Back
-            </Button>
+            </button>
           </div>
 
           <div className="pricing-container">
@@ -128,7 +139,10 @@ const Index: React.FC = () => {
                   <li>Type: {project.type}</li>
                   <li>Description: {project.description}</li>
                 </ul>
-                <button onClick={() => handleProjectClick(project)}>
+                <button
+                  onClick={() => handleProjectClick(project)}
+                  className="visit-button"
+                >
                   Visit
                 </button>
               </div>
