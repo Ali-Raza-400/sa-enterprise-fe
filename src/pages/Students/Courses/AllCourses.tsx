@@ -9,114 +9,113 @@ import { useNavigate } from "react-router-dom";
 import PageLoader from "../../../components/Loader/PageLoader";
 
 const StudentCourses = (): ReactElement => {
-	const [tableOptions, setTableOptions] = useState({
-		filters: {},
-		pagination: {
-			page: 1,
-			pageSize: 200,
-		},
-	});
-	const navigate = useNavigate();
-	const {
-		data: courseData,
-		isLoading,
-		isFetching,
-	} = useGetCoursesQuery({ tableOptions });
-	console.log(courseData, "courseData");
+  const [tableOptions, setTableOptions] = useState({
+    filters: {},
+    pagination: {
+      page: 1,
+      pageSize: 200,
+    },
+  });
+  const navigate = useNavigate();
+  const {
+    data: courseData,
+    isLoading,
+    isFetching,
+  } = useGetCoursesQuery({ tableOptions });
 
-	const useDebounce = (callback: (...args: any[]) => void, delay: number) => {
-		const timeoutRef = useRef<any>(null);
+  const useDebounce = (callback: (...args: any[]) => void, delay: number) => {
+    const timeoutRef = useRef<any>(null);
 
-		return useCallback(
-			(...args: any[]) => {
-				if (timeoutRef.current) {
-					clearTimeout(timeoutRef.current);
-				}
+    return useCallback(
+      (...args: any[]) => {
+        if (timeoutRef.current) {
+          clearTimeout(timeoutRef.current);
+        }
 
-				timeoutRef.current = setTimeout(() => {
-					callback(...args);
-				}, delay);
-			},
-			[callback, delay]
-		);
-	};
+        timeoutRef.current = setTimeout(() => {
+          callback(...args);
+        }, delay);
+      },
+      [callback, delay]
+    );
+  };
 
-	const debouncedSetTableOptions = useDebounce((value: string) => {
-		setTableOptions((prevOptions) => ({
-			...prevOptions,
-			filters: {
-				...prevOptions.filters,
-				name: value,
-			},
-		}));
-	}, 300);
+  const debouncedSetTableOptions = useDebounce((value: string) => {
+    setTableOptions((prevOptions) => ({
+      ...prevOptions,
+      filters: {
+        ...prevOptions.filters,
+        name: value,
+      },
+    }));
+  }, 300);
 
-	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		debouncedSetTableOptions(e.target.value);
-	};
-	const categoryOrder = [
-		"General Audience",
-		"Freelancing",
-		"Specialized Audience Crash Courses",
-		"Soft Skills",
-	];
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    debouncedSetTableOptions(e.target.value);
+  };
+  const categoryOrder = [
+    "General Audience",
+    "Freelancing",
+    "Specialized Audience Crash Courses",
+    "Soft Skills",
+  ];
 
-	const sortedList = [...(courseData?.list || [])]?.sort((a: any, b: any) => {
-		const categoryA = a?.categories?.[0];
-		const categoryB = b?.categories?.[0];
+  const sortedList = [...(courseData?.list || [])]?.sort((a: any, b: any) => {
+    const categoryA = a?.categories?.[0];
+    const categoryB = b?.categories?.[0];
 
-		const indexA = categoryOrder?.indexOf(categoryA);
-		const indexB = categoryOrder?.indexOf(categoryB);
+    const indexA = categoryOrder?.indexOf(categoryA);
+    const indexB = categoryOrder?.indexOf(categoryB);
 
-		return (
-			(indexA === -1 ? categoryOrder?.length : indexA) -
-			(indexB === -1 ? categoryOrder?.length : indexB)
-		);
-	});
+    return (
+      (indexA === -1 ? categoryOrder?.length : indexA) -
+      (indexB === -1 ? categoryOrder?.length : indexB)
+    );
+  });
 
-	return (
-		<>
-			{isLoading ? (
-				<>
-					<PageLoader />
-				</>
-			) : (
-				<div>
-					<Flex className="justify-between">
-						<SearchFilter
-							position="end"
-							searchProps={{
-								onChange: handleInputChange,
-							}}
-						/>
-					</Flex>
-					<Row>
-						{sortedList && sortedList?.length > 0 ? (
-							<Col span={24}>
-								<Row gutter={[24, 24]}>
-									{sortedList?.map((course: Course, index: number) => (
-										<Col
-											key={index}
-											xs={24}
-											sm={12}
-											md={12}
-											lg={12}
-											xl={6}
-											xxl={6}
-										>
-											<CourseCard
-												courseData={course}
-												onCardClick={() =>
-													navigate(
-														PATH.COURSE_VIEW_STUDENT.replace(":id", course?.id)
-													)
-												}
-												loading={isLoading || isFetching}
-											/>
-										</Col>
-									))}
-								</Row>
-								{/* <div className="my-5 justify-end flex">
+  return (
+    <>
+      {isLoading ? (
+        <>
+          <PageLoader />
+        </>
+      ) : (
+        <div>
+          <Flex className="justify-between">
+            <SearchFilter
+              position="end"
+              searchProps={{
+                onChange: handleInputChange,
+              }}
+            />
+          </Flex>
+          <Row>
+            {sortedList && sortedList?.length > 0 ? (
+              <Col span={24}>
+                <Row gutter={[24, 24]}>
+                  {sortedList?.map((course: Course, index: number) => (
+                    <Col
+                      key={index}
+                      xs={24}
+                      sm={12}
+                      md={12}
+                      lg={12}
+                      xl={6}
+                      xxl={6}
+                    >
+                      <CourseCard
+                        courseData={course}
+                        onCardClick={() =>
+                          navigate(
+                            PATH.COURSE_VIEW_STUDENT.replace(":id", course?.id)
+                          )
+                        }
+                        loading={isLoading || isFetching}
+                      />
+                    </Col>
+                  ))}
+                </Row>
+                {/* <div className="my-5 justify-end flex">
 									{courseData && courseData?.list?.length > 0 && (
 										<Pagination
 											total={courseData?.pagination?.totalRecords}
@@ -137,17 +136,17 @@ const StudentCourses = (): ReactElement => {
 										/>
 									)}
 								</div> */}
-							</Col>
-						) : (
-							<div className=" flex justify-center items-center w-[100%] h-[100%] ">
-								<Empty />
-							</div>
-						)}
-					</Row>
-				</div>
-			)}
-		</>
-	);
+              </Col>
+            ) : (
+              <div className=" flex justify-center items-center w-[100%] h-[100%] ">
+                <Empty />
+              </div>
+            )}
+          </Row>
+        </div>
+      )}
+    </>
+  );
 };
 
 export default StudentCourses;

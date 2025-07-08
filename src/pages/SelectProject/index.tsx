@@ -1,23 +1,37 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Button, Card, Row, Col, Spin } from "antd";
+import { Button, Spin } from "antd";
 import { useNavigate } from "react-router-dom";
-
+import { useDispatch, useSelector } from "react-redux";
+import { setProject } from "../../redux/features/projectSlice"; // ✅ import your action
+import { setProjectLocalStorage } from "../../utils/helper";
 import "./index.css";
 import IMAGES from "../../assets/images";
 
 const Index: React.FC = () => {
   const [cities, setCities] = useState<string[]>([]);
   const [projects, setProjects] = useState<any[]>([]);
+  const [selectedCity, setSelectedCity] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
+  const { project } = useSelector((state: any) => state.project);
+
   const storedUser = localStorage.getItem("super_user");
   const user = storedUser ? JSON.parse(storedUser) : null;
-  console.log("Token being sent:", user?.access_token);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch(); // ✅ redux dispatcher
 
   useEffect(() => {
-    // Fetch cities on mount
+    try {
+      if (project?.id) {
+        navigate("/admin-dashboard");
+      }
+    } catch (e) {
+      console.error("Failed to parse super_user from localStorage", e);
+    }
+  }, []);
+
+  useEffect(() => {
     axios
       .get("https://sa.saenterprises.services/projects/cities/", {
         headers: {
@@ -36,6 +50,7 @@ const Index: React.FC = () => {
 
   const handleCityClick = (city: string) => {
     setLoading(true);
+    setSelectedCity(city);
     axios
       .get(`https://sa.saenterprises.services/projects/city/${city}`, {
         headers: {
@@ -52,32 +67,22 @@ const Index: React.FC = () => {
       });
   };
 
-  // const handleProjectClick = (projectId: string) => {
-  //   localStorage.setItem("project_id", projectId);
-  //   navigate("/admin-dashboard");
-  // };
-
-  const handleProjectClick = (projectId: string) => {
-    const superUserRaw = localStorage.getItem("super_user");
-    if (!superUserRaw) return;
-
-    const superUser = JSON.parse(superUserRaw);
-
-    superUser.project_id = projectId;
-
-    localStorage.setItem("super_user", JSON.stringify(superUser));
-
+  const handleProjectClick = (project: any) => {
+    setProjectLocalStorage(project);
+    dispatch(setProject(project));
     navigate("/admin-dashboard");
+  };
+
+  const handleBack = () => {
+    setSelectedCity(null);
+    setProjects([]);
   };
 
   if (loading)
     return <Spin size="large" style={{ display: "block", marginTop: 100 }} />;
 
-  console.log("citiescitiescitiescities: ", cities);
-
   return (
     <div className="min-h-screen w-full relative p-10">
-      {/* Background */}
       <div
         className="absolute inset-0 bg-cover bg-center"
         style={{
@@ -85,56 +90,50 @@ const Index: React.FC = () => {
           filter: "blur(1px)",
         }}
       />
+      <div className="absolute inset-0 bg-gradient-to-br from-orange-900/40 to-blue-900/60" />
 
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-orange-900/50 to-blue-900/90" />
-      {projects.length === 0 ? (
+      {selectedCity === null ? (
         <div>
           <h1 className="select-heading">Select City</h1>
-          <Row gutter={[16, 16]} style={{ alignItems: "center" }}>
+          <div className="pricing-container">
             {cities.map((city) => (
-              <Col key={city}>
-                <Button
-                  type="primary"
+              <div key={city} className="pricing-card">
+                <button
                   className="city-button"
                   onClick={() => handleCityClick(city)}
                 >
                   {city}
-                </Button>
-              </Col>
+                </button>
+              </div>
             ))}
-          </Row>
+          </div>
         </div>
       ) : (
         <div>
-          <h1 className="select-heading">Select Project</h1>
-          <Row gutter={[16, 16]}>
+          <div className="flex justify-center items-center mb-4">
+            <h1 className="select-heading">Select Project in {selectedCity}</h1>
+          </div>
+          <div className="mb-4">
+            <Button onClick={handleBack} type="primary">
+              ← Back
+            </Button>
+          </div>
+
+          <div className="pricing-container">
             {projects.map((project) => (
-              <Col
-                xs={24}
-                sm={12}
-                md={8}
-                lg={6}
-                key={project.id}
-                className="bg-[#FCAB60] project-card-container"
-              >
-                <Card
-                  title={project.name}
-                  hoverable
-                  onClick={() => handleProjectClick(project.id)}
-                  className="bg-transparent project-card"
-                >
-                  <p className="text-[#fff]">
-                    <strong>Type:</strong> {project.type}
-                  </p>
-                  <p className="text-[#fff]">
-                    {" "}
-                    <strong>Description:</strong> {project.description}
-                  </p>
-                </Card>
-              </Col>
+              <div className="pricing-card highlighted" key={project.id}>
+                <h3>{project.city}</h3>
+                <p className="price">{project.name}</p>
+                <ul>
+                  <li>Type: {project.type}</li>
+                  <li>Description: {project.description}</li>
+                </ul>
+                <button onClick={() => handleProjectClick(project)}>
+                  Visit
+                </button>
+              </div>
             ))}
-          </Row>
+          </div>
         </div>
       )}
     </div>

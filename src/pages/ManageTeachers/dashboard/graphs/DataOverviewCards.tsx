@@ -5,12 +5,17 @@ import Typography from "../../../../components/UI/Typography";
 import GenericCard from "../../../../components/UI/GenericCard";
 import { useGetTilesInfoQuery } from "../../../../redux/slices/dashboardCount";
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
 const DataOverviewCards = () => {
-  const { data: countsData } = useGetTilesInfoQuery({});
+  const { project } = useSelector((state: any) => state.project);
+  const { data: countsData } = useGetTilesInfoQuery({
+    project_id: project?.id,
+  });
+
   useEffect(() => {
-    document.title = "Dashboard | SA Enterprise"
-  }, [])
+    document.title = "Dashboard | SA Enterprise";
+  }, []);
   const cardData = [
     {
       title: "Total Users",

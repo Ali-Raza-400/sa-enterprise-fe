@@ -26,7 +26,6 @@ const Certifications: React.FC<CertificationProps> = ({
   data,
   isLoading,
 }) => {
-  console.log("data:::", data);
   const { showAlert } = useGenericAlert();
   const [deleteCertification, { isLoading: deleteLoading }] =
     useDeleteCertificationMutation();
@@ -47,7 +46,6 @@ const Certifications: React.FC<CertificationProps> = ({
   //   };
 
   const onDelete = async (id: string) => {
-    console.log("id::::", id);
     showAlert({
       type: "question",
       title: `Delete Certification Confirmation`,

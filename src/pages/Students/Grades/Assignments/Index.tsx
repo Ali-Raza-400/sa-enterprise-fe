@@ -19,10 +19,7 @@ interface DataType {
 }
 
 const Index = () => {
-
-  const {data: assignmentsData}  = useGetSubmittedAssignmentsQuery();
-  console.log(assignmentsData, "Submitted Assignments");
-
+  const { data: assignmentsData } = useGetSubmittedAssignmentsQuery();
 
   const { showAlert } = useGenericAlert();
   const [tableOptions, setTableOptions] = useState({
@@ -39,8 +36,13 @@ const Index = () => {
       dataIndex: ["assignment", "name"],
       key: "name",
       render: (text, record) => (
-          <a href={record?.assignment?.filePath} target="_blank" className="hover:underline hover:text-[#008000]">{text}
-          </a>
+        <a
+          href={record?.assignment?.filePath}
+          target="_blank"
+          className="hover:underline hover:text-[#008000]"
+        >
+          {text}
+        </a>
       ),
       width: 100,
     },
@@ -73,19 +75,24 @@ const Index = () => {
       dataIndex: ["fileUrl"],
       key: "fileUrl",
       width: 100,
-      
-      render: (text,record) => {
-        const fileName = record?.fileUrl?.split('/').pop();
+
+      render: (text, record) => {
+        const fileName = record?.fileUrl?.split("/").pop();
         return record.fileUrl ? (
-          <a href={record?.fileUrl} target="_blank" className="hover:underline hover:text-[#008000]" rel="noopener noreferrer">
+          <a
+            href={record?.fileUrl}
+            target="_blank"
+            className="hover:underline hover:text-[#008000]"
+            rel="noopener noreferrer"
+          >
             {fileName}
           </a>
         ) : (
           text
         );
-      }
+      },
       // render: (submitted) => (submitted ? "Yes" : "No"),
-    },  
+    },
     {
       title: "Action",
       key: "action",

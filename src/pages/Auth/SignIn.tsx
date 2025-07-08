@@ -38,7 +38,6 @@ function Index() {
           },
         });
         const userData = userResponse?.data?.data;
-        console.log("userResponse?.data?.data", userResponse?.data?.data);
         const newObj = {
           isActive: true,
           email: values?.email,

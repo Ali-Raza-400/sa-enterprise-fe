@@ -31,36 +31,16 @@ const AddTruck = () => {
   const { showAlert } = useGenericAlert();
   const [form] = Form.useForm();
   const navigate = useNavigate();
+  const { project } = useSelector((state: any) => state.project);
 
   useEffect(() => {
     document.title = "Add Vehicle | SA Enterprise";
   }, []);
 
   const handleSubmit = async (values: any) => {
-    let projectId: number | null = null;
-
-    try {
-      const superUser = localStorage.getItem("super_user");
-      if (superUser) {
-        const parsedUser = JSON.parse(superUser);
-        projectId = parsedUser?.project_id || null;
-      }
-    } catch (e) {
-      console.error("Failed to parse super_user from localStorage", e);
-    }
-
-    if (!projectId) {
-      openNotification({
-        type: "error",
-        title: "Project ID is missing",
-        description: "Unable to find project_id from local storage.",
-      });
-      return;
-    }
-
     let req = {
       ...values,
-      project_id: projectId,
+      project_id: project?.id ? project?.id : "",
       supervisor_id:
         user?.role === "supervisor" ? user?.id : values.supervisor_id,
     };

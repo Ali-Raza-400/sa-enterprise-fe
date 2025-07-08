@@ -31,7 +31,6 @@ const Qualifications: React.FC<QualificationProps> = ({
   const [deleteQualification, { isLoading: deleteLoading }] =
     useDeleteQualificationMutation();
   const onDelete = async (id: string) => {
-    console.log("id::::", id);
     showAlert({
       type: "question",
       title: `Delete Qualification Confirmation`,

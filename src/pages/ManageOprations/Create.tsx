@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { Form, Input, Select, Card, Typography, Upload, Button } from 'antd';
-import { UploadOutlined } from '@ant-design/icons';
-import type { UploadFile } from 'antd/es/upload/interface';
-import { useGetTrucksQuery } from '../../redux/slices/truck';
-import { useGetUserByRoleQuery } from '../../redux/slices/user';
-import useNotification from '../../components/UI/Notification';
-import GenericButton from '../../components/UI/GenericButton';
-import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import PATH from '../../navigation/Path';
-import { API_PATHS } from '../../utils/apiPaths';
+import React, { useEffect, useState } from "react";
+import { Form, Input, Select, Card, Typography, Upload, Button } from "antd";
+import { UploadOutlined } from "@ant-design/icons";
+import type { UploadFile } from "antd/es/upload/interface";
+import { useGetTrucksQuery } from "../../redux/slices/truck";
+import { useGetUserByRoleQuery } from "../../redux/slices/user";
+import useNotification from "../../components/UI/Notification";
+import GenericButton from "../../components/UI/GenericButton";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import PATH from "../../navigation/Path";
+import { API_PATHS } from "../../utils/apiPaths";
 
 const { Title, Paragraph } = Typography;
 
@@ -22,18 +22,18 @@ const CreateOperation: React.FC = () => {
       pageSize: 10,
     },
   });
-   const BASE_URL = import.meta.env.VITE_BASE_URL
-    const photoLogs = BASE_URL + API_PATHS.PHOT_LOGS
-  const { data: truck, isLoading: truckLoading } = useGetTrucksQuery(tableOptions);
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
+  const photoLogs = BASE_URL + API_PATHS.PHOT_LOGS;
+  const { data: truck, isLoading: truckLoading } =
+    useGetTrucksQuery(tableOptions);
   useEffect(() => {
-    document.title = "Add Opration | SA Enterprise"
-  }, [])
+    document.title = "Add Opration | SA Enterprise";
+  }, []);
   const { user } = useSelector((state: any) => state.auth);
-  console.log("user:::", user)
   const { data: supervisor } = useGetUserByRoleQuery({
-    role: 'supervisor',
+    role: "supervisor",
   });
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { openNotification, contextHolder } = useNotification();
   const [form] = Form.useForm();
   const [fileList, setFileList] = useState<UploadFile[]>([]);
@@ -55,7 +55,10 @@ const CreateOperation: React.FC = () => {
 
       const formData = new FormData();
       formData.append("truck_id", values.truck_id);
-      formData.append("supervisor_id", user?.role === "supervisor" ? user?.id : values.supervisor_id);
+      formData.append(
+        "supervisor_id",
+        user?.role === "supervisor" ? user?.id : values.supervisor_id
+      );
       formData.append("location", values.location);
 
       // Append files correctly
@@ -79,10 +82,9 @@ const CreateOperation: React.FC = () => {
       });
 
       const result = await response.json();
-      console.log("API Response:", result);
 
       if (response.ok) {
-        navigate(PATH.MANAGE_OPRATION)
+        navigate(PATH.MANAGE_OPRATION);
         openNotification({
           type: "success",
           title: "Image uploaded successfully!",
@@ -106,24 +108,37 @@ const CreateOperation: React.FC = () => {
     }
   };
 
-
-
   return (
-    <Card bordered={false} className="w-full max-w-4xl mx-auto shadow-lg p-6 rounded-lg">
+    <Card
+      bordered={false}
+      className="w-full max-w-4xl mx-auto shadow-lg p-6 rounded-lg"
+    >
       {contextHolder}
       <div>
         <div className="mb-6">
           <Title level={3} style={{ margin: 0, marginBottom: "8px" }}>
             Add New Operation
           </Title>
-          <Paragraph type="secondary">Fill in the details to add a new operation to the system</Paragraph>
+          <Paragraph type="secondary">
+            Fill in the details to add a new operation to the system
+          </Paragraph>
         </div>
-        <Form form={form} layout="vertical" onFinish={handleSubmit} className="space-y-4">
+        <Form
+          form={form}
+          layout="vertical"
+          onFinish={handleSubmit}
+          className="space-y-4"
+        >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Form.Item
               name="supervisor_id"
               label="Supervisor"
-              rules={[{ required: user?.role != "supervisor" && true, message: "Supervisor is required" }]}
+              rules={[
+                {
+                  required: user?.role != "supervisor" && true,
+                  message: "Supervisor is required",
+                },
+              ]}
             >
               <Select
                 disabled={user?.role === "supervisor"}
@@ -131,7 +146,7 @@ const CreateOperation: React.FC = () => {
                 size="large"
                 style={{ width: "100%" }}
                 // dropdownStyle={{ maxHeight: "200px" }}
-              // loading={!supervisor}
+                // loading={!supervisor}
               >
                 {(supervisor?.list || [])?.map((role: any) => (
                   <Option key={role.id} value={role.id}>
@@ -164,7 +179,7 @@ const CreateOperation: React.FC = () => {
           <Form.Item
             name="location"
             label="Location"
-            rules={[{ required: true, message: 'Location is required' }]}
+            rules={[{ required: true, message: "Location is required" }]}
           >
             <Input.TextArea rows={3} style={{ resize: "none" }} />
           </Form.Item>
@@ -180,7 +195,9 @@ const CreateOperation: React.FC = () => {
             </Upload>
             {fileList.length > 0 && (
               <div className="mt-2">
-                <p className="text-sm text-gray-600">{fileList.length} file(s) selected</p>
+                <p className="text-sm text-gray-600">
+                  {fileList.length} file(s) selected
+                </p>
               </div>
             )}
           </Form.Item>
@@ -206,7 +223,5 @@ const CreateOperation: React.FC = () => {
     </Card>
   );
 };
-
-
 
 export default CreateOperation;
