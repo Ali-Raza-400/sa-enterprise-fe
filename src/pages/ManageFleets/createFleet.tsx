@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import PATH from "../../navigation/Path";
 import { useEffect } from "react";
 import { useAddFleetMutation } from "../../redux/slices/fleet";
+import { useSelector } from "react-redux";
 
 const { Title, Paragraph } = Typography;
 
@@ -17,23 +18,16 @@ const CreateFleet = () => {
   const [addFleet, { isLoading }] = useAddFleetMutation();
   const { showAlert } = useGenericAlert();
   const { openNotification, contextHolder } = useNotification();
+
+  const { project } = useSelector((state: any) => state.project);
+
   useEffect(() => {
     document.title = "Add Fleet | SA Enterprise";
   }, []);
   const handleAddUser = async (userData: any) => {
-    const superUser = localStorage.getItem("super_user");
-    if (superUser) {
-      try {
-        const parsedUser = JSON.parse(superUser);
-        var projectId = parsedUser?.project_id;
-      } catch (e) {
-        console.error("Failed to parse super_user from localStorage", e);
-      }
-    }
-
     const payload = {
       ...userData,
-      project_id: projectId,
+      project_id: project?.id ? project?.id : "",
     };
     try {
       await addFleet(payload).unwrap();

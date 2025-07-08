@@ -29,7 +29,7 @@ import { FiLogOut } from "react-icons/fi";
 import { CgProfile } from "react-icons/cg";
 import { useDispatch, useSelector } from "react-redux";
 import { setCredentials } from "../../redux/features/authSlice"; //setZoneId
-import { removeUser } from "../../utils/helper";
+import { removeProjectLocalStorage, removeUser } from "../../utils/helper";
 import IMAGES from "../../assets/images";
 import { THEME } from "../../utils/constants";
 import Typography from "../UI/Typography";
@@ -41,6 +41,7 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 
 import useIsAllowedPath from "../../utils/allowedpath";
 import axios from "axios";
+import { clearProject } from "../../redux/features/projectSlice";
 
 const { Header, Content, Sider } = Layout;
 
@@ -49,14 +50,18 @@ function PrivateLayout({ children }: LayoutProps) {
 
   const [collapsed, setCollapsed] = useState(false);
   const { theme, user } = useSelector((state: any) => state.auth);
+
   const match = useMatch<"id", string>(PATH.COURSE_VIEW_STUDENT);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const isAllowed = useIsAllowedPath();
   const clearUser = () => {
-    dispatch(setCredentials(null));
     removeUser();
+    removeProjectLocalStorage();
+    dispatch(setCredentials(null));
+    dispatch(clearProject());
+    navigate("/");
   };
 
   useEffect(() => {

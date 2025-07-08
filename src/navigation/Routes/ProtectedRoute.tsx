@@ -29,16 +29,17 @@ function ProtectedRoute({
     }
 
     const superUserRaw = localStorage.getItem("super_user");
+    const projectRaw = localStorage.getItem("super_user");
     if (superUserRaw) {
       const superUser = JSON.parse(superUserRaw);
+      const project = projectRaw ? JSON.parse(projectRaw) : null;
 
       const isSuperAdmin = superUser?.role === "super_admin";
-      const hasProjectId = !!superUser?.project_id;
 
       const isOnSelectProjectPage =
         window.location.pathname === "/select-project";
 
-      if (isSuperAdmin && !hasProjectId && !isOnSelectProjectPage) {
+      if (isSuperAdmin && !project?.id && !isOnSelectProjectPage) {
         navigate("/select-project");
       }
     }

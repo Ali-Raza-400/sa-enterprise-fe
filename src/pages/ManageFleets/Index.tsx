@@ -14,6 +14,7 @@ import { Modal, Form, Input, Select } from "antd";
 import PageLoader from "../../components/Loader/PageLoader";
 import { useNavigate } from "react-router-dom";
 import PATH from "../../navigation/Path";
+import { useSelector } from "react-redux";
 
 const { Option } = Select;
 
@@ -53,6 +54,7 @@ interface FleetType {
 }
 
 const Index = (): ReactElement => {
+  const { project } = useSelector((state: any) => state.project);
   const navigate = useNavigate();
   const [tableOptions, setTableOptions] = useState({
     filters: {},
@@ -64,20 +66,16 @@ const Index = (): ReactElement => {
 
   useEffect(() => {
     document.title = "Manage Fleets | SA Enterprise";
-
-    const superUser = localStorage.getItem("super_user");
-    if (superUser) {
-      try {
-        const parsedUser = JSON.parse(superUser);
-        const projectId = parsedUser?.project_id;
-
-        setTableOptions((prev) => ({
-          ...prev,
-          filters: { ...prev.filters, project_id: projectId }, // 👈 Inject project_id into filters or any key you expect in the API
-        }));
-      } catch (e) {
-        console.error("Failed to parse super_user from localStorage", e);
-      }
+    try {
+      setTableOptions((prev) => ({
+        ...prev,
+        filters: {
+          ...prev.filters,
+          project_id: project?.id ? project?.id : "",
+        },
+      }));
+    } catch (e) {
+      console.error("Failed to parse super_user from localStorage", e);
     }
   }, []);
 

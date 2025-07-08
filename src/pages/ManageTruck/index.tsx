@@ -49,6 +49,8 @@ const Index = (): ReactElement => {
   const [isUpdateModalVisible, setIsUpdateModalVisible] = useState(false);
   const { user } = useSelector((state: any) => state.auth);
   const navigate = useNavigate();
+  const { project } = useSelector((state: any) => state.project);
+
   const [tableOptions, setTableOptions] = useState({
     filters: {},
     pagination: {
@@ -64,20 +66,10 @@ const Index = (): ReactElement => {
   useEffect(() => {
     document.title = "Manage Vehicle | SA Enterprise";
 
-    const superUser = localStorage.getItem("super_user");
-    if (superUser) {
-      try {
-        const parsedUser = JSON.parse(superUser);
-        const projectId = parsedUser?.project_id;
-
-        setTableOptions((prev) => ({
-          ...prev,
-          filters: { ...prev.filters, project_id: projectId },
-        }));
-      } catch (e) {
-        console.error("Failed to parse super_user from localStorage", e);
-      }
-    }
+    setTableOptions((prev) => ({
+      ...prev,
+      filters: { ...prev.filters, project_id: project?.id ? project?.id : "" },
+    }));
   }, []);
 
   const [deleteTruck, { isLoading: DeleteTruckLoading }] =

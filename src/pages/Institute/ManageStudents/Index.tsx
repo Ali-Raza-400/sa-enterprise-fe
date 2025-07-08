@@ -17,6 +17,7 @@ import {
 import PageLoader from "../../../components/Loader/PageLoader";
 import PATH from "../../../navigation/Path";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 // import { useSelector } from "react-redux";
 
 const { Option } = Select;
@@ -54,6 +55,8 @@ interface StudentType {
 }
 
 const Index = (): ReactElement => {
+  const { project } = useSelector((state: any) => state.project);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [selectedUser, _setSelectedUser] = useState<any>();
   const navigate = useNavigate();
   // const selectedZoneId = useSelector((state: any) => state.auth.selectedZoneId);
@@ -68,19 +71,13 @@ const Index = (): ReactElement => {
   useEffect(() => {
     document.title = "Manage Users | SA Enterprise";
 
-    const superUser = localStorage.getItem("super_user");
-    if (superUser) {
-      try {
-        const parsedUser = JSON.parse(superUser);
-        const projectId = parsedUser?.project_id;
-
-        setTableOptions((prev) => ({
-          ...prev,
-          filters: { ...prev.filters, project_id: projectId },
-        }));
-      } catch (e) {
-        console.error("Failed to parse super_user from localStorage", e);
-      }
+    try {
+      setTableOptions((prev) => ({
+        ...prev,
+        filters: { ...prev.filters, project_id: project.id },
+      }));
+    } catch (e) {
+      console.error("Failed to parse super_user from localStorage", e);
     }
   }, []);
 
