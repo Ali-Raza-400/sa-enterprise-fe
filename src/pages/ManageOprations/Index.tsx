@@ -14,6 +14,7 @@ import { useSelector } from "react-redux";
 
 const OprationsList = () => {
   const { user } = useSelector((state: any) => state.auth);
+  const { project } = useSelector((state: any) => state.project);
   const [tableOptions, setTableOptions] = useState({
     filters: {},
     pagination: {
@@ -30,24 +31,18 @@ const OprationsList = () => {
     isLoading: oprationLoading,
     isFetching,
   } = useGetOprationsQuery(options);
+
   useEffect(() => {
     document.title = "Manage Opration | SA Enterprise";
-
-    const superUser = localStorage.getItem("super_user");
-    if (superUser) {
-      try {
-        const parsedUser = JSON.parse(superUser);
-        const projectId = parsedUser?.project_id;
-
-        setTableOptions((prev) => ({
-          ...prev,
-          filters: { ...prev.filters, project_id: projectId }, // 👈 Inject project_id into filters or any key you expect in the API
-        }));
-      } catch (e) {
-        console.error("Failed to parse super_user from localStorage", e);
-      }
-    }
+    setTableOptions((prev) => ({
+      ...prev,
+      filters: {
+        ...prev.filters,
+        project_id: project?.id ? project?.id : "",
+      },
+    }));
   }, []);
+
   const navigate = useNavigate();
   const [deleteOpration, { isLoading: deleteUserLoading }] =
     useDeleteOprationMutation();
