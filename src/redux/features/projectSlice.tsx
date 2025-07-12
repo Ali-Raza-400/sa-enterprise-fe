@@ -12,7 +12,7 @@ interface ProjectSliceState {
   project: ProjectState | null;
 }
 
-const storedProject = localStorage.getItem("selected_project");
+const storedProject = localStorage.getItem("project");
 
 const initialState: ProjectSliceState = {
   project: storedProject ? JSON.parse(storedProject) : null,
