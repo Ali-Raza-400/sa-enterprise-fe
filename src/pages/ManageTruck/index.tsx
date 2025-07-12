@@ -68,7 +68,10 @@ const Index = (): ReactElement => {
 
     setTableOptions((prev) => ({
       ...prev,
-      filters: { ...prev.filters, project_id: project?.id ? project?.id : "" },
+      filters: {
+        ...prev.filters,
+        project_id: project?.id ? project?.id : null,
+      },
     }));
   }, []);
 

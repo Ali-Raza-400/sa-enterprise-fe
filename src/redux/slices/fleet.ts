@@ -11,6 +11,7 @@ const userApi = rtkQApi.injectEndpoints({
           ...tableOptions.filters,
           skip: `${tableOptions.pagination.page - 1}0`,
           limit: tableOptions.pagination.pageSize,
+          project_id: tableOptions.project_id,
         };
         return {
           url: API_PATHS.FLEET,

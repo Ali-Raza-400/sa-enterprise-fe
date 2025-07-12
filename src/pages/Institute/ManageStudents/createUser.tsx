@@ -32,7 +32,7 @@ const CreateUser = () => {
     const payload = {
       ...userData,
       email,
-      project_id: project?.id ? project?.id : "",
+      project_id: project?.id ? project?.id : null,
     };
     try {
       await registerFunc(payload).unwrap();

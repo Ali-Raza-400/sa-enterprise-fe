@@ -71,7 +71,7 @@ const Index = (): ReactElement => {
         ...prev,
         filters: {
           ...prev.filters,
-          project_id: project?.id ? project?.id : "",
+          project_id: project?.id ? project?.id : null,
         },
       }));
     } catch (e) {

@@ -15,14 +15,23 @@ const { Title, Paragraph } = Typography;
 const { Option } = Select;
 
 const AddTruck = () => {
-  const { data: supervisor } = useGetUserByRoleQuery({ role: "supervisor" });
-  const { data: driver } = useGetUserByRoleQuery({ role: "driver" });
+  const { project } = useSelector((state: any) => state.project);
+
+  const { data: supervisor } = useGetUserByRoleQuery({
+    role: "supervisor",
+    project_id: project?.id ? project?.id : null,
+  });
+  const { data: driver } = useGetUserByRoleQuery({
+    role: "driver",
+    project_id: project?.id ? project?.id : null,
+  });
   const [tableOptions] = useState({
     filters: {},
     pagination: {
       page: 1,
       pageSize: 10,
     },
+    project_id: project?.id ? project?.id : null,
   });
   const { data: fleetList } = useGetFleetsQuery(tableOptions);
   const { user } = useSelector((state: any) => state.auth);
@@ -31,7 +40,6 @@ const AddTruck = () => {
   const { showAlert } = useGenericAlert();
   const [form] = Form.useForm();
   const navigate = useNavigate();
-  const { project } = useSelector((state: any) => state.project);
 
   useEffect(() => {
     document.title = "Add Vehicle | SA Enterprise";
@@ -40,7 +48,7 @@ const AddTruck = () => {
   const handleSubmit = async (values: any) => {
     let req = {
       ...values,
-      project_id: project?.id ? project?.id : "",
+      project_id: project?.id ? project?.id : null,
       supervisor_id:
         user?.role === "supervisor" ? user?.id : values.supervisor_id,
     };

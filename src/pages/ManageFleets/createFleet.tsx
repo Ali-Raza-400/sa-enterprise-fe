@@ -27,7 +27,7 @@ const CreateFleet = () => {
   const handleAddUser = async (userData: any) => {
     const payload = {
       ...userData,
-      project_id: project?.id ? project?.id : "",
+      project_id: project?.id ? project?.id : null,
     };
     try {
       await addFleet(payload).unwrap();
