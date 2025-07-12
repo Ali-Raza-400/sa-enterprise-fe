@@ -99,7 +99,7 @@ const Index: React.FC = () => {
             {cities.map((city) => (
               <div key={city} className="pricing-card city_button">
                 <button
-                  className="city-button"
+                  className="city-button ant-btn css-dev-only-do-not-override-14qglws ant-btn-primary ant-btn-solid ant-btn-lg w-full mt-6 !h-12 !bg-gradient-to-r !from-green-600 !to-teal-600 !border-0 !text-white font-medium text-base hover:!from-green-700 hover:!to-teal-700 shadow-lg"
                   onClick={() => handleCityClick(city)}
                 >
                   {city}
@@ -113,7 +113,7 @@ const Index: React.FC = () => {
           <div className="flex justify-center items-center mb-4 relative bg-dark">
             <h1 className="select-heading">Select Project in {selectedCity}</h1>
           </div>
-          <div className="mb-4">
+          <div className="">
             <button
               onClick={() => handleBack()}
               style={{
@@ -122,9 +122,10 @@ const Index: React.FC = () => {
                 opacity: 1,
                 zIndex: "111111111111111111111",
                 position: "absolute",
-                top: 100,
+                top: 0,
                 color: "#fff",
               }}
+              className="css-dev-only-do-not-override-14qglws ant-btn-primary ant-btn-solid ant-btn-lg  mt-6 !h-12 !bg-gradient-to-r !from-green-600 !to-teal-600 !border-0 !text-white font-medium text-base hover:!from-green-700 hover:!to-teal-700 shadow-lg"
             >
               ← Back
             </button>
@@ -132,7 +133,7 @@ const Index: React.FC = () => {
 
           <div className="pricing-container">
             {projects.map((project) => (
-              <div className="pricing-card highlighted" key={project.id}>
+              <div className="pricing-card highlighted card" key={project.id}>
                 <h3>{project.city}</h3>
                 <p className="price">{project.name}</p>
                 <ul>
@@ -141,7 +142,7 @@ const Index: React.FC = () => {
                 </ul>
                 <button
                   onClick={() => handleProjectClick(project)}
-                  className="visit-button"
+                  className="visit-button ant-btn css-dev-only-do-not-override-14qglws ant-btn-primary ant-btn-solid ant-btn-lg w-full mt-6 !h-12 !bg-gradient-to-r !from-green-600 !to-teal-600 !border-0 !text-white font-medium text-base hover:!from-green-700 hover:!to-teal-700 shadow-lg"
                 >
                   Visit
                 </button>

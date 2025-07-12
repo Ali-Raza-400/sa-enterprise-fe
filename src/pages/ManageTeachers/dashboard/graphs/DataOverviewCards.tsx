@@ -30,14 +30,14 @@ const DataOverviewCards = () => {
       bgColor: "bg-green-50",
     },
     {
-      title: "Inventory Items",
-      count: "156",
+      title: "Total Supervisors",
+      count: countsData?.list?.supervisors ?? 0,
       icon: <FaBoxes fontSize={40} color="#008000" />,
       bgColor: "bg-green-50",
     },
     {
-      title: "Revenue",
-      count: "$100,000",
+      title: "Total Projects",
+      count: countsData?.list?.projects ?? 0,
       icon: <MdOutlineAttachMoney fontSize={40} color="#008000" />,
       bgColor: "bg-green-50",
     },
