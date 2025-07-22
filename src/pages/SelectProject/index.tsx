@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Spin } from "antd";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setProject } from "../../redux/features/projectSlice"; // ✅ import your action
 import { setProjectLocalStorage } from "../../utils/helper";
 import "./index.css";
@@ -13,7 +13,7 @@ const Index: React.FC = () => {
   const [projects, setProjects] = useState<any[]>([]);
   const [selectedCity, setSelectedCity] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
-  const { project } = useSelector((state: any) => state.project);
+  // const { project } = useSelector((state: any) => state.project);
 
   const storedUser = localStorage.getItem("super_user");
   const user = storedUser ? JSON.parse(storedUser) : null;
@@ -21,15 +21,15 @@ const Index: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch(); // ✅ redux dispatcher
 
-  useEffect(() => {
-    try {
-      if (project?.id) {
-        navigate("/admin-dashboard");
-      }
-    } catch (e) {
-      console.error("Failed to parse super_user from localStorage", e);
-    }
-  }, []);
+  // useEffect(() => {
+  //   try {
+  //     if (project?.id) {
+  //       navigate("/admin-dashboard");
+  //     }
+  //   } catch (e) {
+  //     console.error("Failed to parse super_user from localStorage", e);
+  //   }
+  // }, []);
 
   useEffect(() => {
     axios

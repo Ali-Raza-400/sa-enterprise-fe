@@ -27,6 +27,8 @@ import {
 import { GoChevronDown } from "react-icons/go";
 import { FiLogOut } from "react-icons/fi";
 import { CgProfile } from "react-icons/cg";
+import { CiSettings } from "react-icons/ci";
+
 import { useDispatch, useSelector } from "react-redux";
 import { setCredentials } from "../../redux/features/authSlice"; //setZoneId
 import { removeProjectLocalStorage, removeUser } from "../../utils/helper";
@@ -40,16 +42,15 @@ import PATH from "../../navigation/Path";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 
 import useIsAllowedPath from "../../utils/allowedpath";
-import axios from "axios";
+
 import { clearProject } from "../../redux/features/projectSlice";
 
 const { Header, Content, Sider } = Layout;
 
 function PrivateLayout({ children }: LayoutProps) {
-  const [projectName, setProjectName] = useState("");
-
   const [collapsed, setCollapsed] = useState(false);
   const { theme, user } = useSelector((state: any) => state.auth);
+  const { project } = useSelector((state: any) => state.project);
 
   const match = useMatch<"id", string>(PATH.COURSE_VIEW_STUDENT);
   const dispatch = useDispatch();
@@ -63,21 +64,6 @@ function PrivateLayout({ children }: LayoutProps) {
     dispatch(clearProject());
     navigate("/");
   };
-
-  useEffect(() => {
-    axios
-      .get(`https://sa.saenterprises.services/projects/${user.project_id}`, {
-        headers: {
-          Authorization: `Bearer ${user?.access_token}`,
-        },
-      })
-      .then((res: any) => {
-        setProjectName(res.data.data.name);
-      })
-      .catch((err: any) => {
-        console.error("Error fetching cities:", err);
-      });
-  }, [user.project_id]);
 
   const { pathname } = useLocation();
   // const [tableOptions] = useState({
@@ -110,26 +96,33 @@ function PrivateLayout({ children }: LayoutProps) {
 
   const profileDropdownItems: MenuProps["items"] = [
     {
-      key: "1",
+      key: "0",
       label: (
         <div
           className="flex items-center"
           onClick={() => navigate(PATH.INSTITUTE_PROFILE)}
-          // onClick={() => {
-          // 	if (user?.role == "Institute") {
-          // 		navigate(PATH.INSTITUTE_PROFILE);
-          // 	} else if (user?.role == "Teacher") {
-          // 		navigate(PATH.TEACHER_PROFILE.replace(":id", user.id));
-          // 	} else if (user?.role == "Student") {
-          // 		navigate(PATH.STUDENT_PROFILE.replace(":tab", "profile"));
-          // 	}
-          // }}
         >
           <CgProfile size={20} className="mr-2" />
           My Profile
         </div>
       ),
     },
+    ...(user?.role === "super_admin"
+      ? [
+          {
+            key: "1",
+            label: (
+              <div
+                className="flex items-center"
+                onClick={() => navigate(PATH.SELECT_PROJECT)}
+              >
+                <CiSettings size={20} className="mr-2" />
+                Change Project
+              </div>
+            ),
+          },
+        ]
+      : []),
     {
       key: "2",
       label: (
@@ -140,6 +133,7 @@ function PrivateLayout({ children }: LayoutProps) {
       ),
     },
   ];
+
   // const switchTheme = () => {
   // 	const newTheme = theme === THEME.LIGHT ? THEME.DARK : THEME.LIGHT;
   // 	dispatch(setTheme(newTheme));
@@ -377,9 +371,16 @@ function PrivateLayout({ children }: LayoutProps) {
                 </div>
               )}
             </div>
-            <h3 style={{ color: "#008000", textTransform: "uppercase" }}>
-              {projectName}
-            </h3>
+            {user?.role === "super_admin" ? (
+              <>
+                <h3 style={{ color: "#008000", textTransform: "uppercase" }}>
+                  {project?.name ? project?.name : ""}
+                </h3>
+              </>
+            ) : (
+              <></>
+            )}
+
             <div className="flex justify-center gap-2 items-center xs:gap-4">
               <div>
                 <Dropdown

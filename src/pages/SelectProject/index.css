@@ -12,7 +12,6 @@
   display: flex;
   gap: 24px;
   flex-wrap: wrap;
-  background-color: red;
 }
 
 .pricing-card {
